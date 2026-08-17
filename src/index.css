@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-bg-base: #09090b;
+    --color-bg-surface: #101012;
+    --color-bg-card: #151518;
+    --color-bg-hover: #1a1a1e;
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-strong: rgba(255, 255, 255, 0.18);
+    --color-accent: #D4FF32;
+    --color-accent-dim: rgba(212, 255, 50, 0.12);
+    --color-text-primary: #EDEDEC;
+    --color-text-secondary: #A1A1AA;
+    --color-text-muted: #71717A;
+    
+    --font-display: 'Syne', -apple-system, sans-serif;
+    --font-heading: 'Space Grotesk', -apple-system, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom subtle editorial scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #09090b;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #27272a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3f3f46;
+  }
+}
+
+/* Custom font utility classes */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-gta {
+  font-family: 'Bebas Neue', 'Anton', 'Russo One', Impact, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.font-script {
+  font-family: 'Permanent Marker', 'Caveat', cursive;
+}
+
+/* GTA Title & HUD Effects */
+.gta-title-stroke {
+  color: #FFFFFF;
+  text-shadow: 
+    -2px -2px 0 #000,  
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000,
+     4px  4px 0 rgba(0, 0, 0, 0.95),
+     6px  6px 12px rgba(0, 0, 0, 0.8);
+}
+
+.gta-pink-glow {
+  text-shadow: 0 0 10px rgba(255, 0, 127, 0.8), 0 0 20px rgba(255, 0, 127, 0.5), 0 0 35px rgba(255, 0, 127, 0.3);
+}
+
+.gta-cyan-glow {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.8), 0 0 20px rgba(0, 240, 255, 0.5), 0 0 35px rgba(0, 240, 255, 0.3);
+}
+
+.gta-amber-glow {
+  text-shadow: 0 0 10px rgba(255, 184, 0, 0.8), 0 0 20px rgba(255, 184, 0, 0.5);
+}
+
+/* Subtle CRT Scanlines Retro Overlay */
+.crt-overlay {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.12) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* Glassmorphism GTA Card */
+.gta-card {
+  background: rgba(10, 10, 14, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Editorial subtle grid */
+.bg-grid-pattern {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+}
+
+/* Subtle noise texture */
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+}
+
+/* Interactive cursor styling */
+button, a, [role="button"] {
+  cursor: pointer !important;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
