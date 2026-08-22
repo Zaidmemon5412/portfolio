@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Play } from 'lucide-react';
+import { ChevronRight, Play, Briefcase, LogOut } from 'lucide-react';
 import { SCREENS, MENU_ITEMS } from '../../../data/gameConstants';
 import { useGameState } from '../../../hooks/useGameState';
 
@@ -19,6 +19,7 @@ export default function MainMenuScreen() {
     selectedMenuIndex,
     setSelectedMenuIndex,
     playSfx,
+    setViewMode,
   } = useGameState();
 
   const [showExitModal, setShowExitModal] = useState(false);
@@ -33,7 +34,7 @@ export default function MainMenuScreen() {
     setSelectedMenuIndex(index);
     if (item.isExit) {
       playSfx('back');
-      setShowExitModal(true);
+      setViewMode('editorial');
     } else {
       navigateTo(item.screen);
     }

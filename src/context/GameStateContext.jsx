@@ -154,7 +154,9 @@ export function GameStateProvider({ children }) {
             const item = MENU_ITEMS[selectedMenuIndex - 1];
             navigateTo(item.screen);
           } else {
-            navigateTo(SCREENS.ABOUT);
+            // Exit Game
+            playSfx('back');
+            setViewMode('editorial');
           }
         }
       } else {
@@ -167,7 +169,7 @@ export function GameStateProvider({ children }) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentScreen, selectedMenuIndex, activeModalProject, isResumeModalOpen, navigateTo, goBackToMenu, playSfx, toggleSound]);
+  }, [currentScreen, selectedMenuIndex, activeModalProject, isResumeModalOpen, navigateTo, goBackToMenu, playSfx, toggleSound, setViewMode]);
 
   // Live IST Clock
   const [timeString, setTimeString] = useState('');
