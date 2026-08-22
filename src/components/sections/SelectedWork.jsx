@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, ArrowRight } from 'lucide-react';
+import { ArrowUpRight, BookOpen, CheckCircle2, Clock, Sparkles } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
 import { projectsData } from '../../data/projects';
 import VerixaVisual from '../project-visuals/VerixaVisual';
 import ExertiaVisual from '../project-visuals/ExertiaVisual';
+import VeritasVisual from '../project-visuals/VeritasVisual';
 import SmartInventoryVisual from '../project-visuals/SmartInventoryVisual';
 import SmartGstVisual from '../project-visuals/SmartGstVisual';
 import ProjectModal from './ProjectModal';
@@ -13,7 +14,7 @@ import { useCursor } from '../../hooks/useCursor';
 export default function SelectedWork() {
   const [activeProject, setActiveProject] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const { setCursor, resetCursor } = useCursor();
+  const { resetCursor } = useCursor();
 
   const handleOpenModal = (project) => {
     setActiveProject(project);
@@ -21,360 +22,223 @@ export default function SelectedWork() {
     resetCursor();
   };
 
-  const verixa = projectsData.find(p => p.id === 'verixa');
-  const exertia = projectsData.find(p => p.id === 'exertia');
-  const smartInventory = projectsData.find(p => p.id === 'smart-inventory');
-  const smartGst = projectsData.find(p => p.id === 'smart-gst-invoice');
+  const renderVisual = (id) => {
+    switch (id) {
+      case 'verixa':
+        return <VerixaVisual />;
+      case 'exertia':
+        return <ExertiaVisual />;
+      case 'veritas':
+        return <VeritasVisual />;
+      case 'smart-inventory':
+        return <SmartInventoryVisual />;
+      case 'smart-gst-invoice':
+        return <SmartGstVisual />;
+      default:
+        return null;
+    }
+  };
+
+  const getStatusBadge = (status) => {
+    if (status.toLowerCase().includes('completed')) {
+      return (
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#22D3EE]/10 border border-[#22D3EE]/30 text-[#22D3EE] text-[11px] font-mono rounded-xs">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
+          COMPLETED
+        </span>
+      );
+    }
+    if (status.toLowerCase().includes('active')) {
+      return (
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#8B5CF6]/15 border border-[#8B5CF6]/40 text-[#A78BFA] text-[11px] font-mono rounded-xs">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
+          ACTIVE DEV
+        </span>
+      );
+    }
+    return (
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/15 text-[#94A3B8] text-[11px] font-mono rounded-xs">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#94A3B8]" />
+        IN PROGRESS
+      </span>
+    );
+  };
 
   return (
-    <section id="work" className="py-24 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10 relative">
-      {/* Section Editorial Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 sm:mb-28 gap-6">
+    <section id="projects" className="py-24 sm:py-36 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/[0.08] relative">
+      {/* Section Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 sm:mb-24 gap-6">
         <div>
-          <div className="flex items-center gap-3 mb-4 text-xs font-mono text-white/40 uppercase tracking-widest">
-            <span className="text-[#D4FF32]">02</span>
+          <div className="flex items-center gap-3 mb-4 text-xs font-mono text-[#64748B] uppercase tracking-widest">
+            <span className="text-[#8B5CF6] font-bold">04</span>
             <span>/</span>
-            <span>FEATURED PRODUCTION WORK</span>
+            <span>FEATURED PROJECTS</span>
           </div>
-          <h2 className="font-heading font-black text-5xl sm:text-7xl md:text-8xl text-white tracking-tight uppercase">
-            SELECTED<br />WORK
+          <h2 className="font-heading font-black text-4xl sm:text-6xl md:text-7xl text-[#F8FAFC] tracking-tight uppercase">
+            SELECTED WORK
           </h2>
         </div>
 
-        <div className="max-w-md space-y-2 text-xs font-mono text-white/50">
+        <div className="max-w-md space-y-2 text-xs font-mono text-[#94A3B8]">
           <p>
-            Real software systems built with attention to transactional integrity, spatial data, and clean architecture.
+            Practical software applications demonstrating real backend architecture, database modeling, and performant frontend engineering.
           </p>
-          <div className="flex items-center gap-4 text-white/70 pt-1">
-            <span>[04 COMPLETED & ACTIVE BUILDS]</span>
+          <div className="flex items-center gap-2 text-[#64748B]">
+            <span className="text-[#8B5CF6] font-bold">[ 5 CORE BUILDS ]</span>
+            <span>•</span>
+            <span>NO FAKE METRICS OR PLACEHOLDERS</span>
           </div>
         </div>
       </div>
 
-      <div className="space-y-32 sm:space-y-44">
-        {/* =========================================================================
-            PROJECT 01: VERIXA (Massive Full-Width Case Study Cover)
-        ========================================================================== */}
-        {verixa && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="group/verixa space-y-6"
-          >
-            {/* Top Index Line */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 text-xs font-mono">
-              <div className="flex items-center gap-3">
-                <span className="text-[#D4FF32] font-bold text-base">01</span>
-                <span className="text-white/20">—</span>
-                <span className="text-white tracking-wider uppercase font-bold">{verixa.title}</span>
-                <span className="text-white/40 hidden sm:inline">({verixa.category})</span>
-              </div>
+      {/* Projects List */}
+      <div className="space-y-24 sm:space-y-32">
+        {projectsData.map((project, idx) => {
+          const devStatus = project.developmentStatus || { built: [], inProgress: [], planned: [] };
 
-              <div className="flex items-center gap-3 text-white/40">
-                <span>YEAR {verixa.year}</span>
-                <span>•</span>
-                <span className="text-[#D4FF32] font-medium">{verixa.status}</span>
-              </div>
-            </div>
-
-            {/* Asymmetric Header */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
-              <div className="lg:col-span-8">
-                <h3 className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight group-hover/verixa:text-[#D4FF32] transition-colors">
-                  {verixa.title}
-                </h3>
-                <p className="font-heading text-lg sm:text-2xl text-white/70 mt-2 font-medium">
-                  {verixa.tagline}
-                </p>
-              </div>
-
-              <div className="lg:col-span-4 lg:text-right space-y-3">
-                <p className="text-xs sm:text-sm text-white/60 font-mono leading-relaxed">
-                  {verixa.shortDescription}
-                </p>
-              </div>
-            </div>
-
-            {/* Dominant Full-Width Visual Case Study Cover */}
-            <div
-              onClick={() => handleOpenModal(verixa)}
-              onMouseEnter={() => setCursor('project', 'VIEW →')}
-              onMouseLeave={resetCursor}
-              className="cursor-pointer border border-white/10 hover:border-[#D4FF32]/60 transition-colors relative"
+          return (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              className="p-4 sm:p-7 lg:p-10 bg-[#0E1017] border border-white/[0.08] hover:border-white/[0.16] transition-colors rounded-xs space-y-6 sm:space-y-8"
             >
-              <VerixaVisual />
-            </div>
-
-            {/* Bottom Actions & Tech Row */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
-              <div className="flex flex-wrap gap-2">
-                {verixa.technologies.map((t) => (
-                  <span key={t} className="px-2.5 py-1 bg-white/5 border border-white/10 text-white/70 font-mono text-[11px]">
-                    {t}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => handleOpenModal(verixa)}
-                  onMouseEnter={() => setCursor('pointer', 'READ')}
-                  onMouseLeave={resetCursor}
-                  className="px-5 py-2 bg-[#D4FF32] text-black font-mono font-bold text-xs flex items-center gap-2 hover:bg-[#c2f211] transition-colors cursor-pointer"
-                >
-                  <span>Open Deep-Dive Case Study</span>
-                  <ArrowUpRight size={14} />
-                </button>
-
-                <a
-                  href={verixa.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-colors cursor-pointer"
-                  aria-label="Verixa GitHub"
-                >
-                  <GithubIcon size={16} />
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-
-        {/* =========================================================================
-            PROJECT 02: EXERTIA (Asymmetric Horizontal Split)
-        ========================================================================== */}
-        {exertia && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="group/exertia space-y-6"
-          >
-            {/* Top Index Line */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4 text-xs font-mono">
-              <div className="flex items-center gap-3">
-                <span className="text-[#D4FF32] font-bold text-base">02</span>
-                <span className="text-white/20">—</span>
-                <span className="text-white tracking-wider uppercase font-bold">{exertia.title}</span>
-                <span className="text-white/40 hidden sm:inline">({exertia.category})</span>
-              </div>
-
-              <div className="flex items-center gap-3 text-white/40">
-                <span>YEAR {exertia.year}</span>
-                <span>•</span>
-                <span className="text-white/80">{exertia.status}</span>
-              </div>
-            </div>
-
-            {/* Split Composition: Left Editorial, Right Visual */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Left Column: Typography */}
-              <div className="lg:col-span-5 space-y-6">
-                <div>
-                  <h3 className="font-display font-black text-4xl sm:text-5xl text-white tracking-tight group-hover/exertia:text-[#D4FF32] transition-colors">
-                    {exertia.title}
-                  </h3>
-                  <p className="font-heading text-lg sm:text-xl text-white/70 mt-2 font-medium">
-                    {exertia.tagline}
-                  </p>
+              {/* Card Top Index Line */}
+              <div className="flex flex-wrap items-center justify-between border-b border-white/[0.08] pb-3 sm:pb-4 gap-2 text-xs font-mono">
+                <div className="flex items-center gap-3">
+                  <span className="text-[#8B5CF6] font-bold text-base">{project.number}</span>
+                  <span className="text-white/20">—</span>
+                  <span className="text-[#F8FAFC] tracking-wider uppercase font-bold">{project.title}</span>
+                  <span className="text-[#64748B] hidden sm:inline">({project.category})</span>
                 </div>
 
-                <p className="text-sm text-white/60 font-light leading-relaxed">
-                  {exertia.shortDescription}
-                </p>
+                <div className="flex items-center gap-3">
+                  <span className="text-[#64748B] text-[11px]">YEAR {project.year}</span>
+                  {getStatusBadge(project.status)}
+                </div>
+              </div>
 
-                {/* Tech Pills */}
-                <div className="space-y-2">
-                  <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest block">
-                    Core Technologies
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {exertia.technologies.map((t) => (
-                      <span key={t} className="px-2 py-0.5 bg-white/5 border border-white/8 text-white/80 font-mono text-[11px]">
-                        {t}
-                      </span>
-                    ))}
+              {/* Card Main Grid: Left Details & Right High-Density Visual */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+                {/* Left Column: Problem, Key Work, Tech Stack & CTAs */}
+                <div className="lg:col-span-6 space-y-6 flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="font-heading font-bold text-2xl sm:text-3xl text-[#F8FAFC] tracking-tight">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm sm:text-base font-mono text-[#A78BFA] mt-1">
+                        {project.tagline}
+                      </p>
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-[#94A3B8] font-light leading-relaxed">
+                      {project.shortDescription}
+                    </p>
+                  </div>
+
+                  {/* Key Work Points (What Was Actually Built) */}
+                  <div className="space-y-2.5 pt-2">
+                    <div className="text-[11px] font-mono text-[#64748B] uppercase tracking-widest">
+                      KEY IMPLEMENTATION HIGHLIGHTS
+                    </div>
+                    <ul className="space-y-2 text-xs font-mono text-[#F8FAFC]/85">
+                      {project.keyWork.map((point, pIdx) => (
+                        <li key={pIdx} className="flex items-start gap-2.5 leading-relaxed">
+                          <span className="text-[#8B5CF6] font-bold mt-0.5">•</span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Status Indicator Chips: Built vs In Progress vs Planned */}
+                  {(devStatus.built.length > 0 || devStatus.inProgress.length > 0) && (
+                    <div className="pt-3 border-t border-white/[0.06] flex flex-wrap gap-2 text-[10px] font-mono">
+                      {devStatus.built.length > 0 && (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#22D3EE]/10 border border-[#22D3EE]/25 text-[#22D3EE] rounded-xs">
+                          <CheckCircle2 size={11} />
+                          <span>{devStatus.built.length} Built Features</span>
+                        </span>
+                      )}
+                      {devStatus.inProgress.length > 0 && (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#8B5CF6]/10 border border-[#8B5CF6]/25 text-[#A78BFA] rounded-xs">
+                          <Clock size={11} />
+                          <span>{devStatus.inProgress.length} In Progress</span>
+                        </span>
+                      )}
+                      {devStatus.planned.length > 0 && (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white/5 border border-white/10 text-[#64748B] rounded-xs">
+                          <Sparkles size={11} />
+                          <span>{devStatus.planned.length} Planned</span>
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Tech Stack Pills */}
+                  <div className="space-y-2 pt-2">
+                    <div className="text-[11px] font-mono text-[#64748B] uppercase tracking-widest">
+                      TECHNOLOGY STACK
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2.5 py-1 rounded-xs bg-[#08090D] border border-white/[0.06] text-[#94A3B8] text-[11px] font-mono"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleOpenModal(project)}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-mono text-xs font-bold rounded-xs transition-colors cursor-pointer shadow-md shadow-[#8B5CF6]/20"
+                    >
+                      <BookOpen size={14} />
+                      <span>Case Study Deep-Dive</span>
+                    </button>
+
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#131520] hover:bg-[#1A1D2D] border border-white/[0.08] text-[#F8FAFC] font-mono text-xs rounded-xs transition-colors cursor-pointer"
+                    >
+                      <GithubIcon size={14} />
+                      <span>GitHub</span>
+                      <ArrowUpRight size={12} className="text-[#64748B]" />
+                    </a>
+
+                    {project.hasLiveDemo && project.demoUrl && (
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#22D3EE]/10 hover:bg-[#22D3EE]/20 border border-[#22D3EE]/30 text-[#22D3EE] font-mono text-xs font-bold rounded-xs transition-colors cursor-pointer"
+                      >
+                        <span>Live Demo</span>
+                        <ArrowUpRight size={12} />
+                      </a>
+                    )}
                   </div>
                 </div>
 
-                {/* Actions */}
-                <div className="pt-2 flex items-center gap-3">
-                  <button
-                    onClick={() => handleOpenModal(exertia)}
-                    onMouseEnter={() => setCursor('pointer', 'READ')}
-                    onMouseLeave={resetCursor}
-                    className="px-5 py-2.5 bg-white text-black font-mono font-bold text-xs flex items-center gap-2 hover:bg-[#D4FF32] transition-colors cursor-pointer"
-                  >
-                    <span>View Architecture</span>
-                    <ArrowUpRight size={14} />
-                  </button>
-
-                  <a
-                    href={exertia.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-colors cursor-pointer"
-                    aria-label="Exertia GitHub"
-                  >
-                    <GithubIcon size={16} />
-                  </a>
+                {/* Right Column: Visual Architecture Preview */}
+                <div className="lg:col-span-6 rounded-xs overflow-hidden border border-white/[0.08] bg-[#08090D] flex items-center justify-center">
+                  {renderVisual(project.id)}
                 </div>
-              </div>
-
-              {/* Right Column: Visual */}
-              <div
-                onClick={() => handleOpenModal(exertia)}
-                onMouseEnter={() => setCursor('project', 'VIEW →')}
-                onMouseLeave={resetCursor}
-                className="lg:col-span-7 cursor-pointer border border-white/10 hover:border-[#D4FF32]/60 transition-colors"
-              >
-                <ExertiaVisual />
-              </div>
-            </div>
-          </motion.div>
-        )}
-
-        {/* =========================================================================
-            PROJECT 03 & 04: Industrial 2-Column Editorial Duo
-        ========================================================================== */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 pt-8 border-t border-white/10">
-          {/* Project 03: Smart Inventory */}
-          {smartInventory && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="group/inventory space-y-5 flex flex-col justify-between"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3 text-xs font-mono">
-                  <span className="text-[#D4FF32] font-bold">03 // DATA & AUTOMATION</span>
-                  <span className="text-white/40">{smartInventory.year}</span>
-                </div>
-
-                <div>
-                  <h3 className="font-display font-bold text-3xl sm:text-4xl text-white group-hover/inventory:text-[#D4FF32] transition-colors">
-                    {smartInventory.title}
-                  </h3>
-                  <p className="font-mono text-xs sm:text-sm text-white/60 mt-1">
-                    {smartInventory.tagline}
-                  </p>
-                </div>
-
-                <div
-                  onClick={() => handleOpenModal(smartInventory)}
-                  onMouseEnter={() => setCursor('project', 'VIEW →')}
-                  onMouseLeave={resetCursor}
-                  className="cursor-pointer border border-white/10 hover:border-[#D4FF32]/60 transition-colors"
-                >
-                  <SmartInventoryVisual />
-                </div>
-
-                <p className="text-xs text-white/60 font-light leading-relaxed">
-                  {smartInventory.shortDescription}
-                </p>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {smartInventory.technologies.map((t) => (
-                    <span key={t} className="px-2 py-0.5 bg-white/5 text-white/70 font-mono text-[10px] border border-white/5">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-4 flex items-center justify-between border-t border-white/10">
-                <button
-                  onClick={() => handleOpenModal(smartInventory)}
-                  className="font-mono text-xs font-bold text-white hover:text-[#D4FF32] flex items-center gap-1.5 transition-colors cursor-pointer"
-                >
-                  <span>Case Study</span>
-                  <ArrowRight size={13} />
-                </button>
-
-                <a
-                  href={smartInventory.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/50 hover:text-white transition-colors cursor-pointer"
-                >
-                  <GithubIcon size={15} />
-                </a>
               </div>
             </motion.div>
-          )}
-
-          {/* Project 04: Smart GST Invoice */}
-          {smartGst && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="group/gst space-y-5 flex flex-col justify-between"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3 text-xs font-mono">
-                  <span className="text-[#D4FF32] font-bold">04 // AUTOMATION & DESKTOP</span>
-                  <span className="text-white/40">{smartGst.year}</span>
-                </div>
-
-                <div>
-                  <h3 className="font-display font-bold text-3xl sm:text-4xl text-white group-hover/gst:text-[#D4FF32] transition-colors">
-                    {smartGst.title}
-                  </h3>
-                  <p className="font-mono text-xs sm:text-sm text-white/60 mt-1">
-                    {smartGst.tagline}
-                  </p>
-                </div>
-
-                <div
-                  onClick={() => handleOpenModal(smartGst)}
-                  onMouseEnter={() => setCursor('project', 'VIEW →')}
-                  onMouseLeave={resetCursor}
-                  className="cursor-pointer border border-white/10 hover:border-[#D4FF32]/60 transition-colors"
-                >
-                  <SmartGstVisual />
-                </div>
-
-                <p className="text-xs text-white/60 font-light leading-relaxed">
-                  {smartGst.shortDescription}
-                </p>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {smartGst.technologies.map((t) => (
-                    <span key={t} className="px-2 py-0.5 bg-white/5 text-white/70 font-mono text-[10px] border border-white/5">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-4 flex items-center justify-between border-t border-white/10">
-                <button
-                  onClick={() => handleOpenModal(smartGst)}
-                  className="font-mono text-xs font-bold text-white hover:text-[#D4FF32] flex items-center gap-1.5 transition-colors cursor-pointer"
-                >
-                  <span>Case Study</span>
-                  <ArrowRight size={13} />
-                </button>
-
-                <a
-                  href={smartGst.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/50 hover:text-white transition-colors cursor-pointer"
-                >
-                  <GithubIcon size={15} />
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </div>
+          );
+        })}
       </div>
 
       {/* Case Study Modal */}

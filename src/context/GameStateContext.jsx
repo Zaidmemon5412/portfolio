@@ -4,6 +4,16 @@ import { SCREENS, MENU_ITEMS, SCREEN_CONFIGS } from '../data/gameConstants';
 import { playSoundEffect, startRadioSynth, stopRadioSynth } from '../utils/audio';
 
 export function GameStateProvider({ children }) {
+  // Global View Mode ('editorial' vs 'gta')
+  const [viewMode, setViewModeState] = useState(() => {
+    try {
+      const stored = localStorage.getItem('portfolio_view_mode');
+      return stored === 'gta' || stored === 'editorial' ? stored : 'editorial';
+    } catch {
+      return 'editorial';
+    }
+  });
+
   const [currentScreen, setCurrentScreen] = useState(SCREENS.MENU);
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
   
@@ -22,6 +32,31 @@ export function GameStateProvider({ children }) {
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [activeModalProject, setActiveModalProject] = useState(null);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+
+  const setViewMode = useCallback((mode) => {
+    setViewModeState(mode);
+    try {
+      localStorage.setItem('portfolio_view_mode', mode);
+    } catch {}
+    if (mode === 'editorial') {
+      stopRadioSynth();
+      setRadioPlaying(false);
+    }
+  }, []);
+
+  const toggleViewMode = useCallback(() => {
+    setViewModeState((prev) => {
+      const next = prev === 'editorial' ? 'gta' : 'editorial';
+      try {
+        localStorage.setItem('portfolio_view_mode', next);
+      } catch {}
+      if (next === 'editorial') {
+        stopRadioSynth();
+        setRadioPlaying(false);
+      }
+      return next;
+    });
+  }, []);
 
   // Play sound effect using centralized audio engine
   const playSfx = useCallback((type = 'select') => {
@@ -173,6 +208,9 @@ export function GameStateProvider({ children }) {
   return (
     <GameStateContext.Provider
       value={{
+        viewMode,
+        setViewMode,
+        toggleViewMode,
         currentScreen,
         setCurrentScreen,
         navigateTo,

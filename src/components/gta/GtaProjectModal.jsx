@@ -14,14 +14,16 @@ function GithubIcon({ size = 14, className = "" }) {
 
 export default function GtaProjectModal() {
   const { activeModalProject, setActiveModalProject, playSfx } = useGameState();
+  const prevProjectRef = React.useRef(null);
 
   useEffect(() => {
-    if (activeModalProject) {
+    if (activeModalProject && !prevProjectRef.current) {
       playSfx('modal_open');
       document.body.style.overflow = 'hidden';
-    } else {
+    } else if (!activeModalProject) {
       document.body.style.overflow = 'unset';
     }
+    prevProjectRef.current = activeModalProject;
     return () => {
       document.body.style.overflow = 'unset';
     };

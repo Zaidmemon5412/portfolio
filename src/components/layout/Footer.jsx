@@ -16,29 +16,29 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-white/10 bg-[#060607] py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-mono text-white/40">
+    <footer className="border-t border-white/[0.08] bg-[#06070A] py-10 px-4 sm:px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-mono text-[#64748B]">
         {/* Left Brand */}
         <div className="flex items-center gap-3">
-          <div className="w-6 h-6 bg-white/10 border border-white/20 flex items-center justify-center text-[10px] text-[#D4FF32] font-bold">
+          <div className="w-6 h-6 bg-[#0E1017] border border-white/[0.12] flex items-center justify-center text-[10px] text-[#8B5CF6] font-bold rounded-xs">
             ZM
           </div>
           <div>
-            <span className="text-white font-medium">ZAID MEMON</span>
-            <span className="text-white/30 ml-2">© 2026</span>
+            <span className="text-[#F8FAFC] font-medium">ZAID MEMON</span>
+            <span className="text-[#64748B] ml-2">© 2026</span>
           </div>
         </div>
 
         {/* Center: Location & Time */}
         <div className="flex items-center gap-4 text-[11px]">
-          <span className="flex items-center gap-1 text-white/70">
-            <MapPin size={11} className="text-[#D4FF32]" />
+          <span className="flex items-center gap-1 text-[#94A3B8]">
+            <MapPin size={11} className="text-[#8B5CF6]" />
             Ahmedabad, India
           </span>
-          <span>•</span>
+          <span className="text-white/20">•</span>
           <span>{timeString ? `${timeString} IST` : '23.02° N, 72.57° E'}</span>
-          <span>•</span>
-          <span className="text-white/60">Portfolio & Production Code</span>
+          <span className="text-white/20">•</span>
+          <span className="text-[#94A3B8]">Obsidian Aurora Architecture</span>
         </div>
 
         {/* Right: Scroll to top */}
@@ -46,10 +46,10 @@ export default function Footer() {
           onClick={scrollToTop}
           onMouseEnter={() => setCursor('pointer', 'TOP')}
           onMouseLeave={resetCursor}
-          className="flex items-center gap-2 text-white/60 hover:text-white transition-colors group cursor-pointer"
+          className="flex items-center gap-2 text-[#94A3B8] hover:text-[#F8FAFC] transition-colors group cursor-pointer"
         >
           <span>BACK TO TOP</span>
-          <div className="p-1 bg-white/5 border border-white/10 group-hover:bg-[#D4FF32] group-hover:text-black transition-colors">
+          <div className="p-1 bg-[#0E1017] border border-white/[0.1] group-hover:bg-[#8B5CF6] group-hover:text-white transition-colors rounded-xs">
             <ArrowUp size={12} />
           </div>
         </button>

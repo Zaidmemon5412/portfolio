@@ -34,7 +34,7 @@ export default function Contact() {
         particleCount: 30,
         spread: 50,
         origin: { x, y },
-        colors: ['#D4FF32', '#EDEDEC', '#71717A'],
+        colors: ['#8B5CF6', '#22D3EE', '#F8FAFC'],
         disableForReducedMotion: true,
       });
     } catch {
@@ -60,7 +60,7 @@ export default function Contact() {
         particleCount: 40,
         spread: 60,
         origin: { y: 0.8 },
-        colors: ['#D4FF32', '#00F0FF', '#FFFFFF']
+        colors: ['#8B5CF6', '#22D3EE', '#FFFFFF']
       });
     } catch {
       // safe fallback
@@ -99,12 +99,12 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-24 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-white/10 relative select-none">
+    <section id="contact" className="py-24 sm:py-36 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/[0.08] relative select-none">
       {/* Top Section Index */}
-      <div className="flex items-center gap-3 mb-12 text-xs font-mono text-white/40 uppercase tracking-widest">
-        <span className="text-[#D4FF32]">08</span>
+      <div className="flex items-center gap-3 mb-12 text-xs font-mono text-[#64748B] uppercase tracking-widest">
+        <span className="text-[#8B5CF6] font-bold">07</span>
         <span>/</span>
-        <span>GET IN TOUCH</span>
+        <span>GET IN TOUCH & LINKS</span>
       </div>
 
       {/* Monumental Editorial Headline */}
@@ -114,10 +114,10 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display font-black text-4xl sm:text-7xl md:text-8xl lg:text-9xl text-white tracking-tight leading-[0.88] uppercase"
+          className="font-display font-black text-3xl xs:text-4xl sm:text-7xl md:text-8xl lg:text-9xl text-[#F8FAFC] tracking-tight leading-[0.92] uppercase break-words"
         >
           HAVE SOMETHING<br />
-          <span className="text-[#D4FF32]">WORTH BUILDING?</span>
+          <span className="text-[#8B5CF6]">WORTH BUILDING?</span>
         </motion.h2>
 
         <motion.p
@@ -125,30 +125,30 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-heading font-medium text-2xl sm:text-4xl text-white tracking-tight"
+          className="font-heading font-medium text-2xl sm:text-4xl text-[#F8FAFC] tracking-tight"
         >
           Let's talk.
         </motion.p>
 
-        <p className="text-sm sm:text-base text-white/60 max-w-xl font-light leading-relaxed">
-          Open to software engineering internships, technical collaborations, and building serious digital products.
+        <p className="text-sm sm:text-base text-[#94A3B8] max-w-xl font-light leading-relaxed">
+          Open to software engineering internships, technical collaborations, and building practical digital products.
         </p>
       </div>
 
       {/* Contact Matrix */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch border-t border-white/10 pt-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch border-t border-white/[0.08] pt-10">
         {/* Email Box & Quick Dispatch Form (Span 7) */}
         <div className="lg:col-span-7 space-y-6 flex flex-col justify-between">
           <div className="space-y-4">
-            <div className="flex items-center justify-between text-xs font-mono text-white/40">
+            <div className="flex items-center justify-between text-xs font-mono text-[#64748B]">
               <span>PRIMARY INBOX</span>
-              <span className="flex items-center gap-1.5 text-white/80">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF32]" />
+              <span className="flex items-center gap-1.5 text-[#94A3B8]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
                 {isWorkingHours ? 'Available for outreach' : 'Async response'}
               </span>
             </div>
 
-            <h3 className="font-mono text-xl sm:text-3xl md:text-4xl text-white font-bold tracking-tight break-all">
+            <h3 className="font-mono text-xl sm:text-3xl md:text-4xl text-[#F8FAFC] font-bold tracking-tight break-all">
               {emailAddress}
             </h3>
 
@@ -160,10 +160,10 @@ export default function Contact() {
                 cursorType="copy"
               >
                 <button
-                  className={`px-5 py-2.5 font-mono text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
+                  className={`px-5 py-2.5 font-mono text-xs font-bold flex items-center gap-2 transition-all cursor-pointer rounded-xs ${
                     copied
                       ? 'bg-white text-black'
-                      : 'bg-[#D4FF32] hover:bg-[#c2f211] text-black'
+                      : 'bg-[#8B5CF6] hover:bg-[#7C3AED] text-white shadow-md shadow-[#8B5CF6]/20'
                   }`}
                 >
                   {copied ? <Check size={14} strokeWidth={2.5} /> : <Copy size={14} />}
@@ -175,16 +175,16 @@ export default function Contact() {
                 onClick={() => setIsResumeOpen(true)}
                 onMouseEnter={() => setCursor('pointer', 'RESUME')}
                 onMouseLeave={resetCursor}
-                className="px-5 py-2.5 bg-white/10 hover:bg-white/15 text-white font-mono text-xs font-medium border border-white/15 flex items-center gap-2 transition-colors cursor-pointer"
+                className="px-5 py-2.5 bg-[#0E1017] hover:bg-[#131520] text-[#F8FAFC] font-mono text-xs font-medium border border-white/[0.08] hover:border-[#22D3EE]/50 flex items-center gap-2 transition-colors cursor-pointer rounded-xs"
               >
-                <FileText size={14} className="text-[#D4FF32]" />
+                <FileText size={14} className="text-[#22D3EE]" />
                 <span>View Resume</span>
               </button>
 
               <a
                 href="/resume.pdf"
                 download="CV_MEMON_ZAID_SOHILBHAI_LJIET.pdf"
-                className="p-2.5 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/10 transition-colors"
+                className="p-2.5 bg-[#0E1017] hover:bg-[#131520] text-[#94A3B8] hover:text-white border border-white/[0.08] transition-colors rounded-xs"
                 title="Download PDF"
               >
                 <Download size={14} />
@@ -193,10 +193,10 @@ export default function Contact() {
           </div>
 
           {/* Quick Message Dispatcher */}
-          <form onSubmit={handleQuickDispatch} className="p-5 bg-black/40 border border-white/10 rounded-none space-y-3 mt-4">
-            <div className="flex items-center justify-between text-xs font-mono text-white/50 border-b border-white/10 pb-2">
+          <form onSubmit={handleQuickDispatch} className="p-5 bg-[#0E1017] border border-white/[0.08] rounded-xs space-y-3 mt-4">
+            <div className="flex items-center justify-between text-xs font-mono text-[#64748B] border-b border-white/[0.08] pb-2">
               <span>QUICK MESSAGE DISPATCH</span>
-              <span className="text-[#D4FF32]">INSTANT MAILTO</span>
+              <span className="text-[#8B5CF6] font-medium">INSTANT MAILTO</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -206,11 +206,11 @@ export default function Contact() {
                 placeholder="Your Name / Organization"
                 value={messageName}
                 onChange={(e) => setMessageName(e.target.value)}
-                className="px-3 py-2 bg-black/60 border border-white/10 text-white font-mono text-xs outline-none focus:border-[#D4FF32]"
+                className="px-3 py-2 bg-[#08090D] border border-white/[0.08] text-[#F8FAFC] font-mono text-xs outline-none focus:border-[#8B5CF6] rounded-xs"
               />
               <button
                 type="submit"
-                className="py-2 px-4 bg-[#D4FF32] text-black font-mono font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#c2f211] transition-colors cursor-pointer"
+                className="py-2 px-4 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-mono font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer rounded-xs shadow-sm shadow-[#8B5CF6]/20"
               >
                 <span>SEND DIRECT MESSAGE</span>
                 <Send size={12} />
@@ -223,18 +223,18 @@ export default function Contact() {
               placeholder="What project or opportunity would you like to discuss?"
               value={messageText}
               onChange={(e) => setMessageText(e.target.value)}
-              className="w-full px-3 py-2 bg-black/60 border border-white/10 text-white font-mono text-xs outline-none focus:border-[#D4FF32] resize-none"
+              className="w-full px-3 py-2 bg-[#08090D] border border-white/[0.08] text-[#F8FAFC] font-mono text-xs outline-none focus:border-[#8B5CF6] resize-none rounded-xs"
             />
 
             {dispatchStatus && (
-              <p className="text-xs font-mono text-[#D4FF32]">{dispatchStatus}</p>
+              <p className="text-xs font-mono text-[#22D3EE]">{dispatchStatus}</p>
             )}
           </form>
         </div>
 
         {/* Directory (Span 5) */}
-        <div className="lg:col-span-5 space-y-3 border-t lg:border-t-0 lg:border-l border-white/10 lg:pl-8 pt-8 lg:pt-0">
-          <div className="text-xs font-mono text-white/40 uppercase tracking-widest mb-4">
+        <div className="lg:col-span-5 space-y-3 border-t lg:border-t-0 lg:border-l border-white/[0.08] lg:pl-8 pt-8 lg:pt-0">
+          <div className="text-xs font-mono text-[#64748B] uppercase tracking-widest mb-4">
             NETWORK DIRECTORY & ASSETS
           </div>
 
@@ -243,20 +243,20 @@ export default function Contact() {
               return (
                 <div
                   key={social.name}
-                  className="p-4 border border-white/10 hover:border-[#D4FF32] transition-colors flex items-center justify-between group bg-black/40"
+                  className="p-4 border border-white/[0.08] hover:border-[#8B5CF6]/50 transition-colors flex items-center justify-between group bg-[#0E1017] rounded-xs"
                 >
                   <div
                     onClick={() => setIsResumeOpen(true)}
                     className="flex items-center gap-3 cursor-pointer flex-1"
                   >
-                    <div className="text-white/60 group-hover:text-[#D4FF32] transition-colors">
+                    <div className="text-[#64748B] group-hover:text-[#8B5CF6] transition-colors">
                       {social.icon}
                     </div>
                     <div>
-                      <span className="font-mono text-[10px] text-white/40 uppercase block">
+                      <span className="font-mono text-[10px] text-[#64748B] uppercase block">
                         {social.name}
                       </span>
-                      <span className="font-mono text-xs text-white font-medium group-hover:text-[#D4FF32] transition-colors">
+                      <span className="font-mono text-xs text-[#F8FAFC] font-medium group-hover:text-[#8B5CF6] transition-colors">
                         {social.handle}
                       </span>
                     </div>
@@ -265,14 +265,14 @@ export default function Contact() {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setIsResumeOpen(true)}
-                      className="px-2 py-1 bg-white/10 hover:bg-[#D4FF32] text-white hover:text-black font-mono text-[10px] transition-colors cursor-pointer"
+                      className="px-2.5 py-1 bg-white/10 hover:bg-[#8B5CF6] text-white font-mono text-[10px] transition-colors cursor-pointer rounded-xs"
                     >
                       VIEW
                     </button>
                     <a
                       href="/resume.pdf"
                       download="CV_MEMON_ZAID_SOHILBHAI_LJIET.pdf"
-                      className="p-1 bg-white/10 hover:bg-white/20 text-white/80 transition-colors"
+                      className="p-1 bg-white/10 hover:bg-white/20 text-white/80 transition-colors rounded-xs"
                       title="Download PDF"
                     >
                       <Download size={13} />
@@ -290,23 +290,23 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 onMouseEnter={() => setCursor('pointer', social.name.toUpperCase())}
                 onMouseLeave={resetCursor}
-                className="p-4 border border-white/10 hover:border-[#D4FF32] transition-colors flex items-center justify-between group bg-black/40 cursor-pointer"
+                className="p-4 border border-white/[0.08] hover:border-[#8B5CF6]/50 transition-colors flex items-center justify-between group bg-[#0E1017] cursor-pointer rounded-xs"
               >
                 <div className="flex items-center gap-3">
-                  <div className="text-white/60 group-hover:text-[#D4FF32] transition-colors">
+                  <div className="text-[#64748B] group-hover:text-[#8B5CF6] transition-colors">
                     {social.icon}
                   </div>
                   <div>
-                    <span className="font-mono text-[10px] text-white/40 uppercase block">
+                    <span className="font-mono text-[10px] text-[#64748B] uppercase block">
                       {social.name}
                     </span>
-                    <span className="font-mono text-xs text-white font-medium group-hover:text-[#D4FF32] transition-colors">
+                    <span className="font-mono text-xs text-[#F8FAFC] font-medium group-hover:text-[#8B5CF6] transition-colors">
                       {social.handle}
                     </span>
                   </div>
                 </div>
 
-                <div className="text-white/30 group-hover:text-white transition-colors">
+                <div className="text-[#64748B] group-hover:text-white transition-colors">
                   <ArrowUpRight size={14} />
                 </div>
               </a>

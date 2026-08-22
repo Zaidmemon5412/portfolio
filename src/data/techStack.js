@@ -1,115 +1,137 @@
 export const techStackData = [
   {
-    category: "FRONTEND",
-    description: "Building responsive, tactile, and high-performance user interfaces with clean architecture.",
+    category: "Frontend",
+    tag: "UI & CLIENT SYSTEMS",
     skills: [
       {
         name: "React",
-        focus: "Component architecture, hooks, state machines, and modern client orchestration.",
-        usedIn: ["verixa", "exertia"],
-        highlight: "Core framework for Verixa & Exertia"
+        focus: "Component hierarchy, custom hooks, client-side state, and performance optimization.",
+        appliedIn: "Verixa, Exertia, Portfolio"
       },
       {
-        name: "JavaScript (ES6+)",
-        focus: "Asynchronous workflows, DOM lifecycle, event bubbling, and functional paradigms.",
-        usedIn: ["verixa", "exertia"],
-        highlight: "Modern web foundation"
+        name: "JavaScript",
+        focus: "ES6+ syntax, asynchronous runtime, DOM lifecycle, and functional programming.",
+        appliedIn: "Verixa, Exertia"
       },
       {
-        name: "HTML5 / Semantic Web",
-        focus: "Accessible DOM structure, microdata, and SEO-friendly document layout.",
-        usedIn: ["verixa", "exertia"],
-        highlight: "Clean markup & accessibility"
+        name: "HTML",
+        focus: "Semantic HTML5, accessible structure, document hierarchy, and SEO foundations.",
+        appliedIn: "All Web Builds"
       },
       {
-        name: "CSS3 / Modern CSS",
-        focus: "Custom properties, CSS Grid, Flexbox, responsive typography, and layout math.",
-        usedIn: ["verixa", "exertia"],
-        highlight: "Precision styling & layout systems"
+        name: "CSS",
+        focus: "Responsive layout math, CSS Grid, Flexbox, transitions, and custom properties.",
+        appliedIn: "All Web Builds"
       },
       {
         name: "Tailwind CSS",
-        focus: "Utility-first design systems, custom theme configuration, and atomic tokens.",
-        usedIn: ["verixa", "exertia"],
-        highlight: "Speed and design consistency"
+        focus: "Utility-first design tokens, custom configuration, and clean responsive interfaces.",
+        appliedIn: "Verixa, Exertia, Portfolio"
       }
     ]
   },
   {
-    category: "BACKEND",
-    description: "Designing RESTful endpoints, transactional data integrity, and server-side logic.",
+    category: "Backend",
+    tag: "APIs & SERVER LOGIC",
     skills: [
       {
-        name: "Python",
-        focus: "Data extraction pipelines, scripting, automation daemons, and backend logic.",
-        usedIn: ["verixa", "exertia"],
-        highlight: "Scraping & server workflows"
+        name: "Django",
+        focus: "High-level architecture, ORM query management, authentication, and secure backends.",
+        appliedIn: "Verixa Engine"
       },
       {
-        name: "Django / DRF",
-        focus: "Model ORM, REST serializers, authentication, and structured API endpoints.",
-        usedIn: ["verixa"],
-        highlight: "Verixa backend API"
+        name: "Django REST Framework",
+        focus: "RESTful API contracts, model serializers, filtering, pagination, and token auth.",
+        appliedIn: "Verixa API"
       },
       {
-        name: "REST APIs",
-        focus: "Contract design, status code semantics, pagination, filtering, and error handling.",
-        usedIn: ["verixa", "exertia"],
-        highlight: "Decoupled client-server protocols"
-      },
-      {
-        name: "Java",
-        focus: "Object-oriented software design, JDBC persistence, and desktop utilities.",
-        usedIn: ["smart-inventory", "smart-gst-invoice"],
-        highlight: "Enterprise & desktop applications"
+        name: "Flask",
+        focus: "Lightweight Python microservices, routing, and minimal application endpoints.",
+        appliedIn: "API Prototypes & Lab"
       }
     ]
   },
   {
-    category: "DATA & ML",
-    description: "Structuring relational databases, geospatial indexing, and statistical forecasting.",
+    category: "Database",
+    tag: "STORAGE & SCHEMAS",
     skills: [
       {
         name: "PostgreSQL",
-        focus: "Relational modeling, indexing, foreign keys, and complex aggregate SQL queries.",
-        usedIn: ["verixa", "smart-inventory", "smart-gst-invoice"],
-        highlight: "Primary relational store"
+        focus: "Relational schema design, foreign key constraints, indexing, and ACID transactions.",
+        appliedIn: "Verixa, Smart Inventory, Smart GST"
       },
       {
-        name: "Pandas",
-        focus: "Tabular data cleaning, normalization, transformation, and dataset aggregation.",
-        usedIn: ["verixa"],
-        highlight: "Property intelligence pipelines"
-      },
-      {
-        name: "Scikit-learn / Weka",
-        focus: "Predictive regression, classification baselines, and time-series evaluation.",
-        usedIn: ["verixa", "smart-inventory"],
-        highlight: "Predictive demand & anomaly scoring"
+        name: "SQL",
+        focus: "Complex joins, grouping, aggregation queries, subqueries, and data normalization.",
+        appliedIn: "Backend & Data Pipelines"
       }
     ]
   },
   {
-    category: "TOOLS & DEV",
-    description: "Version control, environment isolation, and production toolchains.",
+    category: "Programming",
+    tag: "LANGUAGES & CORE CS",
     skills: [
       {
-        name: "Git & GitHub",
-        focus: "Atomic commits, branch workflows, pull requests, and repository management.",
-        usedIn: ["verixa", "exertia", "smart-inventory", "smart-gst-invoice"],
-        highlight: "Source control & collaboration"
+        name: "Python",
+        focus: "Backend development, automated data scrapers, ETL scripts, and analytical workflows.",
+        appliedIn: "Verixa, Exertia Daemon, Lab"
+      },
+      {
+        name: "Java",
+        focus: "Object-oriented software design, inheritance, data structures, and JDBC database access.",
+        appliedIn: "Smart Inventory, Smart GST"
+      },
+      {
+        name: "JavaScript",
+        focus: "Modern asynchronous code, event-driven programming, and full-stack integration.",
+        appliedIn: "Frontend Applications"
+      }
+    ]
+  },
+  {
+    category: "AI / Data",
+    tag: "ANALYTICS & MACHINE LEARNING",
+    skills: [
+      {
+        name: "Pandas",
+        focus: "Tabular data cleaning, missing value imputation, transformations, and feature prep.",
+        appliedIn: "Verixa Real Estate Scraper"
+      },
+      {
+        name: "Scikit-learn",
+        focus: "Linear regression baselines, feature normalization, and data anomaly scoring.",
+        appliedIn: "Verixa Valuation & Lab"
+      },
+      {
+        name: "Weka / ML Modeling",
+        focus: "Supervised classification, regression modeling, and inventory depletion analysis.",
+        appliedIn: "Smart Inventory"
+      }
+    ]
+  },
+  {
+    category: "Tools",
+    tag: "WORKFLOW & ENVIRONMENT",
+    skills: [
+      {
+        name: "Git",
+        focus: "Version control, branching models, atomic commits, and merge resolution.",
+        appliedIn: "All Projects"
+      },
+      {
+        name: "GitHub",
+        focus: "Remote repository workflows, release tagging, code reviews, and documentation.",
+        appliedIn: "All Projects"
+      },
+      {
+        name: "VS Code",
+        focus: "Primary development workspace, debugging configurations, and extension toolchains.",
+        appliedIn: "Daily Development"
       },
       {
         name: "Docker",
-        focus: "Containerizing local PostgreSQL instances, backend microservices, and development parity.",
-        usedIn: ["verixa"],
-        highlight: "Isolated development environments"
-      },
-      {
-        name: "Vite",
-        focus: "High-speed ES modules dev server, optimized rollup bundling, and asset pipelines.",
-        usedIn: ["verixa", "exertia"],
-        highlight: "Next-gen frontend build tool"
+        focus: "Containerizing local PostgreSQL instances, dev environments, and dependency parity.",
+        appliedIn: "Verixa Development"
       }
     ]
   }

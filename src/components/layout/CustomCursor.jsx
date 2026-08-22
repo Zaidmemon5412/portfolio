@@ -70,10 +70,10 @@ export default function CustomCursor() {
             exit={{ scale: 0.6, opacity: 0 }}
             className={`px-3.5 py-1.5 rounded-full font-mono text-xs font-bold tracking-wider uppercase backdrop-blur-md shadow-2xl flex items-center gap-1.5 ${
               isProject
-                ? 'bg-[#D4FF32] text-black border border-[#D4FF32]'
+                ? 'bg-[#8B5CF6] text-white border border-[#8B5CF6]'
                 : isLab
-                ? 'bg-white text-black border border-white'
-                : 'bg-[#151619] text-[#D4FF32] border border-white/20'
+                ? 'bg-[#22D3EE] text-black border border-[#22D3EE]'
+                : 'bg-[#131520] text-[#A78BFA] border border-white/20'
             }`}
           >
             <span>{cursorText}</span>
@@ -82,7 +82,7 @@ export default function CustomCursor() {
           <div
             className={`rounded-full border transition-all duration-300 ${
               isPointer
-                ? 'w-10 h-10 border-[#D4FF32]/60 bg-[#D4FF32]/10'
+                ? 'w-10 h-10 border-[#8B5CF6]/60 bg-[#8B5CF6]/10'
                 : 'w-8 h-8 border-white/30 bg-transparent'
             }`}
           />
@@ -92,7 +92,7 @@ export default function CustomCursor() {
       {/* Center Precise Dot */}
       {!hasText && (
         <motion.div
-          className="fixed top-0 left-0 pointer-events-none z-50 w-1.5 h-1.5 rounded-full bg-[#D4FF32] -translate-x-1/2 -translate-y-1/2 shadow-sm shadow-[#D4FF32]"
+          className="fixed top-0 left-0 pointer-events-none z-50 w-1.5 h-1.5 rounded-full bg-[#8B5CF6] -translate-x-1/2 -translate-y-1/2 shadow-sm shadow-[#8B5CF6]"
           style={{
             x: dotX,
             y: dotY,

@@ -3,123 +3,129 @@ import { ShieldCheck, Building2, Compass } from 'lucide-react';
 
 export default function VerixaVisual() {
   return (
-    <div className="relative w-full h-full min-h-[400px] sm:min-h-[460px] bg-[#0c0d0f] border border-white/10 rounded-none p-5 sm:p-7 flex flex-col justify-between select-none">
+    <div className="relative w-full h-full min-h-[340px] sm:min-h-[440px] bg-[#0E1017] border border-white/[0.08] p-4 sm:p-6 lg:p-7 flex flex-col justify-between select-none overflow-hidden">
       {/* Top Header Bar */}
-      <div className="flex items-center justify-between border-b border-white/10 pb-4">
-        <div className="flex items-center gap-3">
-          <div className="w-7 h-7 bg-[#D4FF32] flex items-center justify-center text-black font-mono font-bold text-xs">
+      <div className="flex flex-wrap items-center justify-between border-b border-white/[0.08] pb-3 gap-2">
+        <div className="flex items-center gap-2.5">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 bg-[#8B5CF6] flex items-center justify-center text-white font-mono font-bold text-xs rounded-xs flex-shrink-0">
             VX
           </div>
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-white font-mono font-bold text-xs tracking-wider">VERIXA // SPATIAL DECISION SYSTEM</span>
-              <span className="text-[10px] font-mono px-2 py-0.5 bg-white/5 border border-white/10 text-white/70">PROD.ARCH</span>
+              <span className="text-[#F8FAFC] font-mono font-bold text-[11px] sm:text-xs tracking-wider truncate">
+                VERIXA // SPATIAL DECISION SYSTEM
+              </span>
+              <span className="text-[9px] font-mono px-1.5 py-0.5 bg-white/5 border border-white/[0.08] text-[#94A3B8] rounded-xs hidden xs:inline">
+                PROD.ARCH
+              </span>
             </div>
-            <p className="text-[10px] text-white/40 font-mono">REGULATORY RERA INGESTION & VALUATION ENGINE</p>
+            <p className="text-[9px] sm:text-[10px] text-[#64748B] font-mono truncate">
+              REGULATORY RERA INGESTION & VALUATION ENGINE
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/15 text-[#D4FF32] text-[11px] font-mono">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF32]" />
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 bg-[#22D3EE]/10 border border-[#22D3EE]/30 text-[#22D3EE] text-[10px] sm:text-[11px] font-mono rounded-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
             RERA VERIFIED
           </span>
         </div>
       </div>
 
       {/* Center Analytical Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 my-4">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 my-3 sm:my-4">
         {/* Left Column: Builder & Registry Metric Matrix */}
-        <div className="md:col-span-7 space-y-3">
+        <div className="md:col-span-7 space-y-2.5 sm:space-y-3">
           {/* Builder Index */}
-          <div className="p-4 bg-black/60 border border-white/10 space-y-3">
+          <div className="p-3 sm:p-4 bg-[#131520] border border-white/[0.08] space-y-2.5 sm:space-y-3 rounded-xs">
             <div className="flex justify-between items-center text-xs font-mono">
-              <div className="flex items-center gap-2 text-white/70">
-                <Building2 size={13} className="text-[#D4FF32]" />
-                <span>BUILDER CREDIBILITY RATING</span>
+              <div className="flex items-center gap-2 text-[#94A3B8]">
+                <Building2 size={13} className="text-[#8B5CF6]" />
+                <span className="text-[10px] sm:text-xs">BUILDER CREDIBILITY RATING</span>
               </div>
-              <span className="text-[#D4FF32] font-bold">94.2 <span className="text-white/40">/ 100</span></span>
+              <span className="text-[#8B5CF6] font-bold text-xs sm:text-sm">94.2 <span className="text-[#64748B] text-[10px]">/ 100</span></span>
             </div>
             
-            <div className="space-y-2 text-[11px] font-mono">
+            <div className="space-y-2 text-[10px] sm:text-[11px] font-mono">
               <div>
-                <div className="flex justify-between text-white/60 mb-1">
-                  <span>Historical Delivery Punctuality</span>
-                  <span className="text-white font-medium">98% On-Time</span>
+                <div className="flex justify-between text-[#94A3B8] mb-1">
+                  <span>Delivery Punctuality</span>
+                  <span className="text-[#F8FAFC] font-medium">98% On-Time</span>
                 </div>
-                <div className="h-1 w-full bg-white/10">
-                  <div className="h-full bg-[#D4FF32] w-[98%]" />
+                <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-[#8B5CF6] w-[98%]" />
                 </div>
               </div>
 
               <div>
-                <div className="flex justify-between text-white/60 mb-1">
-                  <span>Litigation & Title Clearance</span>
-                  <span className="text-white font-medium">0 Legal Encumbrances</span>
+                <div className="flex justify-between text-[#94A3B8] mb-1">
+                  <span>Title Clearance</span>
+                  <span className="text-[#F8FAFC] font-medium">0 Legal Encumbrances</span>
                 </div>
-                <div className="h-1 w-full bg-white/10">
-                  <div className="h-full bg-white/80 w-[100%]" />
+                <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-[#22D3EE] w-[100%]" />
                 </div>
               </div>
             </div>
           </div>
 
           {/* RERA Certificate Schema */}
-          <div className="p-3 bg-black/40 border border-white/8 flex items-center justify-between text-xs font-mono">
-            <div className="flex items-center gap-2 text-white/60">
-              <ShieldCheck size={13} className="text-[#D4FF32]" />
+          <div className="p-2.5 sm:p-3 bg-[#131520] border border-white/[0.08] flex items-center justify-between text-[11px] sm:text-xs font-mono rounded-xs">
+            <div className="flex items-center gap-1.5 text-[#94A3B8]">
+              <ShieldCheck size={13} className="text-[#22D3EE]" />
               <span>REGISTRY ID</span>
             </div>
-            <span className="text-white font-semibold">PR/GJ/AHM/2026/0891</span>
+            <span className="text-[#F8FAFC] font-semibold text-[10px] sm:text-xs">PR/GJ/AHM/2026/0891</span>
           </div>
         </div>
 
         {/* Right Column: Spatial Locality Grid */}
-        <div className="md:col-span-5 flex flex-col justify-between p-4 bg-black/60 border border-white/10">
+        <div className="md:col-span-5 flex flex-col justify-between p-3 sm:p-4 bg-[#131520] border border-white/[0.08] rounded-xs">
           <div>
-            <div className="flex items-center justify-between text-xs font-mono text-white/60 mb-2">
+            <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono text-[#94A3B8] mb-2">
               <div className="flex items-center gap-1.5">
-                <Compass size={13} className="text-[#D4FF32]" />
-                <span>GIS SPATIAL NODES</span>
+                <Compass size={13} className="text-[#8B5CF6]" />
+                <span>GIS NODES</span>
               </div>
-              <span className="text-[10px] text-white/40">23.02° N, 72.57° E</span>
+              <span className="text-[9px] sm:text-[10px] text-[#64748B]">23.02° N, 72.57° E</span>
             </div>
             
             {/* Vector Map Node */}
-            <div className="relative h-24 w-full bg-[#080809] border border-white/10 p-2 flex flex-col justify-between">
-              <div className="flex justify-between items-center text-[10px] font-mono text-white/40">
+            <div className="relative h-20 sm:h-24 w-full bg-[#08090D] border border-white/[0.08] p-2 flex flex-col justify-between rounded-xs">
+              <div className="flex justify-between items-center text-[9px] sm:text-[10px] font-mono text-[#64748B]">
                 <span>SECTOR: SINDHU BHAVAN</span>
-                <span className="text-[#D4FF32]">ZONE A</span>
+                <span className="text-[#8B5CF6]">ZONE A</span>
               </div>
               
-              <div className="flex items-center justify-center gap-2 font-mono text-xs text-white">
-                <div className="w-2 h-2 rounded-full bg-[#D4FF32]" />
-                <span>Ahmedabad West Corridor</span>
+              <div className="flex items-center justify-center gap-2 font-mono text-[11px] sm:text-xs text-[#F8FAFC]">
+                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#8B5CF6]" />
+                <span>Ahmedabad West</span>
               </div>
 
-              <div className="text-[9px] font-mono text-white/40 text-right">
-                40+ Registry Data Points Indexed
+              <div className="text-[8px] sm:text-[9px] font-mono text-[#64748B] text-right">
+                40+ Registry Nodes
               </div>
             </div>
           </div>
 
-          <div className="mt-3 pt-2 border-t border-white/10 flex justify-between items-center text-[11px] font-mono">
-            <span className="text-white/40">Price Benchmark</span>
-            <span className="text-[#D4FF32] font-bold">₹7,850 / sq.ft</span>
+          <div className="mt-2.5 pt-2 border-t border-white/[0.08] flex justify-between items-center text-[10px] sm:text-[11px] font-mono">
+            <span className="text-[#64748B]">Benchmark</span>
+            <span className="text-[#22D3EE] font-bold">₹7,850 / sq.ft</span>
           </div>
         </div>
       </div>
 
       {/* Bottom Technical Ticker */}
-      <div className="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono text-white/40">
-        <div className="flex items-center gap-3">
-          <span>POSTGIS GEO-INDEXING</span>
+      <div className="pt-2.5 sm:pt-3 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-1.5 text-[9px] sm:text-[10px] font-mono text-[#64748B]">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          <span>POSTGIS</span>
           <span>•</span>
-          <span>DJANGO REST BACKEND</span>
+          <span>DJANGO REST</span>
           <span>•</span>
-          <span>SCRAPY PIPELINES</span>
+          <span>SCRAPING</span>
         </div>
-        <span className="text-[#D4FF32]">STAGE: DATA INGESTION</span>
+        <span className="text-[#8B5CF6]">STAGE: DATA INGESTION</span>
       </div>
     </div>
   );

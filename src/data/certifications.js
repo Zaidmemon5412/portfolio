@@ -1,0 +1,38 @@
+export const certificationsData = [
+  {
+    id: 'html-css-js',
+    title: 'Introduction to HTML, CSS, and JavaScript',
+    issuer: 'Coursera / IBM Verified Credential',
+    date: '2024',
+    url: 'https://coursera.org/share/440c39f19c4e944fc9e13c441667cd39',
+    category: 'Frontend Engineering',
+    color: '#8B5CF6',
+  },
+  {
+    id: 'eda-ml',
+    title: 'Exploratory Data Analysis for Machine Learning',
+    issuer: 'Coursera / IBM Verified Credential',
+    date: '2025',
+    url: 'https://coursera.org/share/3a5f5f7a99b4a81c3a9692f355e8004f',
+    category: 'Data Science & Machine Learning',
+    color: '#00F0FF',
+  },
+  {
+    id: 'intro-java',
+    title: 'Introduction to Java',
+    issuer: 'Coursera / LearnQuest Verified Credential',
+    date: '2025',
+    url: 'https://coursera.org/share/7e97505584764ed830cea9c885777ecd',
+    category: 'Software Engineering Core',
+    color: '#FFB800',
+  },
+  {
+    id: 'java-ds',
+    title: 'Inheritance and Data Structures in Java',
+    issuer: 'Coursera / LearnQuest Verified Credential',
+    date: '2025',
+    url: 'https://coursera.org/share/d155fe39c7eea5e2ea71ca315040dd91',
+    category: 'Data Structures & Algorithms',
+    color: '#A855F7',
+  },
+];

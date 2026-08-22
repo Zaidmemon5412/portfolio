@@ -179,7 +179,6 @@ Sent via Portfolio Dispatch`;
                   <button
                     type="button"
                     onClick={() => {
-                      playSfx('modal_open');
                       setIsResumeOpen(true);
                     }}
                     className="px-2.5 py-1 bg-white/10 hover:bg-[#00F0FF] text-white hover:text-black font-mono text-[11px] font-bold rounded-xs flex items-center gap-1 transition-colors cursor-pointer"
@@ -280,7 +279,6 @@ Sent via Portfolio Dispatch`;
         <button
           type="button"
           onClick={() => {
-            playSfx('modal_open');
             setIsResumeOpen(true);
           }}
           className="inline-flex items-center gap-2 px-5 py-3.5 bg-black/80 hover:bg-black border border-white/20 hover:border-[#00F0FF] text-white font-gta text-sm sm:text-base font-bold tracking-wider uppercase rounded-xs transition-all cursor-pointer shadow-lg"

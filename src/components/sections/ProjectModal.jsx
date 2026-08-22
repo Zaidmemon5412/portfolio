@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Layers, ArrowUpRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { X, ExternalLink, Layers, ArrowUpRight, CheckCircle2, AlertCircle, Clock, Sparkles } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
 import VerixaVisual from '../project-visuals/VerixaVisual';
 import ExertiaVisual from '../project-visuals/ExertiaVisual';
+import VeritasVisual from '../project-visuals/VeritasVisual';
 import SmartInventoryVisual from '../project-visuals/SmartInventoryVisual';
 import SmartGstVisual from '../project-visuals/SmartGstVisual';
 import { useCursor } from '../../hooks/useCursor';
@@ -37,6 +38,8 @@ export default function ProjectModal({ project, isOpen, onClose }) {
         return <VerixaVisual />;
       case 'exertia':
         return <ExertiaVisual />;
+      case 'veritas':
+        return <VeritasVisual />;
       case 'smart-inventory':
         return <SmartInventoryVisual />;
       case 'smart-gst-invoice':
@@ -45,6 +48,8 @@ export default function ProjectModal({ project, isOpen, onClose }) {
         return null;
     }
   };
+
+  const devStatus = project.developmentStatus || { built: [], inProgress: [], planned: [] };
 
   return (
     <AnimatePresence>
@@ -56,7 +61,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/85 backdrop-blur-md cursor-pointer"
+            className="fixed inset-0 bg-[#08090D]/90 backdrop-blur-md cursor-pointer"
           />
 
           {/* Modal Card Content */}
@@ -65,19 +70,19 @@ export default function ProjectModal({ project, isOpen, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 20 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-5xl max-h-[92vh] bg-[#0c0d10] border border-white/12 rounded-2xl shadow-2xl overflow-y-auto z-10 custom-scrollbar flex flex-col"
+            className="relative w-full max-w-5xl max-h-[92vh] bg-[#0E1017] border border-white/[0.1] rounded-2xl shadow-2xl overflow-y-auto z-10 custom-scrollbar flex flex-col"
           >
             {/* Modal Header */}
-            <div className="sticky top-0 z-20 bg-[#0c0d10]/95 backdrop-blur-lg border-b border-white/10 px-6 py-4 flex items-center justify-between">
+            <div className="sticky top-0 z-20 bg-[#0E1017]/95 backdrop-blur-lg border-b border-white/[0.08] px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="px-2.5 py-1 rounded bg-[#D4FF32]/10 border border-[#D4FF32]/30 text-[#D4FF32] font-mono text-xs font-bold">
+                <span className="px-2.5 py-1 rounded bg-[#8B5CF6]/10 border border-[#8B5CF6]/30 text-[#A78BFA] font-mono text-xs font-bold">
                   {project.number}
                 </span>
                 <div>
-                  <h3 className="font-heading font-bold text-lg text-white">
+                  <h3 className="font-heading font-bold text-lg text-[#F8FAFC]">
                     {project.title} — Case Study
                   </h3>
-                  <p className="text-xs font-mono text-white/40">{project.category}</p>
+                  <p className="text-xs font-mono text-[#64748B]">{project.category}</p>
                 </div>
               </div>
 
@@ -85,7 +90,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                 onClick={onClose}
                 onMouseEnter={() => setCursor('pointer', 'CLOSE')}
                 onMouseLeave={resetCursor}
-                className="p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-colors cursor-pointer"
+                className="p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/[0.08] text-[#94A3B8] hover:text-white transition-colors cursor-pointer"
                 aria-label="Close Case Study Modal"
               >
                 <X size={18} />
@@ -97,49 +102,115 @@ export default function ProjectModal({ project, isOpen, onClose }) {
               {/* Project Hero Banner */}
               <div className="space-y-4">
                 <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                  <span className="text-[#D4FF32] uppercase">{project.category}</span>
+                  <span className="text-[#8B5CF6] uppercase">{project.category}</span>
                   <span className="text-white/20">•</span>
-                  <span className="text-white/50">YEAR {project.year}</span>
+                  <span className="text-[#64748B]">YEAR {project.year}</span>
                   <span className="text-white/20">•</span>
-                  <span className="text-emerald-400">{project.status}</span>
+                  <span className="text-[#22D3EE]">{project.status}</span>
                 </div>
 
-                <h1 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight">
+                <h1 className="font-display font-black text-3xl sm:text-5xl text-[#F8FAFC] tracking-tight">
                   {project.title}
                 </h1>
 
-                <p className="font-mono text-base sm:text-xl text-[#D4FF32] font-light">
+                <p className="font-mono text-base sm:text-xl text-[#A78BFA] font-light">
                   {project.tagline}
                 </p>
 
-                <p className="text-sm sm:text-base text-white/70 font-light leading-relaxed max-w-3xl">
+                <p className="text-sm sm:text-base text-[#94A3B8] font-light leading-relaxed max-w-3xl">
                   {project.shortDescription}
                 </p>
               </div>
 
               {/* High-Fidelity Visual Asset */}
-              <div className="rounded-xl overflow-hidden border border-white/10">
+              <div className="rounded-xl overflow-hidden border border-white/[0.08]">
                 {renderVisual()}
               </div>
 
+              {/* Development Status Triad: Built, In Progress, Planned */}
+              {(devStatus.built.length > 0 || devStatus.inProgress.length > 0 || devStatus.planned.length > 0) && (
+                <div className="space-y-4">
+                  <div className="text-xs font-mono text-[#64748B] uppercase tracking-widest flex items-center gap-2">
+                    <Clock size={14} className="text-[#8B5CF6]" />
+                    <span>01. Implementation Status & Feature Breakdown</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Built */}
+                    {devStatus.built.length > 0 && (
+                      <div className="p-4 bg-[#131520] border border-white/[0.06] rounded-xs space-y-2">
+                        <div className="flex items-center gap-1.5 text-xs font-mono text-[#22D3EE] font-bold">
+                          <CheckCircle2 size={13} />
+                          <span>BUILT / VERIFIED</span>
+                        </div>
+                        <ul className="space-y-1.5 text-xs font-mono text-[#F8FAFC]/80">
+                          {devStatus.built.map((item, i) => (
+                            <li key={i} className="flex items-start gap-1.5">
+                              <span className="text-[#22D3EE] mt-0.5">•</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* In Progress */}
+                    {devStatus.inProgress.length > 0 && (
+                      <div className="p-4 bg-[#131520] border border-white/[0.06] rounded-xs space-y-2">
+                        <div className="flex items-center gap-1.5 text-xs font-mono text-[#A78BFA] font-bold">
+                          <Clock size={13} />
+                          <span>IN PROGRESS</span>
+                        </div>
+                        <ul className="space-y-1.5 text-xs font-mono text-[#94A3B8]">
+                          {devStatus.inProgress.map((item, i) => (
+                            <li key={i} className="flex items-start gap-1.5">
+                              <span className="text-[#A78BFA] mt-0.5">•</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Planned */}
+                    {devStatus.planned.length > 0 && (
+                      <div className="p-4 bg-[#131520] border border-white/[0.06] rounded-xs space-y-2">
+                        <div className="flex items-center gap-1.5 text-xs font-mono text-[#64748B] font-bold">
+                          <Sparkles size={13} />
+                          <span>PLANNED</span>
+                        </div>
+                        <ul className="space-y-1.5 text-xs font-mono text-[#64748B]">
+                          {devStatus.planned.map((item, i) => (
+                            <li key={i} className="flex items-start gap-1.5">
+                              <span>•</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* Problem & Approach Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 rounded-xl bg-white/[0.02] border border-white/8 space-y-3">
+                <div className="p-6 rounded-xl bg-[#131520] border border-white/[0.06] space-y-3">
                   <div className="flex items-center gap-2 text-xs font-mono text-rose-400 font-semibold uppercase tracking-wider">
                     <AlertCircle size={14} />
-                    <span>01. The Problem</span>
+                    <span>02. The Problem</span>
                   </div>
-                  <p className="text-sm text-white/80 leading-relaxed">
+                  <p className="text-sm text-[#F8FAFC]/85 leading-relaxed">
                     {project.caseStudy.problem}
                   </p>
                 </div>
 
-                <div className="p-6 rounded-xl bg-white/[0.02] border border-white/8 space-y-3">
-                  <div className="flex items-center gap-2 text-xs font-mono text-[#D4FF32] font-semibold uppercase tracking-wider">
+                <div className="p-6 rounded-xl bg-[#131520] border border-white/[0.06] space-y-3">
+                  <div className="flex items-center gap-2 text-xs font-mono text-[#22D3EE] font-semibold uppercase tracking-wider">
                     <CheckCircle2 size={14} />
-                    <span>02. The Approach</span>
+                    <span>03. The Approach</span>
                   </div>
-                  <p className="text-sm text-white/80 leading-relaxed">
+                  <p className="text-sm text-[#F8FAFC]/85 leading-relaxed">
                     {project.caseStudy.approach}
                   </p>
                 </div>
@@ -147,70 +218,54 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
               {/* Architecture Breakdown */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono text-white/40 uppercase tracking-widest">
-                  <Layers size={14} className="text-[#D4FF32]" />
-                  <span>03. System Architecture</span>
+                <div className="flex items-center gap-2 text-xs font-mono text-[#64748B] uppercase tracking-widest">
+                  <Layers size={14} className="text-[#8B5CF6]" />
+                  <span>04. System Architecture</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {project.caseStudy.architecture.map((arch, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-lg bg-[#141519] border border-white/6 hover:border-white/12 transition-colors space-y-1.5"
+                      className="p-4 rounded-lg bg-[#131520] border border-white/[0.06] hover:border-[#8B5CF6]/30 transition-colors space-y-1.5"
                     >
                       <div className="flex justify-between items-center text-xs font-mono">
-                        <span className="text-[#D4FF32] font-semibold">{arch.layer}</span>
-                        <span className="text-white/40 text-[11px]">{arch.tech}</span>
+                        <span className="text-[#8B5CF6] font-semibold">{arch.layer}</span>
+                        <span className="text-[#64748B] text-[11px]">{arch.tech}</span>
                       </div>
-                      <p className="text-xs text-white/70 leading-relaxed">{arch.role}</p>
+                      <p className="text-xs text-[#94A3B8] leading-relaxed">{arch.role}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Key Features & Engineering Challenges */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 rounded-xl bg-white/[0.02] border border-white/8 space-y-4">
-                  <div className="text-xs font-mono text-white/40 uppercase tracking-widest">
-                    04. Key Capabilities
-                  </div>
-                  <ul className="space-y-2.5">
+              {/* Key Features */}
+              <div className="space-y-4">
+                <div className="text-xs font-mono text-[#64748B] uppercase tracking-widest">
+                  05. Key Capabilities
+                </div>
+                <div className="p-6 rounded-xl bg-[#131520] border border-white/[0.06]">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {project.caseStudy.keyFeatures.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-white/80">
-                        <span className="text-[#D4FF32] font-mono font-bold mt-0.5">•</span>
+                      <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-[#F8FAFC]/80">
+                        <span className="text-[#8B5CF6] font-mono font-bold mt-0.5">•</span>
                         <span>{feat}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-
-                <div className="p-6 rounded-xl bg-white/[0.02] border border-white/8 space-y-4">
-                  <div className="text-xs font-mono text-white/40 uppercase tracking-widest">
-                    05. Engineering Challenges & Outcome
-                  </div>
-                  <div className="space-y-3 text-xs sm:text-sm text-white/70 leading-relaxed">
-                    <p>
-                      <strong className="text-white block font-mono text-xs mb-1 text-white/90">Challenge Encountered:</strong>
-                      {project.caseStudy.challenges}
-                    </p>
-                    <p>
-                      <strong className="text-white block font-mono text-xs mb-1 text-[#D4FF32]">Engineering Outcome:</strong>
-                      {project.caseStudy.outcome}
-                    </p>
-                  </div>
-                </div>
               </div>
 
               {/* Technologies Applied */}
-              <div className="space-y-3 pt-4 border-t border-white/8">
-                <div className="text-xs font-mono text-white/40 uppercase tracking-widest">
+              <div className="space-y-3 pt-4 border-t border-white/[0.08]">
+                <div className="text-xs font-mono text-[#64748B] uppercase tracking-widest">
                   06. Technologies Applied
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 rounded-md bg-white/[0.04] border border-white/10 text-white font-mono text-xs"
+                      className="px-3 py-1 rounded-md bg-[#131520] border border-white/[0.08] text-[#94A3B8] font-mono text-xs"
                     >
                       {tech}
                     </span>
@@ -219,7 +274,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
               </div>
 
               {/* Project Links & CTAs */}
-              <div className="pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <div className="pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <a
                     href={project.githubUrl}
@@ -227,11 +282,11 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                     rel="noopener noreferrer"
                     onMouseEnter={() => setCursor('pointer', 'GITHUB')}
                     onMouseLeave={resetCursor}
-                    className="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-white font-mono text-xs font-medium flex items-center gap-2 transition-colors border border-white/10 cursor-pointer"
+                    className="px-5 py-2.5 rounded-full bg-[#131520] hover:bg-[#1A1D2D] text-[#F8FAFC] font-mono text-xs font-medium flex items-center gap-2 transition-colors border border-white/[0.08] cursor-pointer"
                   >
                     <GithubIcon size={15} />
                     <span>View Repository</span>
-                    <ArrowUpRight size={13} className="text-white/40" />
+                    <ArrowUpRight size={13} className="text-[#64748B]" />
                   </a>
 
                   {project.demoUrl ? (
@@ -239,13 +294,13 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                       href={project.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-5 py-2.5 rounded-full bg-[#D4FF32] text-black font-mono text-xs font-bold flex items-center gap-2 hover:bg-[#c2f211] transition-colors cursor-pointer"
+                      className="px-5 py-2.5 rounded-full bg-[#8B5CF6] text-white font-mono text-xs font-bold flex items-center gap-2 hover:bg-[#7C3AED] transition-colors cursor-pointer shadow-md shadow-[#8B5CF6]/25"
                     >
                       <span>Live Demo</span>
                       <ExternalLink size={14} />
                     </a>
                   ) : (
-                    <span className="text-xs font-mono text-white/40 px-3 py-2 rounded border border-white/5 bg-white/[0.02]">
+                    <span className="text-xs font-mono text-[#64748B] px-3 py-2 rounded border border-white/[0.06] bg-[#131520]">
                       Repository & Local Builds Active
                     </span>
                   )}
@@ -253,7 +308,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
                 <button
                   onClick={onClose}
-                  className="px-5 py-2.5 rounded-full text-xs font-mono text-white/60 hover:text-white transition-colors cursor-pointer"
+                  className="px-5 py-2.5 rounded-full text-xs font-mono text-[#94A3B8] hover:text-white transition-colors cursor-pointer"
                 >
                   Back to projects ↑
                 </button>

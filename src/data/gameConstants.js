@@ -20,7 +20,7 @@ export const MENU_ITEMS = [
 export const SCREEN_CONFIGS = {
   [SCREENS.MENU]: {
     name: 'MAIN MENU',
-    bgImage: '/GTA1.png',
+    bgImage: '/GTA1.jpg',
     cash: 1250000,
     stars: 0,
     objective: 'BUILD NEXT LEVEL DIGITAL EXPERIENCES',
