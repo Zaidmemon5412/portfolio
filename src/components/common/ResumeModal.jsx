@@ -37,7 +37,6 @@ export default function ResumeModal({ isOpen, onClose }) {
   }, [isOpen]);
 
   const resumePdfPath = '/resume.pdf';
-  const pdfUrlWithParams = `${resumePdfPath}#view=FitH&toolbar=1&navpanes=0`;
 
   const handleClose = () => {
     playSoundEffect('modal_close');
@@ -52,14 +51,16 @@ export default function ResumeModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-1 sm:p-3 md:p-5 select-none">
-          {/* Backdrop */}
+        <div className={`fixed inset-0 z-[999999] flex items-center justify-center select-none ${
+          isFullscreen ? 'p-1 sm:p-2' : 'p-2.5 sm:p-4 md:p-6'
+        }`}>
+          {/* Full Screen Backdrop - Covers Navbar and All Page Elements */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 bg-[#08090D]/90 backdrop-blur-md cursor-pointer"
+            className="fixed inset-0 bg-[#08090D]/95 backdrop-blur-xl cursor-pointer"
           />
 
           {/* Modal Box */}
@@ -68,10 +69,10 @@ export default function ResumeModal({ isOpen, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 15 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className={`relative bg-[#0E1017] border border-white/[0.12] rounded-xl shadow-2xl overflow-hidden flex flex-col z-10 transition-all duration-300 ${
+            className={`relative bg-[#0E1017] border border-white/[0.15] rounded-xl shadow-2xl overflow-hidden flex flex-col z-10 transition-all duration-300 ${
               isFullscreen
                 ? 'w-full max-w-[98vw] h-[97vh]'
-                : 'w-full max-w-5xl h-[88vh] sm:h-[92vh]'
+                : 'w-full max-w-5xl h-[88vh] sm:h-[90vh]'
             }`}
           >
             {/* Header */}
@@ -129,39 +130,22 @@ export default function ResumeModal({ isOpen, onClose }) {
                 {/* Close Button */}
                 <button
                   onClick={handleClose}
-                  className="p-1.5 rounded-sm bg-white/5 hover:bg-[#FF007F]/20 text-[#94A3B8] hover:text-white transition-colors cursor-pointer ml-0.5"
+                  className="p-1.5 sm:p-2 rounded-sm bg-white/10 hover:bg-[#FF007F] text-[#F8FAFC] hover:text-white border border-white/15 hover:border-[#FF007F] transition-all cursor-pointer ml-1"
+                  title="Close Resume (Esc)"
                   aria-label="Close Resume Modal"
                 >
-                  <X size={17} />
+                  <X size={18} />
                 </button>
               </div>
             </div>
 
             {/* Embedded PDF Viewer Container */}
-            <div className="relative flex-1 w-full h-full bg-[#08090D] overflow-hidden flex flex-col">
-              <object
-                data={pdfUrlWithParams}
-                type="application/pdf"
-                className="w-full h-full flex-1 border-none"
-              >
-                <iframe
-                  src={pdfUrlWithParams}
-                  title="Zaid Memon Resume"
-                  className="w-full h-full border-none flex-1"
-                >
-                  <div className="p-8 text-center text-[#94A3B8] font-mono text-xs space-y-4">
-                    <p>Your browser does not support inline PDF viewing.</p>
-                    <a
-                      href={resumePdfPath}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block px-4 py-2 bg-[#8B5CF6] text-white rounded font-bold"
-                    >
-                      Open PDF in New Window
-                    </a>
-                  </div>
-                </iframe>
-              </object>
+            <div className="relative flex-1 w-full min-h-0 bg-[#08090D] flex flex-col">
+              <iframe
+                src={resumePdfPath}
+                title="Zaid Memon Resume"
+                className="w-full h-full border-none flex-1 block"
+              />
             </div>
 
             {/* Footer Bar */}

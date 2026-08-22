@@ -10,6 +10,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import CustomCursor from './components/layout/CustomCursor';
 import ModeToggle from './components/common/ModeToggle';
+import ResumeModal from './components/common/ResumeModal';
 
 // Editorial Mode Sections
 import Hero from './components/sections/Hero';
@@ -48,7 +49,7 @@ function EditorialPortfolio() {
 }
 
 function PortfolioRoot() {
-  const { viewMode } = useGameState();
+  const { viewMode, isResumeModalOpen, closeResumeModal } = useGameState();
   const isEditorial = viewMode === 'editorial';
 
   return (
@@ -93,6 +94,9 @@ function PortfolioRoot() {
 
       {/* Persistent Floating Mode Switcher */}
       <ModeToggle />
+
+      {/* Global Root Resume Viewer Modal (Works for both Professional & GTA modes) */}
+      <ResumeModal isOpen={isResumeModalOpen} onClose={closeResumeModal} />
     </div>
   );
 }

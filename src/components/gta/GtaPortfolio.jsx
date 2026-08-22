@@ -4,7 +4,6 @@ import { SCREENS } from '../../data/gameConstants';
 import { useGameState } from '../../hooks/useGameState';
 import GtaHud from './GtaHud';
 import GtaProjectModal from './GtaProjectModal';
-import ResumeModal from '../common/ResumeModal';
 import MainMenuScreen from './screens/MainMenuScreen';
 import AboutScreen from './screens/AboutScreen';
 import SkillsScreen from './screens/SkillsScreen';
@@ -14,7 +13,7 @@ import AchievementsScreen from './screens/AchievementsScreen';
 import ContactScreen from './screens/ContactScreen';
 
 export default function GtaPortfolio() {
-  const { currentScreen, config, isResumeModalOpen, closeResumeModal } = useGameState();
+  const { currentScreen, config } = useGameState();
 
   const renderActiveScreen = () => {
     switch (currentScreen) {
@@ -74,9 +73,6 @@ export default function GtaPortfolio() {
 
       {/* Case Study Project Modal */}
       <GtaProjectModal />
-
-      {/* Global Root Resume Viewer Modal */}
-      <ResumeModal isOpen={isResumeModalOpen} onClose={closeResumeModal} />
     </div>
   );
 }

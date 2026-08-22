@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, ArrowUpRight, FileText, Sparkles, MapPin } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
 import { useCursor } from '../../hooks/useCursor';
 import { useAhmedabadTime } from '../../hooks/useAhmedabadTime';
-import ResumeModal from '../common/ResumeModal';
+import { useGameState } from '../../hooks/useGameState';
 
 export default function Hero() {
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const { openResumeModal } = useGameState();
   const { timeString } = useAhmedabadTime();
   const { setCursor, resetCursor } = useCursor();
 
@@ -154,7 +154,7 @@ export default function Hero() {
 
             {/* CTA 3: Resume */}
             <button
-              onClick={() => setIsResumeOpen(true)}
+              onClick={() => openResumeModal()}
               onMouseEnter={() => setCursor && setCursor('pointer', 'RESUME')}
               onMouseLeave={() => resetCursor && resetCursor()}
               className="px-4 sm:px-5 py-3 sm:py-3.5 bg-[#0E1017] hover:bg-[#151824] text-[#F8FAFC] border border-white/[0.12] hover:border-[#22D3EE]/50 font-mono text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all rounded-xs cursor-pointer shadow-sm"
@@ -219,12 +219,6 @@ export default function Hero() {
           <ArrowDown size={13} />
         </button>
       </motion.div>
-
-      {/* Integrated Resume Modal Preview */}
-      <ResumeModal
-        isOpen={isResumeOpen}
-        onClose={() => setIsResumeOpen(false)}
-      />
     </section>
   );
 }

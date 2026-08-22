@@ -6,11 +6,11 @@ import confetti from 'canvas-confetti';
 import MagneticButton from '../ui/MagneticButton';
 import { useCursor } from '../../hooks/useCursor';
 import { useAhmedabadTime } from '../../hooks/useAhmedabadTime';
-import ResumeModal from '../common/ResumeModal';
+import { useGameState } from '../../hooks/useGameState';
 
 export default function Contact() {
+  const { openResumeModal } = useGameState();
   const [copied, setCopied] = useState(false);
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const { setCursor, resetCursor } = useCursor();
   const { isWorkingHours } = useAhmedabadTime();
 
@@ -172,7 +172,7 @@ export default function Contact() {
               </MagneticButton>
 
               <button
-                onClick={() => setIsResumeOpen(true)}
+                onClick={() => openResumeModal()}
                 onMouseEnter={() => setCursor('pointer', 'RESUME')}
                 onMouseLeave={resetCursor}
                 className="px-5 py-2.5 bg-[#0E1017] hover:bg-[#131520] text-[#F8FAFC] font-mono text-xs font-medium border border-white/[0.08] hover:border-[#22D3EE]/50 flex items-center gap-2 transition-colors cursor-pointer rounded-xs"
@@ -246,7 +246,7 @@ export default function Contact() {
                   className="p-4 border border-white/[0.08] hover:border-[#8B5CF6]/50 transition-colors flex items-center justify-between group bg-[#0E1017] rounded-xs"
                 >
                   <div
-                    onClick={() => setIsResumeOpen(true)}
+                    onClick={() => openResumeModal()}
                     className="flex items-center gap-3 cursor-pointer flex-1"
                   >
                     <div className="text-[#64748B] group-hover:text-[#8B5CF6] transition-colors">
@@ -264,7 +264,7 @@ export default function Contact() {
 
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => setIsResumeOpen(true)}
+                      onClick={() => openResumeModal()}
                       className="px-2.5 py-1 bg-white/10 hover:bg-[#8B5CF6] text-white font-mono text-[10px] transition-colors cursor-pointer rounded-xs"
                     >
                       VIEW
@@ -314,9 +314,6 @@ export default function Contact() {
           })}
         </div>
       </div>
-
-      {/* Resume Viewer Modal */}
-      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </section>
   );
 }
