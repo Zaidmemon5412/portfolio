@@ -14,14 +14,15 @@
     --color-text-primary: #F8FAFC;
     --color-text-secondary: #94A3B8;
     --color-text-muted: #64748B;
-    
+
     --font-display: 'Syne', -apple-system, sans-serif;
     --font-heading: 'Space Grotesk', -apple-system, sans-serif;
     --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
 
-  html, body {
+  html,
+  body {
     font-family: var(--font-sans);
     background-color: var(--color-bg-base);
     color: var(--color-text-primary);
@@ -37,12 +38,15 @@
   ::-webkit-scrollbar {
     width: 5px;
   }
+
   ::-webkit-scrollbar-track {
     background: #08090D;
   }
+
   ::-webkit-scrollbar-thumb {
     background: #1E2235;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     background: #2D334D;
   }
@@ -77,13 +81,13 @@
 /* GTA Title & HUD Effects */
 .gta-title-stroke {
   color: #FFFFFF;
-  text-shadow: 
-    -2px -2px 0 #000,  
-     2px -2px 0 #000,
-    -2px  2px 0 #000,
-     2px  2px 0 #000,
-     4px  4px 0 rgba(0, 0, 0, 0.95),
-     6px  6px 12px rgba(0, 0, 0, 0.8);
+  text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000,
+    4px 4px 0 rgba(0, 0, 0, 0.95),
+    6px 6px 12px rgba(0, 0, 0, 0.8);
 }
 
 .gta-pink-glow {
@@ -100,10 +104,8 @@
 
 /* Subtle CRT Scanlines Retro Overlay */
 .crt-overlay {
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.12) 50%
-  );
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.12) 50%);
   background-size: 100% 4px;
   pointer-events: none;
 }
@@ -120,7 +122,7 @@
 /* Editorial subtle grid */
 .bg-grid-pattern {
   background-size: 48px 48px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
 }
@@ -131,7 +133,9 @@
 }
 
 /* Interactive cursor styling */
-button, a, [role="button"] {
+button,
+a,
+[role="button"] {
   cursor: pointer !important;
 }
 
@@ -149,6 +153,7 @@ button, a, [role="button"] {
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
+
 .aurora-card:hover {
   border-color: rgba(139, 92, 246, 0.35);
   box-shadow: 0 16px 40px rgba(139, 92, 246, 0.12);
@@ -166,6 +171,7 @@ button, a, [role="button"] {
   width: 0;
   height: 0;
 }
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

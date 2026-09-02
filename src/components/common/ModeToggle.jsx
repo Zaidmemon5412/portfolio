@@ -28,7 +28,7 @@ export default function ModeToggle() {
             ? 'bg-[#0E1017]/95 hover:bg-[#131520] text-white border-white/[0.12] hover:border-[#8B5CF6] shadow-[0_0_25px_rgba(139,92,246,0.25)] hover:shadow-[0_0_35px_rgba(139,92,246,0.5)]'
             : 'bg-black/90 hover:bg-black text-[#22D3EE] border-[#22D3EE]/60 hover:border-[#22D3EE] shadow-[0_0_25px_rgba(34,211,238,0.4)]'
         }`}
-        title={isEditorial ? 'Switch to GTA VI Interactive View' : 'Switch to Professional Recruiter View'}
+        title={isEditorial ? 'Switch to GTA VI Interactive View' : 'Switch to Classic View'}
       >
         {isEditorial ? (
           <>
@@ -49,7 +49,7 @@ export default function ModeToggle() {
             </span>
             <div className="flex items-center gap-1.5 text-white group-hover:text-[#8B5CF6] transition-colors">
               <Briefcase size={14} className="text-[#8B5CF6]" />
-              <span className="font-mono text-xs text-white/90 group-hover:text-white">RECRUITER VIEW</span>
+              <span className="font-mono text-xs text-white/90 group-hover:text-white">CLASSIC VIEW</span>
             </div>
           </>
         )}
