@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Bot, Code2, Cpu, Layout, Terminal } from 'lucide-react';
+import { Plus, Code2, Database, Terminal, Cpu, Layout } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
 
 export default function Services() {
@@ -8,74 +8,74 @@ export default function Services() {
 
   const servicesList = [
     {
-      id: 'ai-automation',
+      id: 'fullstack-dev',
       number: '01',
-      title: 'AI AUTOMATION',
-      icon: Bot,
-      shortDescription: 'Custom autonomous AI agents, workflow automation pipelines, and intelligent data extraction systems for complex business operations.',
-      capabilities: [
-        'LLM Orchestration & RAG Workflows',
-        'Automated Scraping & Parsing',
-        'Custom AI Agent Pipelines',
-        'API Integration & Telemetry'
-      ],
-      details: 'Designing end-to-end automation systems that remove manual friction. From structured document parsing pipelines to multi-step AI decision nodes.'
-    },
-    {
-      id: 'web-development',
-      number: '02',
-      title: 'WEB DEVELOPMENT',
+      title: 'FULL-STACK WEB DEVELOPMENT',
       icon: Code2,
-      shortDescription: 'High-performance React & Python full-stack applications with robust spatial databases, high-density UIs, and optimized render cycles.',
+      shortDescription: 'High-performance React & Python full-stack applications with clean component architecture, responsive Tailwind styling, and optimized render cycles.',
       capabilities: [
-        'React & Modern Frontend Architecture',
-        'Django REST Framework & Python APIs',
-        'PostgreSQL & PostGIS Spatial Queries',
-        'Clean UI Components & Performance'
+        'React & Custom Hooks Architecture',
+        'JavaScript (ES6+) & Modern Client State',
+        'Tailwind CSS & Responsive Layouts',
+        'Semantic HTML5 & Accessible Structure'
       ],
-      details: 'Building production-grade web applications with pixel perfection, lightning speed, and resilient server backend architectures.'
+      details: 'Building production-grade web applications with pixel perfection, lightning speed, and clean frontend component hierarchies.'
     },
     {
-      id: 'ai-product-dev',
-      number: '03',
-      title: 'AI PRODUCT DEVELOPMENT',
-      icon: Cpu,
-      shortDescription: 'From initial technical concept to MVP and production launch for AI-driven software, data intelligence engines, and developer tools.',
-      capabilities: [
-        'MVP Architecture & Prototyping',
-        'Data Pipeline Engineering',
-        'System Reliability & Load Testing',
-        'Product Strategy & Telemetry'
-      ],
-      details: 'Transforming complex data models and machine learning endpoints into intuitive digital products that users love.'
-    },
-    {
-      id: 'ui-ux-design',
-      number: '04',
-      title: 'UI/UX DESIGN',
-      icon: Layout,
-      shortDescription: 'Swiss-inspired minimal editorial interfaces, precise design systems, fluid micro-interactions, and visual storytelling.',
-      capabilities: [
-        'Minimal Editorial Aesthetics',
-        'Design Systems & Typography',
-        'Interactive Motion Prototyping',
-        'Responsive Mobile Adaptation'
-      ],
-      details: 'Creating memorable visual identities and ergonomic product interfaces with strong typography, deliberate whitespace, and fine-tuned motion.'
-    },
-    {
-      id: 'tech-consulting',
-      number: '05',
-      title: 'TECH CONSULTING',
+      id: 'backend-api',
+      number: '02',
+      title: 'BACKEND & API ENGINEERING',
       icon: Terminal,
-      shortDescription: 'Technical architecture reviews, database optimizations, modern tech stack transitions, and engineering execution guidance.',
+      shortDescription: 'Robust RESTful API services built with Python, Django, Django REST Framework, and Flask with token authentication and model serialization.',
       capabilities: [
-        'Architecture & Schema Review',
-        'Performance & Query Optimization',
-        'Full-Stack Tech Selection',
-        'Engineering Execution'
+        'Django & Django REST Framework APIs',
+        'Python Backend Microservices & Flask',
+        'API Route Serialization & Authentication',
+        'ORM Query Optimization & Middleware'
       ],
-      details: 'Strategic technical guidance to help founders and engineering teams scale clean codebases and prevent technical debt.'
+      details: 'Designing clean backend architectures, secure REST contracts, and resilient server endpoints tailored for production workloads.'
+    },
+    {
+      id: 'database-storage',
+      number: '03',
+      title: 'DATABASE & SCHEMA DESIGN',
+      icon: Database,
+      shortDescription: 'PostgreSQL database modeling, relational schema architecture, complex SQL queries, PostGIS spatial data, and ACID transactions.',
+      capabilities: [
+        'PostgreSQL Relational Schemas',
+        'Complex SQL Joins & Aggregations',
+        'PostGIS Spatial Database Queries',
+        'Data Indexing & Foreign Key Constraints'
+      ],
+      details: 'Structuring reliable database models and optimizing complex SQL queries to ensure data integrity and fast lookup speed.'
+    },
+    {
+      id: 'data-ml',
+      number: '04',
+      title: 'DATA PIPELINES & MACHINE LEARNING',
+      icon: Cpu,
+      shortDescription: 'Python ETL pipelines, automated web scrapers, data cleaning with Pandas, Scikit-learn baselines, and Weka ML demand analytics.',
+      capabilities: [
+        'Automated Python Web Scraping & Parsing',
+        'Tabular Data Cleaning & Pandas Analysis',
+        'Scikit-learn Regression & Anomaly Scoring',
+        'Weka Supervised ML Demand Modeling'
+      ],
+      details: 'Extracting data from unstructured web sources, performing clean data transformations, and applying practical machine learning models.'
+    },
+    {
+      id: 'software-cs',
+      number: '05',
+      title: 'SOFTWARE ENGINEERING & CORE CS',
+      icon: Layout,
+      shortDescription: 'Object-oriented software development in Java & Python, clean data structures, Git version control, and containerized Docker environments.',
+      capabilities: [
+        'Java OOP & Object-Oriented Design',
+        'Data Structures & Algorithm Fundamentals',
+        'Git & GitHub Team Workflows',
+        'Docker Local Containerization'
+      ],
+      details: 'Applying fundamental Computer Science principles, atomic Git workflows, and clean code paradigms across all projects.'
     }
   ];
 
@@ -88,15 +88,15 @@ export default function Services() {
       {/* Section Heading */}
       <div className="mb-12 md:mb-20">
         <span className="text-xs font-mono tracking-widest text-[#888888] uppercase block mb-3">
-          02 / CAPABILITIES
+          02 / CAPABILITIES & TECH STACK
         </span>
 
         <h2 className="font-heading font-black text-4xl sm:text-6xl md:text-7xl text-[#111111] tracking-tighter uppercase">
-          /SERVICES
+          /SERVICES & SKILLS
         </h2>
       </div>
 
-      {/* Instant Ultra-Fast Accordion List */}
+      {/* Instant Hardware-Accelerated Accordion List */}
       <div className="border-t border-[#E2E2DE]">
         {servicesList.map((service, index) => {
           const isExpanded = expandedIndex === index;
@@ -108,7 +108,7 @@ export default function Services() {
                 isExpanded ? 'bg-[#242424] text-[#F5F5F3]' : 'bg-transparent text-[#111111] hover:bg-[#ECECE9]/60'
               }`}
             >
-              {/* Header Row Trigger (Instant Click Reaction) */}
+              {/* Header Row Trigger */}
               <button
                 onClick={() => toggleService(index)}
                 onMouseEnter={() => setCursor && setCursor('pointer')}
@@ -150,7 +150,7 @@ export default function Services() {
                 </div>
               </button>
 
-              {/* Instant Hardware-Accelerated CSS Grid Reveal (Zero Lag, Zero Glitch) */}
+              {/* Instant Hardware-Accelerated CSS Grid Reveal */}
               <div
                 className={`grid transition-all duration-300 ease-out ${
                   isExpanded ? 'grid-rows-[1fr] opacity-100 py-2' : 'grid-rows-[0fr] opacity-0 py-0'
@@ -172,7 +172,7 @@ export default function Services() {
                     {/* Right: Capabilities Tag List */}
                     <div className="lg:col-span-5 space-y-3">
                       <span className="text-xs font-mono uppercase tracking-widest text-[#999999] block mb-2">
-                        Capabilities & Deliverables
+                        Core Technologies & Frameworks
                       </span>
                       
                       <div className="flex flex-wrap gap-2">

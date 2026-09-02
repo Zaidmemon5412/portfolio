@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
-import { useGameState } from '../../hooks/useGameState';
 
 export default function Hero() {
   const heroRef = useRef(null);
@@ -58,18 +57,18 @@ export default function Hero() {
         {/* LEFT COLUMN: BRAND & EDITORIAL CONTENT */}
         <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left z-10 transform-gpu">
           
-          {/* Eyebrow Label */}
+          {/* Eyebrow Label matching Zaid's real stack */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             className="flex items-center gap-2.5 text-[11px] font-mono tracking-[0.1em] uppercase text-[#888888] transform-gpu"
           >
-            <span>AI</span>
+            <span>REACT</span>
             <span className="text-[#DEDEDA]">•</span>
-            <span>AUTOMATION</span>
+            <span>PYTHON & DJANGO</span>
             <span className="text-[#DEDEDA]">•</span>
-            <span>DEVELOPMENT</span>
+            <span>FULL-STACK</span>
           </motion.div>
 
           {/* Main 3-Line Headline with Overflow Mask Reveal */}
@@ -121,11 +120,11 @@ export default function Hero() {
             className="space-y-3 pt-2 transform-gpu"
           >
             <h2 className="font-heading font-bold text-lg sm:text-xl text-[#111111] uppercase tracking-wide">
-              AI & AUTOMATION ENGINEER
+              FULL-STACK DEVELOPER & SOFTWARE ENGINEER
             </h2>
 
             <p className="text-sm sm:text-base text-[#666666] font-sans font-light leading-relaxed max-w-[460px]">
-              I build AI-powered products, automation systems and digital experiences that turn complex problems into simple, scalable solutions.
+              I build scalable web applications, robust Django/Python backends, PostgreSQL databases and clean React interfaces that turn complex data into simple, reliable software.
             </p>
           </motion.div>
 

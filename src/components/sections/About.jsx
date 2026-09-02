@@ -39,7 +39,7 @@ export default function About() {
   const metadataItems = [
     { label: 'LOCATION', value: 'Based in India', icon: MapPin },
     { label: 'AVAILABILITY', value: 'Available Worldwide', icon: Globe },
-    { label: 'FOCUS', value: 'AI / Automation / Full-Stack', icon: Code2 },
+    { label: 'FOCUS', value: 'Full-Stack / Python / React', icon: Code2 },
     { label: 'DEGREE', value: 'B.Tech CSE (2024 — 2026)', icon: Terminal },
   ];
 
@@ -89,10 +89,10 @@ export default function About() {
         >
           <div className="space-y-5 text-base sm:text-lg text-[#555555] font-sans font-light leading-relaxed">
             <p>
-              I'm Zaid Memon, a developer and Computer Science student driven by the desire to build elegant, high-impact web software and AI-driven automation workflows.
+              I'm Zaid Memon, a Full-Stack Developer and Computer Science student driven by the desire to build elegant, high-impact web software and resilient backend systems.
             </p>
             <p>
-              Whether engineering spatial real-estate intelligence platforms like <strong className="text-[#111111] font-medium">Verixa</strong> or architecting workforce telemetry engines like <strong className="text-[#111111] font-medium">Exertia</strong>, I focus on system reliability, spatial query efficiency, and refined micro-interactions.
+              Whether engineering spatial real-estate intelligence platforms like <strong className="text-[#111111] font-medium">Verixa</strong> or architecting workforce telemetry engines like <strong className="text-[#111111] font-medium">Exertia</strong>, I focus on Django/Python backend design, PostgreSQL query efficiency, and refined React micro-interactions.
             </p>
           </div>
 
