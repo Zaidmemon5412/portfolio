@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, FileText } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
 
 export default function Hero() {
@@ -57,7 +57,7 @@ export default function Hero() {
         {/* LEFT COLUMN: BRAND & EDITORIAL CONTENT */}
         <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left z-10 transform-gpu">
           
-          {/* Eyebrow Label matching Zaid's real stack */}
+          {/* Eyebrow Label */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -128,12 +128,12 @@ export default function Hero() {
             </p>
           </motion.div>
 
-          {/* CTA Actions */}
+          {/* CTA Actions (With Prominent Resume Button) */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.32, ease: 'easeOut' }}
-            className="flex flex-wrap items-center gap-5 pt-2 transform-gpu"
+            className="flex flex-wrap items-center gap-4 pt-2 transform-gpu"
           >
             <button
               onClick={() => scrollToSection('contact')}
@@ -144,6 +144,19 @@ export default function Hero() {
               <span>Let's Work Together</span>
               <span className="transform group-hover:translate-x-1 transition-transform duration-200">→</span>
             </button>
+
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              onMouseEnter={() => setCursor && setCursor('pointer')}
+              onMouseLeave={resetCursor}
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full border border-[#E2E2DE] bg-[#FFFFFF] text-[#111111] text-xs font-mono font-semibold hover:bg-[#E5E5E2] hover:border-[#CCCCCC] transition-all duration-200 cursor-pointer shadow-xs group"
+            >
+              <FileText size={15} className="text-[#111111]" />
+              <span>Resume PDF</span>
+              <ArrowUpRight size={14} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+            </a>
 
             <button
               onClick={() => scrollToSection('selected-work')}

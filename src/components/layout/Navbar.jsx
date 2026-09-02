@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, FileText } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
 
 export default function Navbar() {
@@ -91,8 +91,20 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* RIGHT: Black Pill CTA Button */}
-        <div className="flex items-center gap-3">
+        {/* RIGHT: Resume PDF & Black Pill CTA Buttons */}
+        <div className="flex items-center gap-2.5">
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            onMouseEnter={() => setCursor && setCursor('pointer')}
+            onMouseLeave={resetCursor}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#DEDEDA] bg-[#FFFFFF] text-[#111111] text-xs font-mono font-medium hover:bg-[#E5E5E2] transition-all cursor-pointer shadow-2xs"
+          >
+            <FileText size={13} />
+            <span>Resume</span>
+          </a>
+
           <button
             onClick={() => scrollToSection('contact')}
             onMouseEnter={() => setCursor && setCursor('pointer')}
@@ -133,9 +145,20 @@ export default function Navbar() {
                 {link.label}
               </button>
             ))}
+            
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="w-full py-2 rounded-full border border-[#E2E2DE] text-[#111111] text-xs font-mono text-center flex items-center justify-center gap-2"
+            >
+              <FileText size={14} />
+              <span>Download Resume (PDF)</span>
+            </a>
+
             <button
               onClick={() => scrollToSection('contact')}
-              className="w-full mt-1 py-2 rounded-full bg-[#111111] text-white text-xs font-medium text-center"
+              className="w-full py-2 rounded-full bg-[#111111] text-white text-xs font-medium text-center"
             >
               Let's Talk →
             </button>
