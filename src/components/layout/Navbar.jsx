@@ -1,197 +1,147 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight, Gamepad2 } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
-import { useAhmedabadTime } from '../../hooks/useAhmedabadTime';
-import { useGameState } from '../../hooks/useGameState';
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const { setCursor, resetCursor } = useCursor();
-  const { timeString } = useAhmedabadTime();
-  const { setViewMode, playSfx } = useGameState();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      const currentScrollY = window.scrollY;
+      
+      // Hide on scroll down after 100px, reveal on scroll up
+      if (currentScrollY > 100 && currentScrollY > lastScrollY.current + 5) {
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY.current - 5) {
+        setIsVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (id) => {
     setMobileMenuOpen(false);
-    const element =
-      document.getElementById(id) ||
-      (id === 'projects' ? document.getElementById('work') : null) ||
-      (id === 'skills' ? document.getElementById('stack') : null) ||
-      (id === 'education' ? document.getElementById('journey') : null);
+    const targetMap = {
+      work: 'selected-work',
+      services: 'services',
+      experience: 'experience',
+      about: 'about',
+      contact: 'contact'
+    };
+
+    const targetId = targetMap[id] || id;
+    const element = document.getElementById(targetId);
 
     if (!element) return;
 
     if (window.__lenis) {
-      window.__lenis.scrollTo(element, { offset: -60 });
+      window.__lenis.scrollTo(element, { offset: -80 });
     } else {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   const navLinks = [
-    { label: 'ABOUT', target: 'about' },
-    { label: 'SKILLS', target: 'skills' },
-    { label: 'PROJECTS', target: 'projects' },
-    { label: 'BUILDING', target: 'currently-building' },
-    { label: 'EDUCATION', target: 'education' },
+    { label: 'Work', target: 'work' },
+    { label: 'Services', target: 'services' },
+    { label: 'Experience', target: 'experience' },
+    { label: 'About', target: 'about' },
   ];
 
-  const handleLaunchGta = () => {
-    playSfx('select');
-    setViewMode('gta');
-  };
-
   return (
-    <>
-      <header
-        className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
-          isScrolled
-            ? 'py-4 bg-[#08090D]/90 backdrop-blur-md border-b border-white/[0.08] shadow-lg shadow-black/50'
-            : 'py-6 bg-transparent'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between">
-          {/* Left: Minimalist Brand Identifier */}
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{
+        opacity: isVisible ? 1 : 0,
+        y: isVisible ? 0 : -80,
+      }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full pt-6 pb-2 px-6 sm:px-12 md:px-16 transform-gpu sticky top-0 z-50 pointer-events-auto"
+    >
+      <div className="flex items-center justify-between text-xs tracking-tight bg-[#F7F7F5]/90 backdrop-blur-xs py-2 px-4 rounded-full border border-[#E2E2DE]/60 shadow-2xs">
+        
+        {/* LEFT: Availability Indicator */}
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#55D98B] shrink-0" />
+          <span className="font-mono text-[11px] sm:text-xs tracking-wider uppercase text-[#111111] font-medium">
+            AVAILABLE FOR NEW PROJECTS
+          </span>
+        </div>
+
+        {/* CENTER: Refined Minimal Nav Links */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <button
+              key={link.label}
+              onClick={() => scrollToSection(link.target)}
+              onMouseEnter={() => setCursor && setCursor('pointer')}
+              onMouseLeave={resetCursor}
+              className="text-xs font-sans text-[#666666] hover:text-[#111111] transition-colors cursor-pointer"
+            >
+              {link.label}
+            </button>
+          ))}
+        </nav>
+
+        {/* RIGHT: Black Pill CTA Button */}
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => scrollToSection('hero')}
-            onMouseEnter={() => setCursor('pointer', 'TOP')}
+            onClick={() => scrollToSection('contact')}
+            onMouseEnter={() => setCursor && setCursor('pointer')}
             onMouseLeave={resetCursor}
-            className="flex items-center gap-3 group text-left focus:outline-none cursor-pointer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4.5 py-1.5 rounded-full bg-[#111111] text-[#F5F5F3] text-xs font-medium hover:bg-[#242424] transition-all cursor-pointer shadow-xs"
           >
-            <span className="font-display font-black tracking-tight text-sm text-[#F8FAFC] group-hover:text-[#8B5CF6] transition-colors">
-              ZAID / 2026
-            </span>
-            <span className="text-[10px] font-mono text-[#64748B] hidden sm:inline">
-              // BUILDER
-            </span>
+            <span>Let's Talk</span>
+            <span className="text-[11px]">→</span>
           </button>
 
-          {/* Center: Live Status Indicator (Desktop only) */}
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-[#0E1017] border border-white/[0.08] text-[11px] font-mono text-[#94A3B8] rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
-            <span className="text-[#64748B]">Ahmedabad {timeString ? `${timeString} IST` : 'IST'}</span>
-            <span className="text-white/20">•</span>
-            <span className="text-[#F8FAFC]">Active: <span className="text-[#8B5CF6] font-semibold">Verixa</span></span>
-          </div>
-
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-7">
-            {navLinks.map((link) => (
-              <button
-                key={link.label}
-                onClick={() => scrollToSection(link.target)}
-                onMouseEnter={() => setCursor('pointer')}
-                onMouseLeave={resetCursor}
-                className="text-xs font-mono tracking-wider text-[#94A3B8] hover:text-[#F8FAFC] transition-colors cursor-pointer"
-              >
-                {link.label}
-              </button>
-            ))}
-
-            {/* Direct Contact Action */}
-            <button
-              onClick={() => scrollToSection('contact')}
-              onMouseEnter={() => setCursor('pointer', "LET'S TALK")}
-              onMouseLeave={resetCursor}
-              className="text-xs font-mono font-bold text-[#8B5CF6] hover:text-[#A78BFA] uppercase tracking-wider flex items-center gap-1 cursor-pointer"
-            >
-              <span>CONTACT</span>
-              <ArrowUpRight size={13} strokeWidth={2.5} />
-            </button>
-
-            {/* GTA VI Theme Launcher in Navbar */}
-            <button
-              onClick={handleLaunchGta}
-              onMouseEnter={() => setCursor('pointer', "GTA VI")}
-              onMouseLeave={resetCursor}
-              className="px-2.5 py-1 rounded-full bg-[#0E1017] hover:bg-[#8B5CF6]/20 border border-white/[0.1] hover:border-[#8B5CF6] text-xs font-mono text-[#F8FAFC] hover:text-[#8B5CF6] flex items-center gap-1.5 transition-all shadow-sm cursor-pointer"
-              title="Launch Interactive GTA VI Experience"
-            >
-              <Gamepad2 size={13} className="text-[#8B5CF6]" />
-              <span className="font-gta tracking-wider text-[11px]">GTA VI</span>
-            </button>
-          </nav>
-
-          {/* Mobile Menu Toggle Button */}
-          <div className="flex items-center gap-2 md:hidden">
-            <button
-              onClick={handleLaunchGta}
-              className="p-2 border border-[#8B5CF6]/40 text-[#8B5CF6] text-xs font-mono flex items-center gap-1 bg-[#0E1017] rounded cursor-pointer"
-            >
-              <Gamepad2 size={14} />
-              <span className="font-gta">GTA</span>
-            </button>
-
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 border border-white/[0.08] text-[#94A3B8] hover:text-white focus:outline-none cursor-pointer rounded"
-              aria-label="Toggle Navigation Menu"
-            >
-              {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Menu"
+            className="md:hidden p-1.5 text-[#111111]"
+          >
+            {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
-      </header>
+      </div>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed inset-0 z-30 bg-[#08090D]/98 backdrop-blur-2xl pt-24 px-6 pb-8 flex flex-col justify-between md:hidden border-b border-white/[0.08]"
+            transition={{ duration: 0.2 }}
+            className="md:hidden mt-3 p-4 bg-[#FFFFFF] border border-[#E2E2DE] rounded-xl shadow-lg flex flex-col gap-3 z-50 relative"
           >
-            <div className="space-y-6">
-              <div className="text-[10px] font-mono text-[#64748B] uppercase tracking-widest border-b border-white/[0.08] pb-2 flex items-center justify-between">
-                <span>INDEX NAVIGATION</span>
-                <span className="text-[#8B5CF6]">ZAID MEMON</span>
-              </div>
-              <div className="flex flex-col space-y-4">
-                {navLinks.map((link) => (
-                  <button
-                    key={link.label}
-                    onClick={() => scrollToSection(link.target)}
-                    className="flex items-center justify-between text-left py-2 border-b border-white/5 font-display text-2xl font-bold text-[#F8FAFC] hover:text-[#8B5CF6] transition-colors cursor-pointer"
-                  >
-                    <span>{link.label}</span>
-                    <ArrowUpRight size={18} className="text-[#64748B]" />
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Mobile Footer Status & GTA Switcher */}
-            <div className="pt-6 border-t border-white/[0.08] space-y-3">
+            {navLinks.map((link) => (
               <button
-                onClick={handleLaunchGta}
-                className="w-full py-3 bg-gradient-to-r from-[#8B5CF6] to-[#6366F1] text-white font-gta tracking-wider text-base uppercase font-black flex items-center justify-center gap-2 cursor-pointer rounded-xs shadow-[0_0_15px_rgba(139,92,246,0.4)]"
+                key={link.label}
+                onClick={() => scrollToSection(link.target)}
+                className="text-left text-sm font-medium text-[#111111] py-1 border-b border-[#E2E2DE]"
               >
-                <Gamepad2 size={18} />
-                <span>LAUNCH GTA VI EXPERIENCE</span>
+                {link.label}
               </button>
-
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="w-full py-3 bg-[#8B5CF6] text-white font-mono font-bold text-xs flex items-center justify-center gap-2 cursor-pointer rounded-xs"
-              >
-                <span>HAVE A PROJECT? LET'S TALK</span>
-                <ArrowUpRight size={15} />
-              </button>
-            </div>
+            ))}
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="w-full mt-1 py-2 rounded-full bg-[#111111] text-white text-xs font-medium text-center"
+            >
+              Let's Talk →
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </motion.header>
   );
 }

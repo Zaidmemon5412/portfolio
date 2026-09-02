@@ -12,13 +12,12 @@ import CustomCursor from './components/layout/CustomCursor';
 import ModeToggle from './components/common/ModeToggle';
 import ResumeModal from './components/common/ResumeModal';
 
-// Editorial Mode Sections
+// Swiss Editorial Sections
 import Hero from './components/sections/Hero';
-import Intro from './components/sections/Intro';
 import SelectedWork from './components/sections/SelectedWork';
-import CurrentlyBuilding from './components/sections/CurrentlyBuilding';
-import TechStack from './components/sections/TechStack';
-import Journey from './components/sections/Journey';
+import Services from './components/sections/Services';
+import Experience from './components/sections/Experience';
+import About from './components/sections/About';
 import Contact from './components/sections/Contact';
 
 // GTA Mode (Lazy Loaded for optimized code-splitting)
@@ -29,21 +28,24 @@ function EditorialPortfolio() {
   useSmoothScroll();
 
   return (
-    <div className="relative min-h-screen bg-[#08090D] text-[#F8FAFC] selection:bg-[#8B5CF6]/30 selection:text-white">
+    <div className="min-h-screen bg-[#ECECE9] p-2 sm:p-4 md:p-6 text-[#111111] selection:bg-[#111111] selection:text-[#F5F5F3]">
       <CustomCursor />
-      <Navbar />
+      
+      {/* Centered Website Container Canvas with Rounded Corners */}
+      <div className="max-w-[1536px] mx-auto rounded-[20px] sm:rounded-[28px] border border-[#E2E2DE] bg-[#F5F5F3] paper-noise relative shadow-sm overflow-hidden">
+        <Navbar />
 
-      <main id="main-content" className="relative z-10">
-        <Hero />
-        <Intro />
-        <TechStack />
-        <SelectedWork />
-        <CurrentlyBuilding />
-        <Journey />
-        <Contact />
-      </main>
+        <main id="main-content" className="relative z-10">
+          <Hero />
+          <SelectedWork />
+          <Services />
+          <Experience />
+          <About />
+          <Contact />
+        </main>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }
@@ -53,7 +55,7 @@ function PortfolioRoot() {
   const isEditorial = viewMode === 'editorial';
 
   return (
-    <div className="relative min-h-screen bg-[#070709] text-white overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#ECECE9] text-[#111111] overflow-x-hidden">
       <AnimatePresence mode="wait">
         {isEditorial ? (
           <motion.div
@@ -95,7 +97,7 @@ function PortfolioRoot() {
       {/* Persistent Floating Mode Switcher */}
       <ModeToggle />
 
-      {/* Global Root Resume Viewer Modal (Works for both Professional & GTA modes) */}
+      {/* Global Root Resume Viewer Modal */}
       <ResumeModal isOpen={isResumeModalOpen} onClose={closeResumeModal} />
     </div>
   );

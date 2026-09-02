@@ -3,33 +3,34 @@ import Lenis from 'lenis';
 
 export function useSmoothScroll() {
   useEffect(() => {
-    // Check if user prefers reduced motion
+    // Respect reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.2,
       infinite: false,
     });
 
+    let animationFrameId;
+
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      animationFrameId = requestAnimationFrame(raf);
     }
 
-    const animationId = requestAnimationFrame(raf);
+    animationFrameId = requestAnimationFrame(raf);
 
-    // Provide globally so buttons can scroll smoothly to targets
     window.__lenis = lenis;
 
     return () => {
-      cancelAnimationFrame(animationId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
       lenis.destroy();
       window.__lenis = null;
     };

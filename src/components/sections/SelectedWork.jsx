@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, BookOpen, CheckCircle2, Clock, Sparkles } from 'lucide-react';
-import { GithubIcon } from '../ui/Icons';
+import { ArrowUpRight, ArrowRight, Lock } from 'lucide-react';
 import { projectsData } from '../../data/projects';
-import VerixaVisual from '../project-visuals/VerixaVisual';
-import ExertiaVisual from '../project-visuals/ExertiaVisual';
-import VeritasVisual from '../project-visuals/VeritasVisual';
-import SmartInventoryVisual from '../project-visuals/SmartInventoryVisual';
-import SmartGstVisual from '../project-visuals/SmartGstVisual';
 import ProjectModal from './ProjectModal';
 import { useCursor } from '../../hooks/useCursor';
 
 export default function SelectedWork() {
   const [activeProject, setActiveProject] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const { resetCursor } = useCursor();
+  const { setCursor, resetCursor } = useCursor();
 
   const handleOpenModal = (project) => {
     setActiveProject(project);
@@ -22,230 +16,147 @@ export default function SelectedWork() {
     resetCursor();
   };
 
-  const renderVisual = (id) => {
-    switch (id) {
-      case 'verixa':
-        return <VerixaVisual />;
-      case 'exertia':
-        return <ExertiaVisual />;
-      case 'veritas':
-        return <VeritasVisual />;
-      case 'smart-inventory':
-        return <SmartInventoryVisual />;
-      case 'smart-gst-invoice':
-        return <SmartGstVisual />;
-      default:
-        return null;
-    }
+  const projectImages = {
+    verixa: '/verixa.png',
+    exertia: '/exertia.png',
+    veritas: '/veritas.png',
+    'smart-inventory': '/smart_inventory.jpg',
+    'smart-gst-invoice': '/smart_gst.jpg',
   };
 
-  const getStatusBadge = (status) => {
-    if (status.toLowerCase().includes('completed')) {
-      return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#22D3EE]/10 border border-[#22D3EE]/30 text-[#22D3EE] text-[11px] font-mono rounded-xs">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
-          COMPLETED
-        </span>
-      );
-    }
-    if (status.toLowerCase().includes('active')) {
-      return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#8B5CF6]/15 border border-[#8B5CF6]/40 text-[#A78BFA] text-[11px] font-mono rounded-xs">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
-          ACTIVE DEV
-        </span>
-      );
-    }
-    return (
-      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/15 text-[#94A3B8] text-[11px] font-mono rounded-xs">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#94A3B8]" />
-        IN PROGRESS
-      </span>
-    );
+  const projectUrls = {
+    verixa: 'https://verixa.dev/dashboard/spatial-intelligence',
+    exertia: 'https://exertia.dev/workspace/telemetry',
+    veritas: 'https://veritas.dev/verify/certificate-hash',
+    'smart-inventory': 'https://inventory.dev/supply-chain/analytics',
+    'smart-gst-invoice': 'https://smartgst.dev/invoice/generator',
   };
 
   return (
-    <section id="projects" className="py-24 sm:py-36 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/[0.08] relative">
+    <section id="selected-work" className="py-20 md:py-32 px-4 sm:px-8 md:px-14 max-w-[1400px] mx-auto border-t border-[#E2E2DE]">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 sm:mb-24 gap-6">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 md:mb-20 gap-6">
         <div>
-          <div className="flex items-center gap-3 mb-4 text-xs font-mono text-[#64748B] uppercase tracking-widest">
-            <span className="text-[#8B5CF6] font-bold">04</span>
-            <span>/</span>
-            <span>FEATURED PROJECTS</span>
+          <span className="text-xs font-mono tracking-widest text-[#888888] uppercase block mb-3">
+            01 / PORTFOLIO
+          </span>
+
+          <div className="overflow-hidden">
+            <motion.h2
+              initial={{ y: '100%' }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="font-heading font-black text-4xl sm:text-6xl md:text-7xl text-[#111111] tracking-tighter uppercase transform-gpu"
+            >
+              /SELECTED WORK
+            </motion.h2>
           </div>
-          <h2 className="font-heading font-black text-4xl sm:text-6xl md:text-7xl text-[#F8FAFC] tracking-tight uppercase">
-            SELECTED WORK
-          </h2>
         </div>
 
-        <div className="max-w-md space-y-2 text-xs font-mono text-[#94A3B8]">
-          <p>
-            Practical software applications demonstrating real backend architecture, database modeling, and performant frontend engineering.
-          </p>
-          <div className="flex items-center gap-2 text-[#64748B]">
-            <span className="text-[#8B5CF6] font-bold">[ 5 CORE BUILDS ]</span>
-            <span>•</span>
-            <span>NO FAKE METRICS OR PLACEHOLDERS</span>
-          </div>
-        </div>
+        <button
+          onClick={() => {
+            const contactEl = document.getElementById('contact');
+            if (contactEl) contactEl.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono tracking-wider text-[#111111] hover:text-[#555555] transition-colors group cursor-pointer"
+        >
+          <span>VIEW ALL WORK</span>
+          <ArrowRight size={16} className="transform group-hover:translate-x-1.5 transition-transform duration-200" />
+        </button>
       </div>
 
-      {/* Projects List */}
-      <div className="space-y-24 sm:space-y-32">
-        {projectsData.map((project, idx) => {
-          const devStatus = project.developmentStatus || { built: [], inProgress: [], planned: [] };
-
-          return (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.7, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-              className="p-4 sm:p-7 lg:p-10 bg-[#0E1017] border border-white/[0.08] hover:border-white/[0.16] transition-colors rounded-xs space-y-6 sm:space-y-8"
-            >
-              {/* Card Top Index Line */}
-              <div className="flex flex-wrap items-center justify-between border-b border-white/[0.08] pb-3 sm:pb-4 gap-2 text-xs font-mono">
-                <div className="flex items-center gap-3">
-                  <span className="text-[#8B5CF6] font-bold text-base">{project.number}</span>
-                  <span className="text-white/20">—</span>
-                  <span className="text-[#F8FAFC] tracking-wider uppercase font-bold">{project.title}</span>
-                  <span className="text-[#64748B] hidden sm:inline">({project.category})</span>
+      {/* 2-Column Editorial Grid with Authentic Project Application Windows */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-14">
+        {projectsData.map((project, index) => (
+          <motion.div
+            key={project.id}
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+            onClick={() => handleOpenModal(project)}
+            onMouseEnter={() => setCursor && setCursor('project', 'VIEW PROJECT →')}
+            onMouseLeave={resetCursor}
+            className="group cursor-pointer flex flex-col transform-gpu"
+          >
+            {/* Authentic Browser Window Container */}
+            <div className="relative w-full rounded-2xl overflow-hidden border border-[#E2E2DE] shadow-sm mb-6 bg-[#0E1017] transition-all duration-300 group-hover:border-[#CCCCCC] group-hover:shadow-md transform-gpu">
+              
+              {/* Authentic Browser Window Top Chrome Bar */}
+              <div className="w-full bg-[#181A24] border-b border-white/[0.08] px-4 py-2.5 flex items-center justify-between gap-3 text-xs">
+                {/* Red, Yellow, Green Window Control Dots */}
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F] inline-block" />
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <span className="text-[#64748B] text-[11px]">YEAR {project.year}</span>
-                  {getStatusBadge(project.status)}
-                </div>
-              </div>
-
-              {/* Card Main Grid: Left Details & Right High-Density Visual */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-                {/* Left Column: Problem, Key Work, Tech Stack & CTAs */}
-                <div className="lg:col-span-6 space-y-6 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="font-heading font-bold text-2xl sm:text-3xl text-[#F8FAFC] tracking-tight">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm sm:text-base font-mono text-[#A78BFA] mt-1">
-                        {project.tagline}
-                      </p>
-                    </div>
-
-                    <p className="text-xs sm:text-sm text-[#94A3B8] font-light leading-relaxed">
-                      {project.shortDescription}
-                    </p>
-                  </div>
-
-                  {/* Key Work Points (What Was Actually Built) */}
-                  <div className="space-y-2.5 pt-2">
-                    <div className="text-[11px] font-mono text-[#64748B] uppercase tracking-widest">
-                      KEY IMPLEMENTATION HIGHLIGHTS
-                    </div>
-                    <ul className="space-y-2 text-xs font-mono text-[#F8FAFC]/85">
-                      {project.keyWork.map((point, pIdx) => (
-                        <li key={pIdx} className="flex items-start gap-2.5 leading-relaxed">
-                          <span className="text-[#8B5CF6] font-bold mt-0.5">•</span>
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Status Indicator Chips: Built vs In Progress vs Planned */}
-                  {(devStatus.built.length > 0 || devStatus.inProgress.length > 0) && (
-                    <div className="pt-3 border-t border-white/[0.06] flex flex-wrap gap-2 text-[10px] font-mono">
-                      {devStatus.built.length > 0 && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#22D3EE]/10 border border-[#22D3EE]/25 text-[#22D3EE] rounded-xs">
-                          <CheckCircle2 size={11} />
-                          <span>{devStatus.built.length} Built Features</span>
-                        </span>
-                      )}
-                      {devStatus.inProgress.length > 0 && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#8B5CF6]/10 border border-[#8B5CF6]/25 text-[#A78BFA] rounded-xs">
-                          <Clock size={11} />
-                          <span>{devStatus.inProgress.length} In Progress</span>
-                        </span>
-                      )}
-                      {devStatus.planned.length > 0 && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white/5 border border-white/10 text-[#64748B] rounded-xs">
-                          <Sparkles size={11} />
-                          <span>{devStatus.planned.length} Planned</span>
-                        </span>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Tech Stack Pills */}
-                  <div className="space-y-2 pt-2">
-                    <div className="text-[11px] font-mono text-[#64748B] uppercase tracking-widest">
-                      TECHNOLOGY STACK
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2.5 py-1 rounded-xs bg-[#08090D] border border-white/[0.06] text-[#94A3B8] text-[11px] font-mono"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={() => handleOpenModal(project)}
-                      className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-mono text-xs font-bold rounded-xs transition-colors cursor-pointer shadow-md shadow-[#8B5CF6]/20"
-                    >
-                      <BookOpen size={14} />
-                      <span>Case Study Deep-Dive</span>
-                    </button>
-
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#131520] hover:bg-[#1A1D2D] border border-white/[0.08] text-[#F8FAFC] font-mono text-xs rounded-xs transition-colors cursor-pointer"
-                    >
-                      <GithubIcon size={14} />
-                      <span>GitHub</span>
-                      <ArrowUpRight size={12} className="text-[#64748B]" />
-                    </a>
-
-                    {project.hasLiveDemo && project.demoUrl && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#22D3EE]/10 hover:bg-[#22D3EE]/20 border border-[#22D3EE]/30 text-[#22D3EE] font-mono text-xs font-bold rounded-xs transition-colors cursor-pointer"
-                      >
-                        <span>Live Demo</span>
-                        <ArrowUpRight size={12} />
-                      </a>
-                    )}
-                  </div>
+                {/* URL Address Bar */}
+                <div className="flex-1 max-w-[280px] bg-[#0E1017] border border-white/[0.08] rounded-md px-3 py-1 text-[11px] font-mono text-[#94A3B8] flex items-center gap-1.5 justify-center truncate">
+                  <Lock size={10} className="text-[#55D98B] shrink-0" />
+                  <span className="truncate">{projectUrls[project.id] || `https://${project.id}.dev`}</span>
                 </div>
 
-                {/* Right Column: Visual Architecture Preview */}
-                <div className="lg:col-span-6 rounded-xs overflow-hidden border border-white/[0.08] bg-[#08090D] flex items-center justify-center">
-                  {renderVisual(project.id)}
+                {/* Status Dot */}
+                <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#94A3B8]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#55D98B]" />
+                  <span className="hidden sm:inline uppercase">{project.status || 'LIVE'}</span>
                 </div>
               </div>
-            </motion.div>
-          );
-        })}
+
+              {/* Real Project Image Container */}
+              <div className="w-full aspect-[16/10] bg-[#08090D] overflow-hidden">
+                <img
+                  src={projectImages[project.id] || '/verixa.png'}
+                  alt={`${project.title} — Real Application Screenshot`}
+                  className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02] transform-gpu"
+                />
+              </div>
+
+              {/* Hover Badge */}
+              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 px-4 py-2 bg-[#111111] text-[#F5F5F3] text-xs font-mono rounded-full flex items-center gap-2 shadow-lg z-10">
+                <span>View Case Study</span>
+                <ArrowUpRight size={14} />
+              </div>
+            </div>
+
+            {/* Content & Metadata */}
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono text-[#888888] uppercase tracking-wider">
+                    {project.category}
+                  </span>
+                  <span className="text-xs text-[#DEDEDA]">•</span>
+                  <span className="text-xs font-mono text-[#666666]">{project.year}</span>
+                </div>
+
+                <h3 className="font-heading font-bold text-2xl sm:text-3xl text-[#111111] group-hover:text-[#444444] transition-colors duration-200 flex items-center gap-2 group-hover:translate-x-1.5">
+                  <span>{project.title}</span>
+                  <ArrowUpRight
+                    size={22}
+                    className="transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-transform duration-200 text-[#111111]"
+                  />
+                </h3>
+
+                <p className="text-sm text-[#555555] font-sans font-light line-clamp-2 leading-relaxed max-w-xl">
+                  {project.shortDescription}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       {/* Case Study Modal */}
       <ProjectModal
         project={activeProject}
         isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => {
+          setModalOpen(false);
+          setActiveProject(null);
+        }}
       />
     </section>
   );

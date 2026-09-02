@@ -1,224 +1,219 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, FileText, Sparkles, MapPin } from 'lucide-react';
-import { GithubIcon } from '../ui/Icons';
+import React, { useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
-import { useAhmedabadTime } from '../../hooks/useAhmedabadTime';
 import { useGameState } from '../../hooks/useGameState';
 
 export default function Hero() {
-  const { openResumeModal } = useGameState();
-  const { timeString } = useAhmedabadTime();
+  const heroRef = useRef(null);
   const { setCursor, resetCursor } = useCursor();
 
-  const handleScrollToProjects = () => {
-    const el = document.getElementById('projects') || document.getElementById('work');
+  // Mouse Parallax (±6px subtle movement on desktop)
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 35, stiffness: 250 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  const parallaxX = useTransform(smoothX, [-300, 300], [-6, 6]);
+  const parallaxY = useTransform(smoothY, [-300, 300], [-6, 6]);
+
+  const handleMouseMove = (e) => {
+    if (!heroRef.current || window.matchMedia('(pointer: coarse)').matches) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    mouseX.set(e.clientX - centerX);
+    mouseY.set(e.clientY - centerY);
+  };
+
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
     if (!el) return;
     if (window.__lenis) {
-      window.__lenis.scrollTo(el, { offset: -60 });
+      window.__lenis.scrollTo(el, { offset: -80 });
     } else {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const coreSkills = ['React', 'Python', 'Django', 'PostgreSQL', 'JavaScript', 'Tailwind CSS'];
-
   return (
     <section
+      ref={heroRef}
+      onMouseMove={handleMouseMove}
       id="hero"
-      className="relative min-h-[92vh] sm:min-h-screen w-full flex flex-col justify-between pt-24 sm:pt-32 pb-10 sm:pb-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto overflow-hidden"
+      className="relative min-h-[85vh] lg:min-h-[90vh] flex flex-col justify-between pt-4 sm:pt-8 pb-8 sm:pb-12 px-6 sm:px-12 md:px-16 max-w-[1440px] mx-auto overflow-hidden transform-gpu select-none"
     >
-      {/* Ambient Aurora Radial Background Mesh */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[450px] bg-[radial-gradient(ellipse_70%_55%_at_50%_0%,rgba(139,92,246,0.14),rgba(34,211,238,0.04),transparent_70%)] pointer-events-none -z-10" />
+      {/* Subtle Oversized Background Typography: "BUILD" */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none -z-10 w-full text-center overflow-hidden transform-gpu">
+        <span className="font-heading font-black text-[28vw] text-[#111111]/[0.025] uppercase tracking-tighter leading-none block">
+          BUILD
+        </span>
+      </div>
 
-      {/* Top Meta Status Indicator */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-4 text-xs font-mono text-[#94A3B8]"
-      >
-        <div className="flex items-center gap-2.5">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22D3EE] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22D3EE]" />
-          </span>
-          <span className="text-[#F8FAFC] font-medium tracking-wide text-[11px] sm:text-xs">
-            Available for Developer Roles
-          </span>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[#64748B] text-[11px] sm:text-xs">
-          <span className="flex items-center gap-1.5 text-[#94A3B8]">
-            <MapPin size={12} className="text-[#8B5CF6]" />
-            Ahmedabad, India {timeString ? `• ${timeString} IST` : ''}
-          </span>
-          <span className="hidden sm:inline text-white/20">•</span>
-          <span className="hidden sm:inline text-[#94A3B8]">B.Tech CSE</span>
-        </div>
-      </motion.div>
-
-      {/* Main Hero Content Area */}
-      <div className="my-auto py-8 sm:py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center">
-        {/* Left Column: Name, Position, Message, Skills & CTAs */}
-        <div className="lg:col-span-8 space-y-5 sm:space-y-7">
-          {/* Position Eyebrow */}
+      {/* Main 2-Column Split: 55/45 Layout */}
+      <div className="w-full my-auto py-6 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        
+        {/* LEFT COLUMN: BRAND & EDITORIAL CONTENT */}
+        <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left z-10 transform-gpu">
+          
+          {/* Eyebrow Label */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#8B5CF6]/10 border border-[#8B5CF6]/30 rounded-full text-xs font-mono text-[#A78BFA]"
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="flex items-center gap-2.5 text-[11px] font-mono tracking-[0.1em] uppercase text-[#888888] transform-gpu"
           >
-            <Sparkles size={13} className="text-[#22D3EE]" />
-            <span className="font-semibold tracking-wide text-[11px] sm:text-xs">
-              Frontend / Full-Stack Developer
-            </span>
+            <span>AI</span>
+            <span className="text-[#DEDEDA]">•</span>
+            <span>AUTOMATION</span>
+            <span className="text-[#DEDEDA]">•</span>
+            <span>DEVELOPMENT</span>
           </motion.div>
 
-          {/* Name Display with Aurora Gradient */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-2"
-          >
-            <h1 className="font-heading font-black text-4xl xs:text-5xl sm:text-7xl md:text-8xl tracking-tight leading-[1.0] uppercase aurora-gradient-text break-words">
-              Zaid Memon
-            </h1>
-          </motion.div>
-
-          {/* Supporting Message */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-sm xs:text-base sm:text-lg md:text-xl text-[#94A3B8] font-sans font-light leading-relaxed max-w-2xl"
-          >
-            Computer Science student focused on building practical web applications using{' '}
-            <strong className="text-[#F8FAFC] font-semibold">React</strong>,{' '}
-            <strong className="text-[#F8FAFC] font-semibold">Python</strong>,{' '}
-            <strong className="text-[#F8FAFC] font-semibold">Django</strong> and{' '}
-            <strong className="text-[#F8FAFC] font-semibold">PostgreSQL</strong>.
-          </motion.p>
-
-          {/* Core Technologies Pills */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap gap-1.5 sm:gap-2 pt-1"
-          >
-            {coreSkills.map((skill) => (
-              <span
-                key={skill}
-                className="px-2.5 sm:px-3 py-1 bg-[#0E1017] border border-white/[0.08] text-[#94A3B8] font-mono text-[11px] sm:text-xs rounded-xs hover:border-[#8B5CF6]/50 hover:text-[#F8FAFC] hover:bg-[#131520] transition-colors"
+          {/* Main 3-Line Headline with Overflow Mask Reveal */}
+          <div className="space-y-0.5 sm:space-y-1">
+            
+            {/* Line 1: BUILDING */}
+            <div className="overflow-hidden">
+              <motion.h1
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                className="font-heading font-black text-5xl sm:text-7xl lg:text-[74px] xl:text-[88px] 2xl:text-[96px] text-[#111111] uppercase tracking-tighter leading-[0.88] select-none transform-gpu"
               >
-                {skill}
-              </span>
-            ))}
-          </motion.div>
-
-          {/* 3 Clear Primary CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col xs:flex-row flex-wrap items-stretch xs:items-center gap-3 pt-2"
-          >
-            {/* CTA 1: View Projects */}
-            <button
-              onClick={handleScrollToProjects}
-              onMouseEnter={() => setCursor && setCursor('pointer', 'PROJECTS')}
-              onMouseLeave={() => resetCursor && resetCursor()}
-              className="px-5 sm:px-6 py-3 sm:py-3.5 bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-mono font-bold text-xs sm:text-sm flex items-center justify-center gap-2.5 transition-all shadow-lg shadow-[#8B5CF6]/25 hover:shadow-[#8B5CF6]/40 rounded-xs cursor-pointer group"
-              aria-label="View Projects Section"
-            >
-              <span>View Projects</span>
-              <ArrowDown size={15} strokeWidth={2.5} className="group-hover:translate-y-0.5 transition-transform" />
-            </button>
-
-            {/* CTA 2: GitHub */}
-            <a
-              href="https://github.com/Zaidmemon5412"
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setCursor && setCursor('pointer', 'GITHUB')}
-              onMouseLeave={() => resetCursor && resetCursor()}
-              className="px-4 sm:px-5 py-3 sm:py-3.5 bg-[#0E1017] hover:bg-[#151824] text-[#F8FAFC] border border-white/[0.12] hover:border-[#8B5CF6]/50 font-mono text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all rounded-xs cursor-pointer group shadow-sm"
-              aria-label="Visit Zaid's GitHub Profile"
-            >
-              <GithubIcon size={16} />
-              <span>GitHub</span>
-              <ArrowUpRight size={13} className="text-[#64748B] group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
-
-            {/* CTA 3: Resume */}
-            <button
-              onClick={() => openResumeModal()}
-              onMouseEnter={() => setCursor && setCursor('pointer', 'RESUME')}
-              onMouseLeave={() => resetCursor && resetCursor()}
-              className="px-4 sm:px-5 py-3 sm:py-3.5 bg-[#0E1017] hover:bg-[#151824] text-[#F8FAFC] border border-white/[0.12] hover:border-[#22D3EE]/50 font-mono text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all rounded-xs cursor-pointer shadow-sm"
-              aria-label="Open Resume Preview"
-            >
-              <FileText size={15} className="text-[#22D3EE]" />
-              <span>Resume</span>
-            </button>
-          </motion.div>
-        </div>
-
-        {/* Right Column: Editorial Portrait Card */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-4 flex justify-center lg:justify-end"
-        >
-          <div className="relative w-full max-w-[240px] xs:max-w-[260px] sm:max-w-[300px] aspect-[4/5] bg-[#0E1017] border border-white/[0.1] hover:border-[#8B5CF6]/40 rounded-sm overflow-hidden p-2 group shadow-2xl transition-all duration-300">
-            <div className="w-full h-full relative overflow-hidden bg-[#131520] rounded-xs">
-              <img
-                src="/zaid_portrait.jpg"
-                alt="Zaid Memon — Developer & Computer Science Student"
-                className="w-full h-full object-cover object-[center_20%] contrast-[1.02] brightness-[1.0] group-hover:scale-105 transition-transform duration-500 rounded-xs"
-                loading="eager"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#08090D] via-transparent to-transparent pointer-events-none" />
-
-              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-[#F8FAFC] z-10">
-                <span className="font-semibold drop-shadow-md">Zaid Memon</span>
-                <span className="text-[#22D3EE] text-[10px] font-medium drop-shadow-md">L.J. University</span>
-              </div>
+                BUILDING
+              </motion.h1>
             </div>
-          </div>
-        </motion.div>
-      </div>
 
-      {/* Bottom Editorial Meta Bar */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#64748B]"
-      >
-        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[11px] sm:text-xs">
-          <span>React</span>
-          <span>•</span>
-          <span>Python</span>
-          <span>•</span>
-          <span>Django</span>
-          <span>•</span>
-          <span>PostgreSQL</span>
-          <span>•</span>
-          <span>Java</span>
+            {/* Line 2: INTELLIGENT (Outlined Accent) */}
+            <div className="overflow-hidden">
+              <motion.h1
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="font-heading font-black text-5xl sm:text-7xl lg:text-[74px] xl:text-[88px] 2xl:text-[96px] text-stroke-dark uppercase tracking-tighter leading-[0.88] select-none transform-gpu"
+              >
+                INTELLIGENT
+              </motion.h1>
+            </div>
+
+            {/* Line 3: EXPERIENCES. */}
+            <div className="overflow-hidden">
+              <motion.h1
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+                className="font-heading font-black text-5xl sm:text-7xl lg:text-[74px] xl:text-[88px] 2xl:text-[96px] text-[#111111] uppercase tracking-tighter leading-[0.88] select-none transform-gpu"
+              >
+                EXPERIENCES.
+              </motion.h1>
+            </div>
+
+          </div>
+
+          {/* Positioning & Description */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.25, ease: 'easeOut' }}
+            className="space-y-3 pt-2 transform-gpu"
+          >
+            <h2 className="font-heading font-bold text-lg sm:text-xl text-[#111111] uppercase tracking-wide">
+              AI & AUTOMATION ENGINEER
+            </h2>
+
+            <p className="text-sm sm:text-base text-[#666666] font-sans font-light leading-relaxed max-w-[460px]">
+              I build AI-powered products, automation systems and digital experiences that turn complex problems into simple, scalable solutions.
+            </p>
+          </motion.div>
+
+          {/* CTA Actions */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.32, ease: 'easeOut' }}
+            className="flex flex-wrap items-center gap-5 pt-2 transform-gpu"
+          >
+            <button
+              onClick={() => scrollToSection('contact')}
+              onMouseEnter={() => setCursor && setCursor('pointer')}
+              onMouseLeave={resetCursor}
+              className="inline-flex items-center gap-2.5 px-6.5 py-3.5 rounded-full bg-[#111111] text-[#F5F5F3] text-sm font-medium hover:bg-[#242424] transition-colors duration-200 group cursor-pointer shadow-sm"
+            >
+              <span>Let's Work Together</span>
+              <span className="transform group-hover:translate-x-1 transition-transform duration-200">→</span>
+            </button>
+
+            <button
+              onClick={() => scrollToSection('selected-work')}
+              onMouseEnter={() => setCursor && setCursor('pointer')}
+              onMouseLeave={resetCursor}
+              className="inline-flex items-center gap-1 text-xs sm:text-sm font-mono text-[#111111]/80 hover:text-[#111111] transition-colors py-2 group cursor-pointer"
+            >
+              <span>View My Work</span>
+              <ArrowUpRight size={14} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+            </button>
+          </motion.div>
+
+          {/* Small Personal Meta Row */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.42 }}
+            className="pt-6 flex flex-wrap items-center gap-4 text-[10px] font-mono text-[#888888] uppercase tracking-wider transform-gpu"
+          >
+            <span>Based in India</span>
+            <span>•</span>
+            <span>Available Worldwide</span>
+            <span>•</span>
+            <span>© 2026</span>
+          </motion.div>
+
         </div>
 
-        <button
-          onClick={handleScrollToProjects}
-          className="text-[#94A3B8] hover:text-[#F8FAFC] transition-colors flex items-center gap-1.5 cursor-pointer text-[11px] sm:text-xs"
+        {/* RIGHT COLUMN: ZAID MEMON'S ORIGINAL PORTRAIT IMAGE */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="lg:col-span-5 relative flex items-center justify-center lg:justify-end transform-gpu"
         >
-          <span>Explore Selected Work</span>
-          <ArrowDown size={13} />
-        </button>
-      </motion.div>
+          {/* Mouse Parallax Wrapper */}
+          <motion.div
+            style={{ x: parallaxX, y: parallaxY }}
+            className="relative w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[460px] aspect-[3/4] rounded-2xl overflow-hidden border border-[#E2E2DE] shadow-lg group bg-[#E5E5E2] transform-gpu"
+          >
+            {/* Zaid Memon Original Photo */}
+            <img
+              src="/zaid_portrait-opt.jpg"
+              alt="Zaid Memon — Full-Stack Developer & Computer Science Student"
+              className="w-full h-full object-cover object-[center_20%] grayscale contrast-110 brightness-102 group-hover:scale-[1.02] transition-transform duration-500 ease-out transform-gpu"
+            />
+
+            {/* Subtle Gradient Vignette */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/40 via-transparent to-transparent pointer-events-none" />
+
+            {/* Vertical Detail Text */}
+            <div className="absolute bottom-6 left-6 text-[10px] font-mono tracking-widest text-[#F5F5F3]/90 uppercase pointer-events-none">
+              ZAID MEMON / L.J. UNIVERSITY
+            </div>
+
+            {/* Floating Top Right Detail Badge */}
+            <div className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#111111]/80 backdrop-blur-xs border border-white/20 text-[#F5F5F3] flex items-center justify-center pointer-events-none shadow-sm">
+              <ArrowUpRight size={14} />
+            </div>
+          </motion.div>
+
+          {/* Vertical Edge Text: SCROLL TO EXPLORE */}
+          <div className="hidden xl:block absolute -right-8 top-1/2 -translate-y-1/2 rotate-90 origin-center text-[9px] font-mono tracking-[0.25em] text-[#888888] uppercase pointer-events-none opacity-60">
+            SCROLL TO EXPLORE
+          </div>
+
+        </motion.div>
+
+      </div>
     </section>
   );
 }
