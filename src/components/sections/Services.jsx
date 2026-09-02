@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Bot, Code2, Cpu, Layout, Terminal } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
 
@@ -81,7 +80,7 @@ export default function Services() {
   ];
 
   const toggleService = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+    setExpandedIndex((prev) => (prev === index ? null : index));
   };
 
   return (
@@ -92,20 +91,12 @@ export default function Services() {
           02 / CAPABILITIES
         </span>
 
-        <div className="overflow-hidden">
-          <motion.h2
-            initial={{ y: '100%' }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading font-black text-4xl sm:text-6xl md:text-7xl text-[#111111] tracking-tighter uppercase transform-gpu"
-          >
-            /SERVICES
-          </motion.h2>
-        </div>
+        <h2 className="font-heading font-black text-4xl sm:text-6xl md:text-7xl text-[#111111] tracking-tighter uppercase">
+          /SERVICES
+        </h2>
       </div>
 
-      {/* Services Accordion List */}
+      {/* Instant Ultra-Fast Accordion List */}
       <div className="border-t border-[#E2E2DE]">
         {servicesList.map((service, index) => {
           const isExpanded = expandedIndex === index;
@@ -113,20 +104,20 @@ export default function Services() {
           return (
             <div
               key={service.id}
-              className={`border-b border-[#E2E2DE] transition-colors duration-300 ${
+              className={`border-b border-[#E2E2DE] transition-colors duration-200 ${
                 isExpanded ? 'bg-[#242424] text-[#F5F5F3]' : 'bg-transparent text-[#111111] hover:bg-[#ECECE9]/60'
               }`}
             >
-              {/* Header Row Trigger */}
+              {/* Header Row Trigger (Instant Click Reaction) */}
               <button
                 onClick={() => toggleService(index)}
                 onMouseEnter={() => setCursor && setCursor('pointer')}
                 onMouseLeave={resetCursor}
-                className="w-full text-left py-7 sm:py-9 px-4 sm:px-8 flex items-center justify-between gap-6 cursor-pointer select-none group"
+                className="w-full text-left py-6 sm:py-8 px-4 sm:px-8 flex items-center justify-between gap-6 cursor-pointer select-none group"
               >
                 <div className="flex items-center gap-6 sm:gap-10">
                   <span
-                    className={`font-mono text-sm sm:text-base transition-colors duration-200 ${
+                    className={`font-mono text-sm sm:text-base transition-colors duration-150 ${
                       isExpanded ? 'text-[#999999]' : 'text-[#888888]'
                     }`}
                   >
@@ -134,7 +125,7 @@ export default function Services() {
                   </span>
 
                   <h3
-                    className={`font-heading font-bold text-xl sm:text-3xl md:text-4xl tracking-tight uppercase transition-all duration-200 group-hover:translate-x-1.5 ${
+                    className={`font-heading font-bold text-xl sm:text-3xl md:text-4xl tracking-tight uppercase transition-all duration-150 group-hover:translate-x-1.5 ${
                       isExpanded ? 'text-[#F5F5F3]' : 'text-[#111111]'
                     }`}
                   >
@@ -143,66 +134,63 @@ export default function Services() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <span className={`hidden md:inline-block text-xs font-mono max-w-xs text-right transition-colors duration-200 ${isExpanded ? 'text-[#999999]' : 'text-[#666666]'}`}>
+                  <span className={`hidden md:inline-block text-xs font-mono max-w-xs text-right transition-colors duration-150 ${isExpanded ? 'text-[#999999]' : 'text-[#666666]'}`}>
                     {service.capabilities[0]}
                   </span>
                   
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 ${
+                    className={`w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-200 ${
                       isExpanded
                         ? 'border-[#555555] bg-[#333333] text-[#F5F5F3] rotate-45'
                         : 'border-[#DEDEDA] bg-transparent text-[#111111] group-hover:border-[#111111]'
                     }`}
                   >
-                    <Plus size={18} />
+                    <Plus size={16} />
                   </div>
                 </div>
               </button>
 
-              {/* Expandable Accordion Body */}
-              <AnimatePresence initial={false}>
-                {isExpanded && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-4 sm:px-8 pb-8 pt-2 grid grid-cols-1 lg:grid-cols-12 gap-8 border-t border-[#333333]">
-                      
-                      {/* Left: Detailed Overview */}
-                      <div className="lg:col-span-7 space-y-4">
-                        <p className="text-base sm:text-lg text-[#DDDDDD] font-sans font-light leading-relaxed">
-                          {service.shortDescription}
-                        </p>
-                        <p className="text-sm text-[#999999] font-sans leading-relaxed">
-                          {service.details}
-                        </p>
-                      </div>
-
-                      {/* Right: Capabilities Tag List */}
-                      <div className="lg:col-span-5 space-y-3">
-                        <span className="text-xs font-mono uppercase tracking-widest text-[#999999] block mb-2">
-                          Capabilities & Deliverables
-                        </span>
-                        
-                        <div className="flex flex-wrap gap-2">
-                          {service.capabilities.map((cap) => (
-                            <span
-                              key={cap}
-                              className="px-3.5 py-1.5 rounded-full bg-[#333333] border border-[#444444] text-xs font-mono text-[#F5F5F3]"
-                            >
-                              {cap}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
+              {/* Instant Hardware-Accelerated CSS Grid Reveal (Zero Lag, Zero Glitch) */}
+              <div
+                className={`grid transition-all duration-300 ease-out ${
+                  isExpanded ? 'grid-rows-[1fr] opacity-100 py-2' : 'grid-rows-[0fr] opacity-0 py-0'
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <div className="px-4 sm:px-8 pb-8 pt-2 grid grid-cols-1 lg:grid-cols-12 gap-8 border-t border-[#333333]/80">
+                    
+                    {/* Left: Detailed Overview */}
+                    <div className="lg:col-span-7 space-y-3">
+                      <p className="text-base sm:text-lg text-[#DDDDDD] font-sans font-light leading-relaxed">
+                        {service.shortDescription}
+                      </p>
+                      <p className="text-sm text-[#999999] font-sans leading-relaxed">
+                        {service.details}
+                      </p>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+
+                    {/* Right: Capabilities Tag List */}
+                    <div className="lg:col-span-5 space-y-3">
+                      <span className="text-xs font-mono uppercase tracking-widest text-[#999999] block mb-2">
+                        Capabilities & Deliverables
+                      </span>
+                      
+                      <div className="flex flex-wrap gap-2">
+                        {service.capabilities.map((cap) => (
+                          <span
+                            key={cap}
+                            className="px-3.5 py-1.5 rounded-full bg-[#333333] border border-[#444444] text-xs font-mono text-[#F5F5F3]"
+                          >
+                            {cap}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
             </div>
           );
         })}
