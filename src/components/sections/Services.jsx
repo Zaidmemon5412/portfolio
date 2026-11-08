@@ -96,36 +96,51 @@ export default function Services() {
         </h2>
       </div>
 
-      {/* Instant Hardware-Accelerated Accordion List */}
-      <div className="border-t border-[#E2E2DE]">
+      {/* Hardware-Accelerated Zero-Lag Accordion List */}
+      <div className="space-y-3" style={{ contain: 'layout style' }}>
         {servicesList.map((service, index) => {
           const isExpanded = expandedIndex === index;
+          const IconComponent = service.icon;
 
           return (
             <div
               key={service.id}
-              className={`border-b border-[#E2E2DE] transition-colors duration-200 ${
-                isExpanded ? 'bg-[#242424] text-[#F5F5F3]' : 'bg-transparent text-[#111111] hover:bg-[#ECECE9]/60'
+              className={`rounded-2xl border transition-colors duration-200 overflow-hidden transform-gpu ${
+                isExpanded
+                  ? 'bg-[#1E1E1E] border-[#1E1E1E] text-[#F5F5F3] shadow-md'
+                  : 'bg-[#FFFFFF] border-[#E2E2DE] text-[#111111] hover:border-[#CCCCCC] hover:bg-[#FAF9F6]'
               }`}
             >
               {/* Header Row Trigger */}
               <button
+                type="button"
+                aria-expanded={isExpanded}
                 onClick={() => toggleService(index)}
                 onMouseEnter={() => setCursor && setCursor('pointer')}
                 onMouseLeave={resetCursor}
-                className="w-full text-left py-6 sm:py-8 px-4 sm:px-8 flex items-center justify-between gap-6 cursor-pointer select-none group"
+                className="w-full text-left py-5 sm:py-6 px-5 sm:px-8 flex items-center justify-between gap-4 cursor-pointer select-none group"
               >
-                <div className="flex items-center gap-6 sm:gap-10">
+                <div className="flex items-center gap-4 sm:gap-7 min-w-0">
                   <span
-                    className={`font-mono text-sm sm:text-base transition-colors duration-150 ${
-                      isExpanded ? 'text-[#999999]' : 'text-[#888888]'
+                    className={`font-mono text-xs sm:text-sm shrink-0 transition-colors duration-200 ${
+                      isExpanded ? 'text-[#55D98B]' : 'text-[#888888]'
                     }`}
                   >
-                    {service.number}
+                    /{service.number}
                   </span>
 
+                  <div
+                    className={`hidden sm:flex w-10 h-10 rounded-xl items-center justify-center shrink-0 border transition-colors duration-200 ${
+                      isExpanded
+                        ? 'bg-[#2C2C2C] border-[#3D3D3D] text-[#F5F5F3]'
+                        : 'bg-[#F5F5F3] border-[#E2E2DE] text-[#111111] group-hover:bg-[#ECECE9]'
+                    }`}
+                  >
+                    <IconComponent size={18} />
+                  </div>
+
                   <h3
-                    className={`font-heading font-bold text-xl sm:text-3xl md:text-4xl tracking-tight uppercase transition-all duration-150 group-hover:translate-x-1.5 ${
+                    className={`font-heading font-bold text-lg sm:text-2xl md:text-3xl tracking-tight uppercase truncate transition-transform duration-200 transform-gpu group-hover:translate-x-1 ${
                       isExpanded ? 'text-[#F5F5F3]' : 'text-[#111111]'
                     }`}
                   >
@@ -133,16 +148,20 @@ export default function Services() {
                   </h3>
                 </div>
 
-                <div className="flex items-center gap-4">
-                  <span className={`hidden md:inline-block text-xs font-mono max-w-xs text-right transition-colors duration-150 ${isExpanded ? 'text-[#999999]' : 'text-[#666666]'}`}>
+                <div className="flex items-center gap-4 shrink-0">
+                  <span
+                    className={`hidden lg:inline-block text-xs font-mono transition-colors duration-200 ${
+                      isExpanded ? 'text-[#A0A0A0]' : 'text-[#777777]'
+                    }`}
+                  >
                     {service.capabilities[0]}
                   </span>
-                  
+
                   <div
-                    className={`w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-200 ${
+                    className={`w-9 h-9 rounded-full flex items-center justify-center border transition-transform duration-250 transform-gpu ${
                       isExpanded
-                        ? 'border-[#555555] bg-[#333333] text-[#F5F5F3] rotate-45'
-                        : 'border-[#DEDEDA] bg-transparent text-[#111111] group-hover:border-[#111111]'
+                        ? 'border-[#444444] bg-[#2C2C2C] text-[#F5F5F3] rotate-45'
+                        : 'border-[#DEDEDA] bg-[#F5F5F3] text-[#111111] group-hover:border-[#111111]'
                     }`}
                   >
                     <Plus size={16} />
@@ -150,47 +169,50 @@ export default function Services() {
                 </div>
               </button>
 
-              {/* Instant Hardware-Accelerated CSS Grid Reveal */}
+              {/* Smooth Zero-Snap CSS Grid Collapse (min-h-0 + no outer padding jump) */}
               <div
-                className={`grid transition-all duration-300 ease-out ${
-                  isExpanded ? 'grid-rows-[1fr] opacity-100 py-2' : 'grid-rows-[0fr] opacity-0 py-0'
+                className={`grid transition-[grid-template-rows] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
                 }`}
               >
-                <div className="overflow-hidden">
-                  <div className="px-4 sm:px-8 pb-8 pt-2 grid grid-cols-1 lg:grid-cols-12 gap-8 border-t border-[#333333]/80">
-                    
-                    {/* Left: Detailed Overview */}
-                    <div className="lg:col-span-7 space-y-3">
-                      <p className="text-base sm:text-lg text-[#DDDDDD] font-sans font-light leading-relaxed">
-                        {service.shortDescription}
-                      </p>
-                      <p className="text-sm text-[#999999] font-sans leading-relaxed">
-                        {service.details}
-                      </p>
-                    </div>
+                <div className="min-h-0 overflow-hidden">
+                  <div
+                    className={`px-5 sm:px-8 pb-6 sm:pb-8 pt-2 bg-[#1E1E1E] text-[#F5F5F3] transition-[opacity,transform] duration-200 ease-out transform-gpu ${
+                      isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1.5'
+                    }`}
+                  >
+                    <div className="pt-5 border-t border-[#333333] grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+                      {/* Left: Detailed Overview */}
+                      <div className="lg:col-span-7 space-y-2.5">
+                        <p className="text-sm sm:text-base text-[#EAEAEA] font-sans font-light leading-relaxed">
+                          {service.shortDescription}
+                        </p>
+                        <p className="text-xs sm:text-sm text-[#999999] font-sans leading-relaxed">
+                          {service.details}
+                        </p>
+                      </div>
 
-                    {/* Right: Capabilities Tag List */}
-                    <div className="lg:col-span-5 space-y-3">
-                      <span className="text-xs font-mono uppercase tracking-widest text-[#999999] block mb-2">
-                        Core Technologies & Frameworks
-                      </span>
-                      
-                      <div className="flex flex-wrap gap-2">
-                        {service.capabilities.map((cap) => (
-                          <span
-                            key={cap}
-                            className="px-3.5 py-1.5 rounded-full bg-[#333333] border border-[#444444] text-xs font-mono text-[#F5F5F3]"
-                          >
-                            {cap}
-                          </span>
-                        ))}
+                      {/* Right: Capabilities Tag List */}
+                      <div className="lg:col-span-5 space-y-2.5">
+                        <span className="text-[11px] font-mono uppercase tracking-widest text-[#888888] block">
+                          Core Technologies & Frameworks
+                        </span>
+
+                        <div className="flex flex-wrap gap-2">
+                          {service.capabilities.map((cap) => (
+                            <span
+                              key={cap}
+                              className="px-3 py-1.5 rounded-lg bg-[#2A2A2A] border border-[#3A3A3A] text-xs font-mono text-[#F5F5F3]"
+                            >
+                              {cap}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
-
             </div>
           );
         })}

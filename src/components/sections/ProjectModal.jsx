@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowLeft, ArrowUpRight, CheckCircle2, Maximize2, ZoomIn } from 'lucide-react';
+import { X, ArrowLeft, ArrowUpRight, CheckCircle2, ZoomIn } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
 import { projectsData } from '../../data/projects';
 import { useCursor } from '../../hooks/useCursor';
 
-export default function ProjectModal({ project, isOpen, onClose }) {
+export default function ProjectModal({ project, isOpen, onClose, onSelectProject }) {
   const [fullscreenImage, setFullscreenImage] = useState(false);
+  const modalScrollRef = useRef(null);
   const { setCursor, resetCursor } = useCursor();
 
   useEffect(() => {
@@ -22,17 +23,26 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      window.__lenis?.stop();
       window.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = '';
+      window.__lenis?.start();
       setFullscreenImage(false);
     }
 
     return () => {
       document.body.style.overflow = '';
+      window.__lenis?.start();
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose, fullscreenImage]);
+
+  useEffect(() => {
+    if (modalScrollRef.current) {
+      modalScrollRef.current.scrollTop = 0;
+    }
+  }, [project?.id]);
 
   if (!project) return null;
 
@@ -69,6 +79,8 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
           {/* Full Case Study Modal Container */}
           <motion.div
+            ref={modalScrollRef}
+            data-lenis-prevent
             initial={{ opacity: 0, scale: 0.97, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 30 }}
@@ -130,27 +142,37 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                   </div>
 
                   <div className="flex items-center gap-3">
+                    {project.status && (
+                      <span className="px-3 py-1.5 rounded-full border border-[#DEDEDA] bg-[#FFFFFF] text-[11px] font-mono text-[#555555] flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#55D98B]" />
+                        <span>{project.status}</span>
+                      </span>
+                    )}
+
                     {project.githubUrl && (
                       <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="px-4 py-2 rounded-full border border-[#DEDEDA] text-xs font-mono text-[#111111] hover:bg-[#E2E2DE] transition-colors flex items-center gap-2"
+                        className="px-5 py-2.5 rounded-full bg-[#111111] text-[#F5F5F3] text-xs font-mono font-medium hover:bg-[#242424] transition-all flex items-center gap-2 shadow-sm"
                       >
                         <GithubIcon className="w-3.5 h-3.5" />
-                        <span>Source Code</span>
+                        <span>View Source on GitHub</span>
+                        <ArrowUpRight size={14} />
                       </a>
                     )}
 
-                    <a
-                      href={project.demoUrl || project.githubUrl || '#'}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="px-6 py-2.5 rounded-full bg-[#111111] text-[#F5F5F3] text-xs font-mono font-medium hover:bg-[#242424] transition-all flex items-center gap-2 shadow-sm"
-                    >
-                      <span>View Live Project</span>
-                      <ArrowUpRight size={14} />
-                    </a>
+                    {project.demoUrl && (
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="px-5 py-2.5 rounded-full border border-[#DEDEDA] bg-[#FFFFFF] text-xs font-mono font-medium text-[#111111] hover:bg-[#E2E2DE] transition-all flex items-center gap-2"
+                      >
+                        <span>Live Demo</span>
+                        <ArrowUpRight size={14} />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -258,6 +280,40 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                   ))}
                 </div>
               </div>
+
+              {/* Explore Other Projects Switcher */}
+              {onSelectProject && otherProjects.length > 0 && (
+                <div className="pt-8 border-t border-[#E2E2DE] space-y-4">
+                  <span className="text-xs font-mono text-[#888888] uppercase tracking-widest block">
+                    MORE SELECTED WORK
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {otherProjects.slice(0, 2).map((nextProj) => (
+                      <button
+                        key={nextProj.id}
+                        type="button"
+                        onClick={() => onSelectProject(nextProj)}
+                        onMouseEnter={() => setCursor && setCursor('pointer')}
+                        onMouseLeave={resetCursor}
+                        className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2E2DE] hover:border-[#111111] transition-all text-left flex items-center justify-between group cursor-pointer"
+                      >
+                        <div>
+                          <span className="text-[10px] font-mono text-[#888888] uppercase block">
+                            {nextProj.number} • {nextProj.category}
+                          </span>
+                          <span className="font-heading font-bold text-base text-[#111111] uppercase mt-0.5 block">
+                            {nextProj.title}
+                          </span>
+                        </div>
+                        <ArrowUpRight
+                          size={16}
+                          className="text-[#888888] group-hover:text-[#111111] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
             </div>
           </motion.div>

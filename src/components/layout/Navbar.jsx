@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, FileText } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
+import { useGameState } from '../../hooks/useGameState';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
   const { setCursor, resetCursor } = useCursor();
+  const { openResumeModal } = useGameState();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,17 +95,16 @@ export default function Navbar() {
 
         {/* RIGHT: Resume PDF & Black Pill CTA Buttons */}
         <div className="flex items-center gap-2.5">
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noreferrer"
+          <button
+            type="button"
+            onClick={openResumeModal}
             onMouseEnter={() => setCursor && setCursor('pointer')}
             onMouseLeave={resetCursor}
             className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#DEDEDA] bg-[#FFFFFF] text-[#111111] text-xs font-mono font-medium hover:bg-[#E5E5E2] transition-all cursor-pointer shadow-2xs"
           >
             <FileText size={13} />
             <span>Resume</span>
-          </a>
+          </button>
 
           <button
             onClick={() => scrollToSection('contact')}
@@ -146,15 +147,17 @@ export default function Navbar() {
               </button>
             ))}
             
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openResumeModal();
+              }}
               className="w-full py-2 rounded-full border border-[#E2E2DE] text-[#111111] text-xs font-mono text-center flex items-center justify-center gap-2"
             >
               <FileText size={14} />
-              <span>Download Resume (PDF)</span>
-            </a>
+              <span>View Resume (PDF)</span>
+            </button>
 
             <button
               onClick={() => scrollToSection('contact')}

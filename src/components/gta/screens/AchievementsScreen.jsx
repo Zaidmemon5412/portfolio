@@ -1,45 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code2, LineChart, Cpu, Layers, ExternalLink, ChevronRight } from 'lucide-react';
+import { ExternalLink, ChevronRight } from 'lucide-react';
+import { certificatesData } from '../../../data/certificates';
 import { useGameState } from '../../../hooks/useGameState';
 
 export default function AchievementsScreen() {
   const { playSfx } = useGameState();
-
-  const achievements = [
-    {
-      id: 'html-css-js',
-      title: 'Introduction to HTML, CSS, and JavaScript',
-      issuer: 'COURSERA VERIFIED CERTIFICATE',
-      url: 'https://coursera.org/share/440c39f19c4e944fc9e13c441667cd39',
-      icon: Code2,
-      color: '#FF007F',
-    },
-    {
-      id: 'eda-ml',
-      title: 'Exploratory Data Analysis for Machine Learning',
-      issuer: 'COURSERA VERIFIED CERTIFICATE',
-      url: 'https://coursera.org/share/3a5f5f7a99b4a81c3a9692f355e8004f',
-      icon: LineChart,
-      color: '#00F0FF',
-    },
-    {
-      id: 'intro-java',
-      title: 'Introduction to Java',
-      issuer: 'COURSERA VERIFIED CERTIFICATE',
-      url: 'https://coursera.org/share/7e97505584764ed830cea9c885777ecd',
-      icon: Cpu,
-      color: '#FFB800',
-    },
-    {
-      id: 'java-ds',
-      title: 'Inheritance and Data Structures in Java',
-      issuer: 'COURSERA VERIFIED CERTIFICATE',
-      url: 'https://coursera.org/share/d155fe39c7eea5e2ea71ca315040dd91',
-      icon: Layers,
-      color: '#A855F7',
-    },
-  ];
+  const achievements = certificatesData;
 
   return (
     <div className="relative w-full min-h-screen flex flex-col justify-center px-4 sm:px-8 md:px-16 lg:px-24 select-none z-20 pt-20 pb-36 sm:pt-24 sm:pb-28">

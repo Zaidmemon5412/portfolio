@@ -1,16 +1,19 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Copy, Check } from 'lucide-react';
+import { ArrowUpRight, Copy, Check, FileText } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useCursor } from '../../hooks/useCursor';
+import { useGameState } from '../../hooks/useGameState';
+import { CONTACT_INFO } from '../../data/certificates';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
   const { setCursor, resetCursor } = useCursor();
-  const email = 'zaidmemon5412@gmail.com';
+  const { openResumeModal } = useGameState();
+  const email = CONTACT_INFO.email;
 
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
@@ -65,14 +68,21 @@ export default function Contact() {
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(email);
     setCopied(true);
+    try {
+      confetti({
+        particleCount: 45,
+        spread: 60,
+        origin: { y: 0.8 },
+      });
+    } catch {}
     setTimeout(() => setCopied(false), 2500);
   };
 
   const socialLinks = [
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/zaidmemon' },
-    { label: 'GitHub', href: 'https://github.com/Zaidmemon5412' },
-    { label: 'X / Twitter', href: 'https://x.com' },
-    { label: 'Instagram', href: 'https://instagram.com' },
+    { label: 'LinkedIn', sub: CONTACT_INFO.linkedinHandle, href: CONTACT_INFO.linkedinUrl },
+    { label: 'GitHub', sub: CONTACT_INFO.githubHandle, href: CONTACT_INFO.githubUrl },
+    { label: 'Direct Email', sub: email, href: `mailto:${email}` },
+    { label: 'Resume / CV', sub: 'Interactive PDF', onClick: openResumeModal },
   ];
 
   return (
@@ -142,20 +152,42 @@ export default function Contact() {
           </button>
         </div>
 
-        {/* Minimal Social Links Grid */}
-        <div className="pt-16 border-t border-[#E2E2DE] grid grid-cols-2 sm:grid-cols-4 gap-6">
-          {socialLinks.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target="_blank"
-              rel="noreferrer"
-              className="p-4 rounded-xl border border-[#E2E2DE] bg-[#FFFFFF] hover:bg-[#ECECE9] transition-colors flex items-center justify-between group"
-            >
-              <span className="text-sm font-mono text-[#111111]">{social.label}</span>
-              <ArrowUpRight size={16} className="text-[#888888] group-hover:text-[#111111] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-            </a>
-          ))}
+        {/* Minimal Social & Direct Links Grid */}
+        <div className="pt-16 border-t border-[#E2E2DE] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {socialLinks.map((social) =>
+            social.onClick ? (
+              <button
+                key={social.label}
+                type="button"
+                onClick={social.onClick}
+                onMouseEnter={() => setCursor && setCursor('pointer')}
+                onMouseLeave={resetCursor}
+                className="p-4 rounded-xl border border-[#E2E2DE] bg-[#FFFFFF] hover:bg-[#ECECE9] transition-colors flex items-center justify-between group text-left cursor-pointer"
+              >
+                <div>
+                  <span className="text-sm font-mono font-medium text-[#111111] block">{social.label}</span>
+                  <span className="text-[11px] font-mono text-[#888888] block mt-0.5 truncate">{social.sub}</span>
+                </div>
+                <FileText size={16} className="text-[#888888] group-hover:text-[#111111] transition-colors shrink-0" />
+              </button>
+            ) : (
+              <a
+                key={social.label}
+                href={social.href}
+                target={social.href.startsWith('mailto:') ? undefined : '_blank'}
+                rel={social.href.startsWith('mailto:') ? undefined : 'noreferrer'}
+                onMouseEnter={() => setCursor && setCursor('pointer')}
+                onMouseLeave={resetCursor}
+                className="p-4 rounded-xl border border-[#E2E2DE] bg-[#FFFFFF] hover:bg-[#ECECE9] transition-colors flex items-center justify-between group"
+              >
+                <div className="min-w-0 pr-2">
+                  <span className="text-sm font-mono font-medium text-[#111111] block">{social.label}</span>
+                  <span className="text-[11px] font-mono text-[#888888] block mt-0.5 truncate">{social.sub}</span>
+                </div>
+                <ArrowUpRight size={16} className="text-[#888888] group-hover:text-[#111111] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+              </a>
+            )
+          )}
         </div>
       </div>
     </section>

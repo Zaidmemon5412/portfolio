@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { motion, useSpring, useMotionValue } from 'framer-motion';
-import { useCursor } from '../../hooks/useCursor';
+import { CursorStateContext } from '../../context/CursorContextCore';
 
 export default function CustomCursor() {
-  const { cursorType, cursorText, isTouchDevice } = useCursor();
+  const { cursorType, cursorText, isTouchDevice } = useContext(CursorStateContext);
   const [isVisible, setIsVisible] = useState(false);
+  const isVisibleRef = useRef(false);
 
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
@@ -19,11 +20,20 @@ export default function CustomCursor() {
     const handleMouseMove = (e) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-      if (!isVisible) setIsVisible(true);
+      if (!isVisibleRef.current) {
+        isVisibleRef.current = true;
+        setIsVisible(true);
+      }
     };
 
-    const handleMouseLeave = () => setIsVisible(false);
-    const handleMouseEnter = () => setIsVisible(true);
+    const handleMouseLeave = () => {
+      isVisibleRef.current = false;
+      setIsVisible(false);
+    };
+    const handleMouseEnter = () => {
+      isVisibleRef.current = true;
+      setIsVisible(true);
+    };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave);
@@ -34,7 +44,7 @@ export default function CustomCursor() {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [isTouchDevice, isVisible, mouseX, mouseY]);
+  }, [isTouchDevice, mouseX, mouseY]);
 
   if (isTouchDevice || !isVisible) return null;
 

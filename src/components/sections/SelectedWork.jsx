@@ -153,6 +153,7 @@ export default function SelectedWork() {
       <ProjectModal
         project={activeProject}
         isOpen={modalOpen}
+        onSelectProject={(nextProj) => setActiveProject(nextProj)}
         onClose={() => {
           setModalOpen(false);
           setActiveProject(null);

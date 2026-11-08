@@ -116,9 +116,20 @@ export function GameStateProvider({ children }) {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [playSfx]);
 
-  // Keyboard navigation
+  // Keyboard navigation (Active in GTA Mode only)
   useEffect(() => {
+    if (viewMode !== 'gta') return;
+
     const handleKeyDown = (e) => {
+      // Do not intercept keys while typing in an input or textarea
+      const tag = e.target?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable) {
+        if (e.key === 'Escape') {
+          e.target.blur();
+        }
+        return;
+      }
+
       // Toggle sound with 'M' key (Mute / Unmute)
       if (e.key === 'm' || e.key === 'M') {
         if (!activeModalProject && !isResumeModalOpen) {
@@ -169,7 +180,7 @@ export function GameStateProvider({ children }) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentScreen, selectedMenuIndex, activeModalProject, isResumeModalOpen, navigateTo, goBackToMenu, playSfx, toggleSound, setViewMode]);
+  }, [viewMode, currentScreen, selectedMenuIndex, activeModalProject, isResumeModalOpen, navigateTo, goBackToMenu, playSfx, toggleSound, setViewMode]);
 
   // Live IST Clock
   const [timeString, setTimeString] = useState('');

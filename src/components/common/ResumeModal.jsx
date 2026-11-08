@@ -22,9 +22,11 @@ export default function ResumeModal({ isOpen, onClose }) {
         playSoundEffect('modal_open');
       }
       document.body.style.overflow = 'hidden';
+      window.__lenis?.stop();
       window.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = '';
+      window.__lenis?.start();
       setIsFullscreen(false);
     }
 
@@ -32,6 +34,7 @@ export default function ResumeModal({ isOpen, onClose }) {
 
     return () => {
       document.body.style.overflow = '';
+      window.__lenis?.start();
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen]);

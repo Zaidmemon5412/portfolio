@@ -2,10 +2,12 @@ import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowUpRight, FileText } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
+import { useGameState } from '../../hooks/useGameState';
 
 export default function Hero() {
   const heroRef = useRef(null);
   const { setCursor, resetCursor } = useCursor();
+  const { openResumeModal } = useGameState();
 
   // Mouse Parallax (±6px subtle movement on desktop)
   const mouseX = useMotionValue(0);
@@ -145,10 +147,9 @@ export default function Hero() {
               <span className="transform group-hover:translate-x-1 transition-transform duration-200">→</span>
             </button>
 
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="button"
+              onClick={openResumeModal}
               onMouseEnter={() => setCursor && setCursor('pointer')}
               onMouseLeave={resetCursor}
               className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full border border-[#E2E2DE] bg-[#FFFFFF] text-[#111111] text-xs font-mono font-semibold hover:bg-[#E5E5E2] hover:border-[#CCCCCC] transition-all duration-200 cursor-pointer shadow-xs group"
@@ -156,7 +157,7 @@ export default function Hero() {
               <FileText size={15} className="text-[#111111]" />
               <span>Resume PDF</span>
               <ArrowUpRight size={14} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-            </a>
+            </button>
 
             <button
               onClick={() => scrollToSection('selected-work')}
@@ -197,11 +198,11 @@ export default function Hero() {
             style={{ x: parallaxX, y: parallaxY }}
             className="relative w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[460px] aspect-[3/4] rounded-2xl overflow-hidden border border-[#E2E2DE] shadow-lg group bg-[#E5E5E2] transform-gpu"
           >
-            {/* Zaid Memon Original Photo */}
+            {/* Zaid Memon Studio Portrait */}
             <img
-              src="/zaid_portrait-opt.jpg"
+              src="/zaid_portrait-opt.jpg?v=2"
               alt="Zaid Memon — Full-Stack Developer & Computer Science Student"
-              className="w-full h-full object-cover object-[center_20%] grayscale contrast-110 brightness-102 group-hover:scale-[1.02] transition-transform duration-500 ease-out transform-gpu"
+              className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500 ease-out transform-gpu"
             />
 
             {/* Subtle Gradient Vignette */}

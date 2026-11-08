@@ -32,7 +32,7 @@ function EditorialPortfolio() {
       <CustomCursor />
       
       {/* Centered Website Container Canvas with Rounded Corners */}
-      <div className="max-w-[1536px] mx-auto rounded-[20px] sm:rounded-[28px] border border-[#E2E2DE] bg-[#F5F5F3] paper-noise relative shadow-sm overflow-hidden">
+      <div className="max-w-[1536px] mx-auto rounded-[20px] sm:rounded-[28px] border border-[#E2E2DE] bg-[#F5F5F3] paper-noise relative shadow-sm overflow-clip">
         <Navbar />
 
         <main id="main-content" className="relative z-10">
