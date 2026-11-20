@@ -73,46 +73,48 @@ export default function Hero() {
             <span>FULL-STACK</span>
           </motion.div>
 
-          {/* Main 3-Line Headline with Overflow Mask Reveal */}
-          <div className="space-y-0.5 sm:space-y-1">
-            
+          {/* Main 3-Line Headline inside a single semantic <h1> */}
+          <h1 className="space-y-0.5 sm:space-y-1">
+            <span className="sr-only">
+              Zaid Memon — Full-Stack Developer &amp; Software Engineer:{' '}
+            </span>
+
             {/* Line 1: BUILDING */}
-            <div className="overflow-hidden">
-              <motion.h1
+            <span className="block overflow-hidden">
+              <motion.span
                 initial={{ y: '100%' }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                className="font-heading font-black text-5xl sm:text-7xl lg:text-[74px] xl:text-[88px] 2xl:text-[96px] text-[#111111] uppercase tracking-tighter leading-[0.88] select-none transform-gpu"
+                className="block font-heading font-black text-5xl sm:text-7xl lg:text-[74px] xl:text-[88px] 2xl:text-[96px] text-[#111111] uppercase tracking-tighter leading-[0.88] select-none transform-gpu"
               >
                 BUILDING
-              </motion.h1>
-            </div>
+              </motion.span>
+            </span>
 
             {/* Line 2: INTELLIGENT (Outlined Accent) */}
-            <div className="overflow-hidden">
-              <motion.h1
+            <span className="block overflow-hidden">
+              <motion.span
                 initial={{ y: '100%' }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="font-heading font-black text-5xl sm:text-7xl lg:text-[74px] xl:text-[88px] 2xl:text-[96px] text-stroke-dark uppercase tracking-tighter leading-[0.88] select-none transform-gpu"
+                className="block font-heading font-black text-5xl sm:text-7xl lg:text-[74px] xl:text-[88px] 2xl:text-[96px] text-stroke-dark uppercase tracking-tighter leading-[0.88] select-none transform-gpu"
               >
                 INTELLIGENT
-              </motion.h1>
-            </div>
+              </motion.span>
+            </span>
 
             {/* Line 3: EXPERIENCES. */}
-            <div className="overflow-hidden">
-              <motion.h1
+            <span className="block overflow-hidden">
+              <motion.span
                 initial={{ y: '100%' }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-                className="font-heading font-black text-5xl sm:text-7xl lg:text-[74px] xl:text-[88px] 2xl:text-[96px] text-[#111111] uppercase tracking-tighter leading-[0.88] select-none transform-gpu"
+                className="block font-heading font-black text-5xl sm:text-7xl lg:text-[74px] xl:text-[88px] 2xl:text-[96px] text-[#111111] uppercase tracking-tighter leading-[0.88] select-none transform-gpu"
               >
                 EXPERIENCES.
-              </motion.h1>
-            </div>
-
-          </div>
+              </motion.span>
+            </span>
+          </h1>
 
           {/* Positioning & Description */}
           <motion.div
@@ -122,7 +124,7 @@ export default function Hero() {
             className="space-y-3 pt-2 transform-gpu"
           >
             <h2 className="font-heading font-bold text-lg sm:text-xl text-[#111111] uppercase tracking-wide">
-              FULL-STACK DEVELOPER & SOFTWARE ENGINEER
+              ZAID MEMON — FULL-STACK DEVELOPER &amp; SOFTWARE ENGINEER
             </h2>
 
             <p className="text-sm sm:text-base text-[#666666] font-sans font-light leading-relaxed max-w-[460px]">

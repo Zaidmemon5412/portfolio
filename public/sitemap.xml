@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <url>
+    <loc>https://zaidmemon.vercel.app/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/zaid_portrait-opt.jpg</image:loc>
+      <image:title>Zaid Memon — Full-Stack Developer &amp; Computer Science Student</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/verixa.png</image:loc>
+      <image:title>Verixa — Real Estate Decision Intelligence Platform by Zaid Memon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/exertia.png</image:loc>
+      <image:title>Exertia — Workforce Management &amp; Telemetry OS by Zaid Memon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/veritas.png</image:loc>
+      <image:title>Veritas — Civic News Analysis Engine by Zaid Memon</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/resume.pdf</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

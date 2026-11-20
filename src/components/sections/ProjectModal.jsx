@@ -148,13 +148,12 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
                     {project.status && (
                       <span className="px-3 py-1.5 rounded-full border border-[#DEDEDA] bg-[#FFFFFF] text-[11px] font-mono text-[#555555] flex items-center gap-1.5">
                         <span
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            project.hasLiveDemo
+                          className={`w-1.5 h-1.5 rounded-full ${project.hasLiveDemo
                               ? 'bg-[#55D98B] animate-pulse'
                               : project.status === 'In Progress'
                                 ? 'bg-[#FFB800]'
                                 : 'bg-[#94A3B8]'
-                          }`}
+                            }`}
                         />
                         <span>{project.status}</span>
                       </span>
@@ -218,11 +217,10 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
                       <button
                         type="button"
                         onClick={() => setPreviewMode('screenshot')}
-                        className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono transition-colors cursor-pointer ${
-                          previewMode === 'screenshot'
+                        className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono transition-colors cursor-pointer ${previewMode === 'screenshot'
                             ? 'bg-[#111111] text-[#F5F5F3] font-medium'
                             : 'text-[#555555] hover:text-[#111111]'
-                        }`}
+                          }`}
                       >
                         <ImageIcon size={13} />
                         <span>Screenshot</span>
@@ -230,11 +228,10 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
                       <button
                         type="button"
                         onClick={() => setPreviewMode('live')}
-                        className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono transition-colors cursor-pointer ${
-                          previewMode === 'live'
+                        className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono transition-colors cursor-pointer ${previewMode === 'live'
                             ? 'bg-[#111111] text-[#F5F5F3] font-medium'
                             : 'text-[#555555] hover:text-[#111111]'
-                        }`}
+                          }`}
                       >
                         <Monitor size={13} />
                         <span>Interactive Live Preview</span>
