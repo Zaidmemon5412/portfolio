@@ -1,5 +1,7 @@
 import React from 'react';
 import { ArrowUp, Gamepad2 } from 'lucide-react';
+import { LinkedinIcon, GithubIcon } from '../ui/Icons';
+import { CONTACT_INFO } from '../../data/certificates';
 import { useCursor } from '../../hooks/useCursor';
 import { useGameState } from '../../hooks/useGameState';
 
@@ -44,16 +46,45 @@ export default function Footer() {
           <span>Switch to Vice City (GTA Mode)</span>
         </button>
 
-        {/* Right: Scroll to Top */}
-        <button
-          onClick={scrollToTop}
-          onMouseEnter={() => setCursor && setCursor('pointer')}
-          onMouseLeave={resetCursor}
-          className="flex items-center gap-2 text-[#111111] hover:text-[#555555] transition-colors cursor-pointer group"
-        >
-          <span>BACK TO TOP</span>
-          <ArrowUp size={14} className="transform group-hover:-translate-y-0.5 transition-transform" />
-        </button>
+        {/* Right: Quick Socials & Scroll to Top */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <a
+              href={CONTACT_INFO.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Zaid Memon LinkedIn Profile"
+              onMouseEnter={() => setCursor && setCursor('pointer')}
+              onMouseLeave={resetCursor}
+              className="p-2 rounded-full border border-[#DEDEDA] bg-[#FFFFFF] text-[#555555] hover:text-[#0A66C2] hover:border-[#0A66C2] transition-colors"
+            >
+              <LinkedinIcon size={14} />
+            </a>
+            <a
+              href={CONTACT_INFO.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Zaid Memon GitHub Profile"
+              onMouseEnter={() => setCursor && setCursor('pointer')}
+              onMouseLeave={resetCursor}
+              className="p-2 rounded-full border border-[#DEDEDA] bg-[#FFFFFF] text-[#555555] hover:text-[#111111] hover:border-[#111111] transition-colors"
+            >
+              <GithubIcon size={14} />
+            </a>
+          </div>
+
+          <span className="text-[#DEDEDA]">•</span>
+
+          <button
+            onClick={scrollToTop}
+            onMouseEnter={() => setCursor && setCursor('pointer')}
+            onMouseLeave={resetCursor}
+            className="flex items-center gap-2 text-[#111111] hover:text-[#555555] transition-colors cursor-pointer group"
+          >
+            <span>BACK TO TOP</span>
+            <ArrowUp size={14} className="transform group-hover:-translate-y-0.5 transition-transform" />
+          </button>
+        </div>
 
       </div>
     </footer>

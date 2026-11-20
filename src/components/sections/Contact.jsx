@@ -1,8 +1,9 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
-import { ArrowUpRight, Copy, Check, FileText, Send, MessageSquare, X } from 'lucide-react';
+import { ArrowUpRight, Copy, Check, FileText, Send, MessageSquare, X, Mail } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { LinkedinIcon, GithubIcon } from '../ui/Icons';
 import { useCursor } from '../../hooks/useCursor';
 import { useGameState } from '../../hooks/useGameState';
 import { CONTACT_INFO } from '../../data/certificates';
@@ -103,10 +104,34 @@ export default function Contact() {
   };
 
   const socialLinks = [
-    { label: 'LinkedIn', sub: CONTACT_INFO.linkedinHandle, href: CONTACT_INFO.linkedinUrl },
-    { label: 'GitHub', sub: CONTACT_INFO.githubHandle, href: CONTACT_INFO.githubUrl },
-    { label: 'Direct Email', sub: email, href: `mailto:${email}` },
-    { label: 'Resume / CV', sub: 'Interactive PDF', onClick: openResumeModal },
+    {
+      label: 'LinkedIn',
+      sub: 'Zaid Memon • in/zaid-memon-79656b318',
+      href: CONTACT_INFO.linkedinUrl,
+      icon: LinkedinIcon,
+      iconColor: 'text-[#0A66C2]',
+    },
+    {
+      label: 'GitHub',
+      sub: CONTACT_INFO.githubHandle,
+      href: CONTACT_INFO.githubUrl,
+      icon: GithubIcon,
+      iconColor: 'text-[#111111]',
+    },
+    {
+      label: 'Direct Email',
+      sub: email,
+      href: `mailto:${email}`,
+      icon: Mail,
+      iconColor: 'text-[#111111]',
+    },
+    {
+      label: 'Resume / CV',
+      sub: 'Interactive PDF',
+      onClick: openResumeModal,
+      icon: FileText,
+      iconColor: 'text-[#111111]',
+    },
   ];
 
   return (
@@ -179,6 +204,19 @@ export default function Contact() {
             {copied ? <Check size={16} className="text-[#55D98B]" /> : <Copy size={16} />}
             <span>{copied ? 'Copied to Clipboard!' : email}</span>
           </button>
+
+          <a
+            href={CONTACT_INFO.linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={() => setCursor && setCursor('pointer')}
+            onMouseLeave={resetCursor}
+            className="inline-flex items-center gap-2.5 px-6 py-4 rounded-full border border-[#0A66C2]/30 bg-[#FFFFFF] text-[#111111] hover:border-[#0A66C2] hover:bg-[#0A66C2] hover:text-white text-sm font-mono font-medium transition-all duration-200 group shadow-2xs"
+          >
+            <LinkedinIcon size={16} className="text-[#0A66C2] group-hover:text-white transition-colors" />
+            <span>LinkedIn</span>
+            <ArrowUpRight size={15} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
         </div>
 
         {/* Interactive Inline Message Composer */}
@@ -288,19 +326,25 @@ export default function Contact() {
 
         {/* Minimal Social & Direct Links Grid */}
         <div className="pt-16 border-t border-[#E2E2DE] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {socialLinks.map((social) =>
-            social.onClick ? (
+          {socialLinks.map((social) => {
+            const IconComp = social.icon;
+            return social.onClick ? (
               <button
                 key={social.label}
                 type="button"
                 onClick={social.onClick}
                 onMouseEnter={() => setCursor && setCursor('pointer')}
                 onMouseLeave={resetCursor}
-                className="p-4 rounded-xl border border-[#E2E2DE] bg-[#FFFFFF] hover:bg-[#ECECE9] transition-colors flex items-center justify-between group text-left cursor-pointer"
+                className="p-4 rounded-xl border border-[#E2E2DE] bg-[#FFFFFF] hover:bg-[#ECECE9] transition-colors flex items-center justify-between gap-3 group text-left cursor-pointer"
               >
-                <div>
-                  <span className="text-sm font-mono font-medium text-[#111111] block">{social.label}</span>
-                  <span className="text-[11px] font-mono text-[#888888] block mt-0.5 truncate">{social.sub}</span>
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-lg bg-[#F5F5F3] border border-[#E2E2DE] flex items-center justify-center shrink-0">
+                    <IconComp size={16} className={social.iconColor || 'text-[#111111]'} />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-sm font-mono font-medium text-[#111111] block">{social.label}</span>
+                    <span className="text-[11px] font-mono text-[#888888] block mt-0.5 truncate">{social.sub}</span>
+                  </div>
                 </div>
                 <FileText size={16} className="text-[#888888] group-hover:text-[#111111] transition-colors shrink-0" />
               </button>
@@ -309,19 +353,24 @@ export default function Contact() {
                 key={social.label}
                 href={social.href}
                 target={social.href.startsWith('mailto:') ? undefined : '_blank'}
-                rel={social.href.startsWith('mailto:') ? undefined : 'noreferrer'}
+                rel={social.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                 onMouseEnter={() => setCursor && setCursor('pointer')}
                 onMouseLeave={resetCursor}
-                className="p-4 rounded-xl border border-[#E2E2DE] bg-[#FFFFFF] hover:bg-[#ECECE9] transition-colors flex items-center justify-between group"
+                className="p-4 rounded-xl border border-[#E2E2DE] bg-[#FFFFFF] hover:bg-[#ECECE9] transition-colors flex items-center justify-between gap-3 group"
               >
-                <div className="min-w-0 pr-2">
-                  <span className="text-sm font-mono font-medium text-[#111111] block">{social.label}</span>
-                  <span className="text-[11px] font-mono text-[#888888] block mt-0.5 truncate">{social.sub}</span>
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-lg bg-[#F5F5F3] border border-[#E2E2DE] flex items-center justify-center shrink-0">
+                    <IconComp size={16} className={social.iconColor || 'text-[#111111]'} />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-sm font-mono font-medium text-[#111111] block">{social.label}</span>
+                    <span className="text-[11px] font-mono text-[#888888] block mt-0.5 truncate">{social.sub}</span>
+                  </div>
                 </div>
                 <ArrowUpRight size={16} className="text-[#888888] group-hover:text-[#111111] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
               </a>
-            )
-          )}
+            );
+          })}
         </div>
       </div>
     </section>
