@@ -51,12 +51,12 @@ export default function Experience() {
     return () => ctx.revert();
   }, []);
 
-  // Preview images for each experience item
+  // Authentic local project & portrait visuals for each experience milestone
   const previewImages = [
-    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
+    '/zaid_portrait-opt.jpg?v=2',
+    '/smart_inventory.jpg',
+    '/verixa.png',
+    '/exertia.png',
   ];
 
   return (

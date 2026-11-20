@@ -170,23 +170,52 @@ export default function Hero() {
             </button>
           </motion.div>
 
-          {/* Small Personal Meta Row */}
+          {/* Small Personal Meta & Quick Metrics Row */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.42 }}
-            className="pt-6 flex flex-wrap items-center gap-4 text-[10px] font-mono text-[#888888] uppercase tracking-wider transform-gpu"
+            className="pt-6 border-t border-[#E2E2DE]/80 space-y-3 transform-gpu"
           >
-            <span>Based in India</span>
-            <span>•</span>
-            <span>Available Worldwide</span>
-            <span>•</span>
-            <span>© 2026</span>
+            <div className="grid grid-cols-3 gap-4 max-w-[460px]">
+              <div>
+                <span className="font-heading font-black text-xl sm:text-2xl text-[#111111] block leading-none">
+                  05+
+                </span>
+                <span className="text-[10px] font-mono text-[#777777] uppercase tracking-wider mt-1 block">
+                  Architected Systems
+                </span>
+              </div>
+              <div>
+                <span className="font-heading font-black text-xl sm:text-2xl text-[#111111] block leading-none">
+                  04
+                </span>
+                <span className="text-[10px] font-mono text-[#777777] uppercase tracking-wider mt-1 block">
+                  Verified Certificates
+                </span>
+              </div>
+              <div>
+                <span className="font-heading font-black text-xl sm:text-2xl text-[#111111] block leading-none">
+                  2026
+                </span>
+                <span className="text-[10px] font-mono text-[#777777] uppercase tracking-wider mt-1 block">
+                  B.Tech CSE • L.J.U
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 text-[10px] font-mono text-[#888888] uppercase tracking-wider pt-1">
+              <span>Ahmedabad, India</span>
+              <span>•</span>
+              <span>Available Worldwide</span>
+              <span>•</span>
+              <span>React / Django / PostgreSQL</span>
+            </div>
           </motion.div>
 
         </div>
 
-        {/* RIGHT COLUMN: ZAID MEMON'S ORIGINAL PORTRAIT IMAGE */}
+        {/* RIGHT COLUMN: ZAID MEMON'S STUDIO PORTRAIT IMAGE */}
         <motion.div
           initial={{ opacity: 0, scale: 0.97, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -196,7 +225,10 @@ export default function Hero() {
           {/* Mouse Parallax Wrapper */}
           <motion.div
             style={{ x: parallaxX, y: parallaxY }}
-            className="relative w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[460px] aspect-[3/4] rounded-2xl overflow-hidden border border-[#E2E2DE] shadow-lg group bg-[#E5E5E2] transform-gpu"
+            onClick={() => scrollToSection('about')}
+            onMouseEnter={() => setCursor && setCursor('pointer')}
+            onMouseLeave={resetCursor}
+            className="relative w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[460px] aspect-[3/4] rounded-2xl overflow-hidden border border-[#E2E2DE] shadow-lg group bg-[#181A1F] transform-gpu cursor-pointer"
           >
             {/* Zaid Memon Studio Portrait */}
             <img
@@ -206,16 +238,23 @@ export default function Hero() {
             />
 
             {/* Subtle Gradient Vignette */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/40 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/65 via-transparent to-transparent pointer-events-none" />
 
-            {/* Vertical Detail Text */}
-            <div className="absolute bottom-6 left-6 text-[10px] font-mono tracking-widest text-[#F5F5F3]/90 uppercase pointer-events-none">
-              ZAID MEMON / L.J. UNIVERSITY
+            {/* Bottom Overlay Details */}
+            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between pointer-events-none">
+              <div>
+                <span className="text-[10px] font-mono tracking-widest text-[#55D98B] uppercase block">
+                  FULL-STACK ENGINEER
+                </span>
+                <span className="text-xs font-mono tracking-widest text-[#F5F5F3] uppercase font-semibold">
+                  ZAID MEMON / L.J. UNIVERSITY
+                </span>
+              </div>
             </div>
 
             {/* Floating Top Right Detail Badge */}
-            <div className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#111111]/80 backdrop-blur-xs border border-white/20 text-[#F5F5F3] flex items-center justify-center pointer-events-none shadow-sm">
-              <ArrowUpRight size={14} />
+            <div className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#111111]/80 backdrop-blur-xs border border-white/20 text-[#F5F5F3] flex items-center justify-center pointer-events-none shadow-sm group-hover:bg-[#111111] transition-colors">
+              <ArrowUpRight size={14} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </div>
           </motion.div>
 

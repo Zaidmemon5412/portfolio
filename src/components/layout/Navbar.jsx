@@ -7,6 +7,7 @@ import { useGameState } from '../../hooks/useGameState';
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [activeSection, setActiveSection] = useState('hero');
   const lastScrollY = useRef(0);
   const { setCursor, resetCursor } = useCursor();
   const { openResumeModal } = useGameState();
@@ -29,9 +30,31 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const sectionIds = ['hero', 'selected-work', 'services', 'experience', 'about', 'contact'];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-35% 0px -55% 0px', threshold: 0 }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const scrollToSection = (id) => {
     setMobileMenuOpen(false);
     const targetMap = {
+      hero: 'hero',
       work: 'selected-work',
       services: 'services',
       experience: 'experience',
@@ -45,17 +68,18 @@ export default function Navbar() {
     if (!element) return;
 
     if (window.__lenis) {
-      window.__lenis.scrollTo(element, { offset: -80 });
+      window.__lenis.scrollTo(element, { offset: targetId === 'hero' ? -120 : -80 });
     } else {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   const navLinks = [
-    { label: 'Work', target: 'work' },
-    { label: 'Services', target: 'services' },
-    { label: 'Experience', target: 'experience' },
-    { label: 'About', target: 'about' },
+    { label: 'Work', target: 'work', sectionId: 'selected-work' },
+    { label: 'Services', target: 'services', sectionId: 'services' },
+    { label: 'Experience', target: 'experience', sectionId: 'experience' },
+    { label: 'About', target: 'about', sectionId: 'about' },
+    { label: 'Contact', target: 'contact', sectionId: 'contact' },
   ];
 
   return (
@@ -68,29 +92,52 @@ export default function Navbar() {
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       className="w-full pt-6 pb-2 px-6 sm:px-12 md:px-16 transform-gpu sticky top-0 z-50 pointer-events-auto"
     >
-      <div className="flex items-center justify-between text-xs tracking-tight bg-[#F7F7F5]/90 backdrop-blur-xs py-2 px-4 rounded-full border border-[#E2E2DE]/60 shadow-2xs">
+      <div className="flex items-center justify-between text-xs tracking-tight bg-[#F7F7F5]/90 backdrop-blur-md py-2 px-4 rounded-full border border-[#E2E2DE]/80 shadow-xs">
         
-        {/* LEFT: Availability Indicator */}
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#55D98B] shrink-0" />
-          <span className="font-mono text-[11px] sm:text-xs tracking-wider uppercase text-[#111111] font-medium">
-            AVAILABLE FOR NEW PROJECTS
+        {/* LEFT: Brand Identity & Availability Indicator */}
+        <button
+          type="button"
+          onClick={() => scrollToSection('hero')}
+          onMouseEnter={() => setCursor && setCursor('pointer')}
+          onMouseLeave={resetCursor}
+          className="flex items-center gap-2.5 text-left cursor-pointer group"
+        >
+          <span className="font-heading font-black text-xs sm:text-sm tracking-tight text-[#111111] uppercase">
+            ZAID MEMON
           </span>
-        </div>
+          <span className="text-[#DEDEDA] hidden sm:inline">|</span>
+          <span className="flex items-center gap-1.5">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#55D98B] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#55D98B]" />
+            </span>
+            <span className="font-mono text-[10px] sm:text-[11px] tracking-wider uppercase text-[#555555] group-hover:text-[#111111] transition-colors font-medium hidden xs:inline">
+              AVAILABLE FOR NEW PROJECTS
+            </span>
+          </span>
+        </button>
 
-        {/* CENTER: Refined Minimal Nav Links */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <button
-              key={link.label}
-              onClick={() => scrollToSection(link.target)}
-              onMouseEnter={() => setCursor && setCursor('pointer')}
-              onMouseLeave={resetCursor}
-              className="text-xs font-sans text-[#666666] hover:text-[#111111] transition-colors cursor-pointer"
-            >
-              {link.label}
-            </button>
-          ))}
+        {/* CENTER: Refined Minimal Nav Links with Active State */}
+        <nav className="hidden lg:flex items-center gap-1.5">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.sectionId;
+            return (
+              <button
+                key={link.label}
+                type="button"
+                onClick={() => scrollToSection(link.target)}
+                onMouseEnter={() => setCursor && setCursor('pointer')}
+                onMouseLeave={resetCursor}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-sans transition-colors cursor-pointer ${
+                  isActive
+                    ? 'bg-[#111111] text-[#F5F5F3] font-medium'
+                    : 'text-[#666666] hover:text-[#111111] hover:bg-[#ECECE9]/70'
+                }`}
+              >
+                {link.label}
+              </button>
+            );
+          })}
         </nav>
 
         {/* RIGHT: Resume PDF & Black Pill CTA Buttons */}
@@ -120,7 +167,7 @@ export default function Navbar() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Menu"
-            className="md:hidden p-1.5 text-[#111111]"
+            className="lg:hidden p-1.5 text-[#111111]"
           >
             {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -135,7 +182,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden mt-3 p-4 bg-[#FFFFFF] border border-[#E2E2DE] rounded-xl shadow-lg flex flex-col gap-3 z-50 relative"
+            className="lg:hidden mt-3 p-4 bg-[#FFFFFF] border border-[#E2E2DE] rounded-xl shadow-lg flex flex-col gap-3 z-50 relative"
           >
             {navLinks.map((link) => (
               <button

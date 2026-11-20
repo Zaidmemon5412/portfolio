@@ -118,13 +118,13 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
 
             {/* Modal Content Body */}
             <div className="p-6 sm:p-10 space-y-12">
-              
+
               {/* Header Info Block */}
               <div className="space-y-4">
                 <span className="text-xs font-mono text-[#888888] uppercase tracking-widest block">
                   {project.category}
                 </span>
-                
+
                 <h1 className="font-heading font-black text-4xl sm:text-6xl md:text-7xl text-[#111111] tracking-tighter uppercase">
                   {project.title}
                 </h1>
@@ -245,9 +245,9 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
               {/* DARK FEATURE BLOCK: WHAT MAKES THIS PRODUCT DIFFERENT */}
               <div className="bg-[#242424] text-[#F5F5F3] rounded-2xl p-6 sm:p-10 space-y-6 shadow-xl">
                 <span className="text-xs font-mono tracking-widest text-[#999999] uppercase block">
-                  HIGHLIGHTS
+                  HIGHLIGHTS & ENGINEERING EXECUTION
                 </span>
-                
+
                 <h3 className="font-heading font-black text-2xl sm:text-3xl text-[#F5F5F3] uppercase">
                   WHAT MAKES THIS PRODUCT DIFFERENT
                 </h3>
@@ -263,6 +263,82 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
                   ))}
                 </div>
               </div>
+
+              {/* Engineering Challenges & Technical Outcome */}
+              {(caseStudy.challenges || caseStudy.outcome) && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                  {caseStudy.challenges && (
+                    <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E2DE] space-y-2">
+                      <span className="text-[11px] font-mono text-[#888888] uppercase tracking-wider block">
+                        TECHNICAL CHALLENGE
+                      </span>
+                      <p className="text-xs sm:text-sm text-[#444444] font-sans leading-relaxed">
+                        {caseStudy.challenges}
+                      </p>
+                    </div>
+                  )}
+                  {caseStudy.outcome && (
+                    <div className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E2E2DE] space-y-2">
+                      <span className="text-[11px] font-mono text-[#55D98B] font-semibold uppercase tracking-wider block">
+                        ENGINEERING OUTCOME
+                      </span>
+                      <p className="text-xs sm:text-sm text-[#444444] font-sans leading-relaxed">
+                        {caseStudy.outcome}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Development Status Breakdown */}
+              {project.developmentStatus && (
+                <div className="space-y-4 pt-6 border-t border-[#E2E2DE]">
+                  <h3 className="font-heading font-bold text-lg text-[#111111] uppercase tracking-wide">
+                    DEVELOPMENT STATUS & ROADMAP
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2E2DE] space-y-2">
+                      <span className="text-[11px] font-mono font-semibold text-[#111111] flex items-center gap-1.5 uppercase">
+                        <span className="w-2 h-2 rounded-full bg-[#55D98B]" />
+                        Built & Shipped
+                      </span>
+                      <ul className="space-y-1.5 text-xs text-[#555555]">
+                        {project.developmentStatus.built?.map((item) => (
+                          <li key={item}>• {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {project.developmentStatus.inProgress?.length > 0 && (
+                      <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2E2DE] space-y-2">
+                        <span className="text-[11px] font-mono font-semibold text-[#111111] flex items-center gap-1.5 uppercase">
+                          <span className="w-2 h-2 rounded-full bg-[#FFB800]" />
+                          In Progress
+                        </span>
+                        <ul className="space-y-1.5 text-xs text-[#555555]">
+                          {project.developmentStatus.inProgress.map((item) => (
+                            <li key={item}>• {item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {project.developmentStatus.planned?.length > 0 && (
+                      <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2E2DE] space-y-2">
+                        <span className="text-[11px] font-mono font-semibold text-[#888888] flex items-center gap-1.5 uppercase">
+                          <span className="w-2 h-2 rounded-full bg-[#CCCCCC]" />
+                          Planned Next
+                        </span>
+                        <ul className="space-y-1.5 text-xs text-[#555555]">
+                          {project.developmentStatus.planned.map((item) => (
+                            <li key={item}>• {item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               {/* Technology Stack Tags */}
               <div className="space-y-3 pt-4">

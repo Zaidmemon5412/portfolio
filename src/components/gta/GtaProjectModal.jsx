@@ -23,7 +23,15 @@ export default function GtaProjectModal() {
 
   if (!activeModalProject) return null;
 
-  const { title, tagline, category, year, caseStudy, githubUrl, technologies } = activeModalProject;
+  const { id, title, tagline, category, year, caseStudy, githubUrl, technologies } = activeModalProject;
+
+  const projectImages = {
+    verixa: '/verixa.png',
+    exertia: '/exertia.png',
+    veritas: '/veritas.png',
+    'smart-inventory': '/smart_inventory.jpg',
+    'smart-gst-invoice': '/smart_gst.jpg',
+  };
 
   const handleClose = () => {
     playSfx('modal_close');
@@ -74,7 +82,16 @@ export default function GtaProjectModal() {
           </div>
 
           {/* Body content scrollable */}
-          <div className="p-4 sm:p-6 overflow-y-auto space-y-6 text-white/90">
+          <div data-lenis-prevent className="p-4 sm:p-6 overflow-y-auto space-y-6 text-white/90">
+            {/* Project Screenshot Preview */}
+            <div className="w-full aspect-[16/9] rounded-xs overflow-hidden border border-white/15 bg-black">
+              <img
+                src={projectImages[id] || '/verixa.png'}
+                alt={title}
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
+
             {/* Tech Stack Badges */}
             <div>
               <span className="block font-gta text-xs text-white/50 tracking-wider uppercase mb-2">

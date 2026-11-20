@@ -1,14 +1,31 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, ArrowRight, Lock } from 'lucide-react';
+import { ArrowUpRight, Lock } from 'lucide-react';
 import { projectsData } from '../../data/projects';
+import { CONTACT_INFO } from '../../data/certificates';
 import ProjectModal from './ProjectModal';
 import { useCursor } from '../../hooks/useCursor';
 
 export default function SelectedWork() {
   const [activeProject, setActiveProject] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('ALL');
   const { setCursor, resetCursor } = useCursor();
+
+  const filters = [
+    { id: 'ALL', label: 'ALL BUILDS (05)' },
+    { id: 'WEB', label: 'FULL-STACK & WEB' },
+    { id: 'DATA', label: 'DATA & ML' },
+    { id: 'JAVA', label: 'JAVA & DESKTOP' },
+  ];
+
+  const filteredProjects = projectsData.filter((proj) => {
+    if (activeFilter === 'ALL') return true;
+    if (activeFilter === 'WEB') return ['verixa', 'exertia', 'veritas'].includes(proj.id);
+    if (activeFilter === 'DATA') return ['verixa', 'veritas', 'smart-inventory'].includes(proj.id);
+    if (activeFilter === 'JAVA') return ['smart-inventory', 'smart-gst-invoice'].includes(proj.id);
+    return true;
+  });
 
   const handleOpenModal = (project) => {
     setActiveProject(project);
@@ -35,7 +52,7 @@ export default function SelectedWork() {
   return (
     <section id="selected-work" className="py-20 md:py-32 px-4 sm:px-8 md:px-14 max-w-[1400px] mx-auto border-t border-[#E2E2DE]">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 md:mb-20 gap-6">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 md:mb-14 gap-6">
         <div>
           <span className="text-xs font-mono tracking-widest text-[#888888] uppercase block mb-3">
             01 / PORTFOLIO
@@ -54,21 +71,44 @@ export default function SelectedWork() {
           </div>
         </div>
 
-        <button
-          onClick={() => {
-            const contactEl = document.getElementById('contact');
-            if (contactEl) contactEl.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono tracking-wider text-[#111111] hover:text-[#555555] transition-colors group cursor-pointer"
-        >
-          <span>VIEW ALL WORK</span>
-          <ArrowRight size={16} className="transform group-hover:translate-x-1.5 transition-transform duration-200" />
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          {filters.map((f) => {
+            const isActive = activeFilter === f.id;
+            return (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => setActiveFilter(f.id)}
+                onMouseEnter={() => setCursor && setCursor('pointer')}
+                onMouseLeave={resetCursor}
+                className={`px-3.5 py-2 rounded-full text-xs font-mono transition-colors cursor-pointer border ${
+                  isActive
+                    ? 'bg-[#111111] text-[#F5F5F3] border-[#111111]'
+                    : 'bg-[#FFFFFF] text-[#555555] border-[#E2E2DE] hover:border-[#111111] hover:text-[#111111]'
+                }`}
+              >
+                {f.label}
+              </button>
+            );
+          })}
+
+          <a
+            href={CONTACT_INFO.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={() => setCursor && setCursor('pointer')}
+            onMouseLeave={resetCursor}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-mono text-[#111111] hover:bg-[#ECECE9] transition-colors group cursor-pointer"
+          >
+            <span>GITHUB</span>
+            <ArrowUpRight size={14} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+          </a>
+        </div>
       </div>
 
       {/* 2-Column Editorial Grid with Authentic Project Application Windows */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-14">
-        {projectsData.map((project, index) => (
+        {filteredProjects.map((project, index) => (
           <motion.div
             key={project.id}
             initial={{ opacity: 0, y: 25 }}
@@ -123,16 +163,21 @@ export default function SelectedWork() {
 
             {/* Content & Metadata */}
             <div className="flex items-start justify-between gap-4">
-              <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-[#888888] uppercase tracking-wider">
-                    {project.category}
-                  </span>
-                  <span className="text-xs text-[#DEDEDA]">•</span>
+              <div className="space-y-2.5 w-full">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-xs font-mono font-bold text-[#111111]">
+                      /{project.number}
+                    </span>
+                    <span className="text-xs text-[#DEDEDA]">•</span>
+                    <span className="text-xs font-mono text-[#888888] uppercase tracking-wider">
+                      {project.category}
+                    </span>
+                  </div>
                   <span className="text-xs font-mono text-[#666666]">{project.year}</span>
                 </div>
 
-                <h3 className="font-heading font-bold text-2xl sm:text-3xl text-[#111111] group-hover:text-[#444444] transition-colors duration-200 flex items-center gap-2 group-hover:translate-x-1.5">
+                <h3 className="font-heading font-bold text-2xl sm:text-3xl text-[#111111] group-hover:text-[#444444] transition-colors duration-200 flex items-center gap-2 group-hover:translate-x-1.5 transform-gpu">
                   <span>{project.title}</span>
                   <ArrowUpRight
                     size={22}
@@ -143,6 +188,18 @@ export default function SelectedWork() {
                 <p className="text-sm text-[#555555] font-sans font-light line-clamp-2 leading-relaxed max-w-xl">
                   {project.shortDescription}
                 </p>
+
+                {/* Scannable Tech Stack Pills */}
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {project.technologies?.slice(0, 5).map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2.5 py-0.5 rounded-full bg-[#FFFFFF] border border-[#E2E2DE] text-[11px] font-mono text-[#555555]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
