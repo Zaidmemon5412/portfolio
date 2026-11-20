@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight, ArrowUpRight } from 'lucide-react';
+import { ChevronRight, ArrowUpRight, ExternalLink } from 'lucide-react';
 import { useGameState } from '../../../hooks/useGameState';
 import { projectsData } from '../../../data/projects';
 
@@ -75,12 +75,26 @@ export default function ProjectsScreen() {
                     {proj.number}
                   </div>
                   <div>
-                    <h3
-                      className={`font-gta text-lg sm:text-xl font-black uppercase tracking-wider ${isSelected ? 'text-black' : 'text-white group-hover:text-[#00F0FF]'
-                        }`}
-                    >
-                      {proj.title}
-                    </h3>
+                    <div className="flex items-center gap-2">
+                      <h3
+                        className={`font-gta text-lg sm:text-xl font-black uppercase tracking-wider ${isSelected ? 'text-black' : 'text-white group-hover:text-[#00F0FF]'
+                          }`}
+                      >
+                        {proj.title}
+                      </h3>
+                      {proj.hasLiveDemo && (
+                        <span
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase ${
+                            isSelected
+                              ? 'bg-black text-[#00E676]'
+                              : 'bg-[#00E676]/20 border border-[#00E676]/50 text-[#00E676]'
+                          }`}
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#00E676] animate-pulse" />
+                          <span>LIVE</span>
+                        </span>
+                      )}
+                    </div>
                     <p
                       className={`font-mono text-xs ${isSelected ? 'text-black/80 font-semibold' : 'text-white/60'
                         }`}
@@ -117,8 +131,21 @@ export default function ProjectsScreen() {
               alt={currentProject.title}
               className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/85 border border-[#00F0FF]/50 text-[#00F0FF] font-mono text-[10px] font-bold uppercase">
-              MISSION #{currentProject.number} • {currentProject.status}
+            <div
+              className={`absolute top-3 left-3 px-2.5 py-1 bg-black/85 font-mono text-[10px] font-bold uppercase flex items-center gap-1.5 ${
+                currentProject.hasLiveDemo
+                  ? 'border border-[#00E676]/60 text-[#00E676]'
+                  : 'border border-[#00F0FF]/50 text-[#00F0FF]'
+              }`}
+            >
+              {currentProject.hasLiveDemo ? (
+                <>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E676] animate-pulse" />
+                  <span>LIVE • {currentProject.liveDomain || 'verixa-phi.vercel.app'}</span>
+                </>
+              ) : (
+                <span>MISSION #{currentProject.number} • {currentProject.status}</span>
+              )}
             </div>
           </div>
 
@@ -148,13 +175,26 @@ export default function ProjectsScreen() {
         </motion.div>
       </div>
 
-      {/* Action Button: Open Mission Briefing or GitHub */}
+      {/* Action Button: Launch Live App, Open Mission Briefing or GitHub */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-30 flex flex-wrap items-center gap-3"
       >
+        {currentProject.demoUrl && (
+          <a
+            href={currentProject.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => playSfx('select')}
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-[#00E676] to-[#00C853] text-black font-gta text-lg sm:text-xl font-black tracking-wider uppercase rounded-xs hover:brightness-110 shadow-[0_0_20px_rgba(0,230,118,0.6)] transition-all transform hover:translate-x-1 cursor-pointer"
+          >
+            <span>LAUNCH LIVE APP</span>
+            <ExternalLink size={17} strokeWidth={2.5} />
+          </a>
+        )}
+
         <button
           type="button"
           onClick={() => {

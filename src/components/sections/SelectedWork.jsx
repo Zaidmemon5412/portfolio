@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Lock } from 'lucide-react';
+import { ArrowUpRight, Lock, ExternalLink, CheckCircle2, Terminal } from 'lucide-react';
 import { projectsData } from '../../data/projects';
 import { CONTACT_INFO } from '../../data/certificates';
 import ProjectModal from './ProjectModal';
@@ -27,6 +27,9 @@ export default function SelectedWork() {
     return true;
   });
 
+  const flagshipProject = filteredProjects.find((p) => p.isFlagship);
+  const gridProjects = filteredProjects.filter((p) => !p.isFlagship);
+
   const handleOpenModal = (project) => {
     setActiveProject(project);
     setModalOpen(true);
@@ -41,12 +44,12 @@ export default function SelectedWork() {
     'smart-gst-invoice': '/smart_gst.jpg',
   };
 
-  const projectUrls = {
-    verixa: 'https://verixa.dev/dashboard/spatial-intelligence',
-    exertia: 'https://exertia.dev/workspace/telemetry',
-    veritas: 'https://veritas.dev/verify/certificate-hash',
-    'smart-inventory': 'https://inventory.dev/supply-chain/analytics',
-    'smart-gst-invoice': 'https://smartgst.dev/invoice/generator',
+  const projectAddressLabels = {
+    verixa: 'https://verixa-phi.vercel.app',
+    exertia: 'exertia://workspace/telemetry',
+    veritas: 'veritas://nlp/civic-clusters',
+    'smart-inventory': 'desktop://java-se/smart-inventory',
+    'smart-gst-invoice': 'desktop://java-se/gst-invoice',
   };
 
   return (
@@ -106,9 +109,174 @@ export default function SelectedWork() {
         </div>
       </div>
 
-      {/* 2-Column Editorial Grid with Authentic Project Application Windows */}
+      {/* Flagship Live Product Spotlight Card */}
+      {flagshipProject && (
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-3xl border border-[#1E1E1E] bg-[#141519] text-[#F5F5F3] p-6 sm:p-8 lg:p-10 shadow-xl mb-12 md:mb-16 overflow-hidden transform-gpu"
+        >
+          {/* Top Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-6 mb-6 border-b border-white/10">
+            <div className="flex items-center gap-2.5">
+              <span className="relative flex h-2.5 w-2.5 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#55D98B] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#55D98B]" />
+              </span>
+              <span className="font-mono text-[11px] uppercase tracking-widest text-[#55D98B] font-semibold">
+                FLAGSHIP LIVE DEPLOYMENT • /{flagshipProject.number}
+              </span>
+            </div>
+
+            <a
+              href={flagshipProject.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={() => setCursor && setCursor('pointer')}
+              onMouseLeave={resetCursor}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-[11px] font-mono text-[#E4E4E7] transition-colors group"
+            >
+              <Lock size={11} className="text-[#55D98B]" />
+              <span>{flagshipProject.liveDomain || 'verixa-phi.vercel.app'}</span>
+              <ArrowUpRight size={13} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
+
+          {/* Main 12-Column Split */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            {/* Left Info & Dual CTAs */}
+            <div className="lg:col-span-5 space-y-5">
+              <div className="space-y-2">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[#94A3B8] block">
+                  {flagshipProject.category} • {flagshipProject.year}
+                </span>
+                <h3 className="font-heading font-black text-4xl sm:text-5xl text-white tracking-tight uppercase">
+                  {flagshipProject.title}
+                </h3>
+                <p className="text-base sm:text-lg text-[#D4D4D8] font-sans font-light">
+                  {flagshipProject.tagline}
+                </p>
+              </div>
+
+              <p className="text-xs sm:text-sm text-[#A1A1AA] font-sans leading-relaxed">
+                {flagshipProject.shortDescription}
+              </p>
+
+              {/* Live Feature Checklist */}
+              {flagshipProject.liveHighlights && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 pt-1">
+                  {flagshipProject.liveHighlights.map((highlight) => (
+                    <div key={highlight} className="flex items-start gap-2 text-xs text-[#E4E4E7] font-sans">
+                      <CheckCircle2 size={14} className="text-[#55D98B] shrink-0 mt-0.5" />
+                      <span>{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Tech Pills */}
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {flagshipProject.technologies?.slice(0, 6).map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/10 text-[11px] font-mono text-[#E4E4E7]"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Dual CTA Buttons */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <a
+                  href={flagshipProject.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onMouseEnter={() => setCursor && setCursor('pointer')}
+                  onMouseLeave={resetCursor}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#55D98B] hover:bg-[#43C779] text-[#0B0C10] font-mono text-xs font-bold transition-colors shadow-lg cursor-pointer"
+                >
+                  <span>Launch Live App</span>
+                  <ExternalLink size={14} />
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => handleOpenModal(flagshipProject)}
+                  onMouseEnter={() => setCursor && setCursor('pointer')}
+                  onMouseLeave={resetCursor}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-white/20 bg-white/5 hover:bg-white/15 text-white font-mono text-xs transition-colors cursor-pointer"
+                >
+                  <span>Read Case Study →</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Browser Mockup */}
+            <div className="lg:col-span-7">
+              <div className="rounded-2xl overflow-hidden border border-white/15 bg-[#0B0C10] shadow-2xl group">
+                {/* Browser Top Chrome Bar */}
+                <div className="w-full bg-[#181A24] border-b border-white/[0.08] px-4 py-2.5 flex items-center justify-between gap-3 text-xs">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] inline-block" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] inline-block" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F] inline-block" />
+                  </div>
+
+                  <a
+                    href={flagshipProject.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onMouseEnter={() => setCursor && setCursor('pointer')}
+                    onMouseLeave={resetCursor}
+                    className="flex-1 max-w-[300px] bg-[#0B0C10] border border-white/[0.1] hover:border-[#55D98B]/60 rounded-md px-3 py-1 text-[11px] font-mono text-[#E4E4E7] flex items-center gap-1.5 justify-center truncate transition-colors"
+                  >
+                    <Lock size={10} className="text-[#55D98B] shrink-0" />
+                    <span className="truncate">{flagshipProject.demoUrl}</span>
+                  </a>
+
+                  <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#55D98B] font-semibold">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#55D98B] opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#55D98B]" />
+                    </span>
+                    <span className="hidden sm:inline uppercase">LIVE</span>
+                  </div>
+                </div>
+
+                {/* Clickable Screenshot Launching Live Site */}
+                <a
+                  href={flagshipProject.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onMouseEnter={() => setCursor && setCursor('project', 'OPEN LIVE APP ↗')}
+                  onMouseLeave={resetCursor}
+                  className="block relative aspect-[16/10] bg-[#08090D] overflow-hidden cursor-pointer"
+                >
+                  <img
+                    src={projectImages[flagshipProject.id] || '/verixa.png'}
+                    alt={`${flagshipProject.title} — Live Production Application`}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02] transform-gpu"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4 pointer-events-none">
+                    <div className="px-4 py-2 rounded-full bg-[#55D98B] text-[#0B0C10] text-xs font-mono font-bold flex items-center gap-2 shadow-xl">
+                      <span>Open Live Deployment ({flagshipProject.liveDomain || 'verixa-phi.vercel.app'})</span>
+                      <ArrowUpRight size={14} />
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* 2-Column Editorial Grid with Project Application Windows */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-14">
-        {filteredProjects.map((project, index) => (
+        {gridProjects.map((project, index) => (
           <motion.div
             key={project.id}
             initial={{ opacity: 0, y: 25 }}
@@ -120,10 +288,10 @@ export default function SelectedWork() {
             onMouseLeave={resetCursor}
             className="group cursor-pointer flex flex-col transform-gpu"
           >
-            {/* Authentic Browser Window Container */}
+            {/* Authentic Application Window Container */}
             <div className="relative w-full rounded-2xl overflow-hidden border border-[#E2E2DE] shadow-sm mb-6 bg-[#0E1017] transition-all duration-300 group-hover:border-[#CCCCCC] group-hover:shadow-md transform-gpu">
               
-              {/* Authentic Browser Window Top Chrome Bar */}
+              {/* Application Window Top Chrome Bar */}
               <div className="w-full bg-[#181A24] border-b border-white/[0.08] px-4 py-2.5 flex items-center justify-between gap-3 text-xs">
                 {/* Red, Yellow, Green Window Control Dots */}
                 <div className="flex items-center gap-1.5">
@@ -132,16 +300,20 @@ export default function SelectedWork() {
                   <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F] inline-block" />
                 </div>
 
-                {/* URL Address Bar */}
+                {/* Architecture / Local Path Address Bar */}
                 <div className="flex-1 max-w-[280px] bg-[#0E1017] border border-white/[0.08] rounded-md px-3 py-1 text-[11px] font-mono text-[#94A3B8] flex items-center gap-1.5 justify-center truncate">
-                  <Lock size={10} className="text-[#55D98B] shrink-0" />
-                  <span className="truncate">{projectUrls[project.id] || `https://${project.id}.dev`}</span>
+                  <Terminal size={10} className="text-[#94A3B8] shrink-0" />
+                  <span className="truncate">{projectAddressLabels[project.id] || `project://${project.id}`}</span>
                 </div>
 
                 {/* Status Dot */}
                 <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#94A3B8]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#55D98B]" />
-                  <span className="hidden sm:inline uppercase">{project.status || 'LIVE'}</span>
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      project.status === 'In Progress' ? 'bg-[#FFB800]' : 'bg-[#94A3B8]'
+                    }`}
+                  />
+                  <span className="hidden sm:inline uppercase">{project.status || 'BUILT'}</span>
                 </div>
               </div>
 

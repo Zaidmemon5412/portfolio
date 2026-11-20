@@ -170,6 +170,35 @@ export default function Hero() {
             </button>
           </motion.div>
 
+          {/* Flagship Live Proof Pill */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.38, ease: 'easeOut' }}
+            className="pt-1 transform-gpu"
+          >
+            <a
+              href="https://verixa-phi.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={() => setCursor && setCursor('pointer')}
+              onMouseLeave={resetCursor}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFFFFF] border border-[#E2E2DE] hover:border-[#111111] transition-colors shadow-2xs group"
+            >
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#55D98B] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#55D98B]" />
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-[#666666]">
+                FLAGSHIP LIVE:
+              </span>
+              <span className="font-mono text-xs font-semibold text-[#111111]">
+                verixa-phi.vercel.app
+              </span>
+              <ArrowUpRight size={13} className="text-[#111111] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+            </a>
+          </motion.div>
+
           {/* Small Personal Meta & Quick Metrics Row */}
           <motion.div
             initial={{ opacity: 0 }}

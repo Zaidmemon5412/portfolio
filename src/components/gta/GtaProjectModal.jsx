@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { X, CheckCircle2, ShieldAlert, ExternalLink } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
 import { useGameState } from '../../hooks/useGameState';
 
@@ -23,7 +23,7 @@ export default function GtaProjectModal() {
 
   if (!activeModalProject) return null;
 
-  const { id, title, tagline, category, year, caseStudy, githubUrl, technologies } = activeModalProject;
+  const { id, title, tagline, category, year, status, demoUrl, caseStudy, githubUrl, technologies } = activeModalProject;
 
   const projectImages = {
     verixa: '/verixa.png',
@@ -164,12 +164,25 @@ export default function GtaProjectModal() {
           </div>
 
           {/* Footer Actions */}
-          <div className="p-4 border-t border-white/10 bg-black/60 flex items-center justify-between">
-            <span className="text-xs font-mono text-white/40">
-              YEAR: {year} • STATUS: VERIFIED
+          <div className="p-4 border-t border-white/10 bg-black/60 flex flex-wrap items-center justify-between gap-3">
+            <span className="text-xs font-mono text-white/40 uppercase">
+              YEAR: {year} • STATUS: {status || 'VERIFIED'}
             </span>
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              {demoUrl && (
+                <a
+                  href={demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => playSfx('select')}
+                  className="flex items-center gap-1.5 px-4 py-2 bg-[#00E676] hover:bg-[#00C853] text-black font-mono text-xs font-bold rounded-xs transition-colors cursor-pointer"
+                >
+                  <ExternalLink size={14} />
+                  <span>LAUNCH LIVE APP</span>
+                </a>
+              )}
+
               {githubUrl && (
                 <a
                   href={githubUrl}

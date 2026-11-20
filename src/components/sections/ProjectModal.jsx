@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowLeft, ArrowUpRight, CheckCircle2, ZoomIn } from 'lucide-react';
+import { X, ArrowLeft, ArrowUpRight, CheckCircle2, ZoomIn, ExternalLink, Monitor, Image as ImageIcon, Lock } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
 import { projectsData } from '../../data/projects';
 import { useCursor } from '../../hooks/useCursor';
 
 export default function ProjectModal({ project, isOpen, onClose, onSelectProject }) {
   const [fullscreenImage, setFullscreenImage] = useState(false);
+  const [previewMode, setPreviewMode] = useState('screenshot');
   const modalScrollRef = useRef(null);
   const { setCursor, resetCursor } = useCursor();
 
@@ -29,6 +30,7 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
       document.body.style.overflow = '';
       window.__lenis?.start();
       setFullscreenImage(false);
+      setPreviewMode('screenshot');
     }
 
     return () => {
@@ -42,6 +44,7 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
     if (modalScrollRef.current) {
       modalScrollRef.current.scrollTop = 0;
     }
+    setPreviewMode('screenshot');
   }, [project?.id]);
 
   if (!project) return null;
@@ -141,62 +144,161 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
                     <div><span className="text-[#888888]">ROLE:</span> Lead Architect & Developer</div>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-3">
                     {project.status && (
                       <span className="px-3 py-1.5 rounded-full border border-[#DEDEDA] bg-[#FFFFFF] text-[11px] font-mono text-[#555555] flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#55D98B]" />
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${
+                            project.hasLiveDemo
+                              ? 'bg-[#55D98B] animate-pulse'
+                              : project.status === 'In Progress'
+                                ? 'bg-[#FFB800]'
+                                : 'bg-[#94A3B8]'
+                          }`}
+                        />
                         <span>{project.status}</span>
                       </span>
                     )}
 
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-5 py-2.5 rounded-full bg-[#111111] text-[#F5F5F3] text-xs font-mono font-medium hover:bg-[#242424] transition-all flex items-center gap-2 shadow-sm"
-                      >
-                        <GithubIcon className="w-3.5 h-3.5" />
-                        <span>View Source on GitHub</span>
-                        <ArrowUpRight size={14} />
-                      </a>
-                    )}
+                    {project.demoUrl ? (
+                      <>
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          onMouseEnter={() => setCursor && setCursor('pointer')}
+                          onMouseLeave={resetCursor}
+                          className="px-5 py-2.5 rounded-full bg-[#111111] text-[#F5F5F3] text-xs font-mono font-medium hover:bg-[#242424] transition-all flex items-center gap-2 shadow-sm"
+                        >
+                          <span className="w-2 h-2 rounded-full bg-[#55D98B] animate-pulse" />
+                          <span>Launch Live App</span>
+                          <ExternalLink size={14} />
+                        </a>
 
-                    {project.demoUrl && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-5 py-2.5 rounded-full border border-[#DEDEDA] bg-[#FFFFFF] text-xs font-mono font-medium text-[#111111] hover:bg-[#E2E2DE] transition-all flex items-center gap-2"
-                      >
-                        <span>Live Demo</span>
-                        <ArrowUpRight size={14} />
-                      </a>
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            onMouseEnter={() => setCursor && setCursor('pointer')}
+                            onMouseLeave={resetCursor}
+                            className="px-5 py-2.5 rounded-full border border-[#DEDEDA] bg-[#FFFFFF] text-xs font-mono font-medium text-[#111111] hover:bg-[#E2E2DE] transition-all flex items-center gap-2"
+                          >
+                            <GithubIcon className="w-3.5 h-3.5" />
+                            <span>View Source on GitHub</span>
+                            <ArrowUpRight size={14} />
+                          </a>
+                        )}
+                      </>
+                    ) : (
+                      project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          onMouseEnter={() => setCursor && setCursor('pointer')}
+                          onMouseLeave={resetCursor}
+                          className="px-5 py-2.5 rounded-full bg-[#111111] text-[#F5F5F3] text-xs font-mono font-medium hover:bg-[#242424] transition-all flex items-center gap-2 shadow-sm"
+                        >
+                          <GithubIcon className="w-3.5 h-3.5" />
+                          <span>View Source on GitHub</span>
+                          <ArrowUpRight size={14} />
+                        </a>
+                      )
                     )}
                   </div>
                 </div>
               </div>
 
-              {/* Large Real Visual Container with Click-to-Expand Lightbox */}
-              <div
-                onClick={() => setFullscreenImage(true)}
-                onMouseEnter={() => setCursor && setCursor('pointer')}
-                onMouseLeave={resetCursor}
-                className="relative group cursor-pointer w-full aspect-[16/9] bg-[#0E1017] rounded-2xl overflow-hidden border border-[#E2E2DE] shadow-sm transition-all hover:border-[#CCCCCC]"
-              >
-                <img
-                  src={currentImgSrc}
-                  alt={`${project.title} — Real Application Screenshot`}
-                  className="w-full h-full object-cover object-top group-hover:scale-[1.015] transition-transform duration-500"
-                />
+              {/* Interactive Live Preview Switcher & Visual Container */}
+              <div className="space-y-3">
+                {project.demoUrl && (
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="inline-flex items-center p-1 rounded-full bg-[#ECECE9] border border-[#E2E2DE]">
+                      <button
+                        type="button"
+                        onClick={() => setPreviewMode('screenshot')}
+                        className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono transition-colors cursor-pointer ${
+                          previewMode === 'screenshot'
+                            ? 'bg-[#111111] text-[#F5F5F3] font-medium'
+                            : 'text-[#555555] hover:text-[#111111]'
+                        }`}
+                      >
+                        <ImageIcon size={13} />
+                        <span>Screenshot</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPreviewMode('live')}
+                        className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono transition-colors cursor-pointer ${
+                          previewMode === 'live'
+                            ? 'bg-[#111111] text-[#F5F5F3] font-medium'
+                            : 'text-[#555555] hover:text-[#111111]'
+                        }`}
+                      >
+                        <Monitor size={13} />
+                        <span>Interactive Live Preview</span>
+                      </button>
+                    </div>
 
-                {/* Hover Expand Overlay Hint */}
-                <div className="absolute inset-0 bg-[#111111]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                  <div className="px-4 py-2 bg-[#111111]/90 backdrop-blur-xs text-white text-xs font-mono rounded-full flex items-center gap-2 shadow-xl border border-white/20">
-                    <ZoomIn size={14} />
-                    <span>Click to Expand Fullscreen</span>
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-[#111111] hover:underline"
+                    >
+                      <span>Open {project.liveDomain || 'Live Site'} in New Tab</span>
+                      <ArrowUpRight size={13} />
+                    </a>
                   </div>
-                </div>
+                )}
+
+                {previewMode === 'live' && project.demoUrl ? (
+                  <div className="w-full aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden border border-[#E2E2DE] shadow-sm bg-[#181A24] flex flex-col">
+                    <div className="px-4 py-2 bg-[#181A24] border-b border-white/10 flex items-center justify-between text-[11px] font-mono text-[#94A3B8]">
+                      <div className="flex items-center gap-1.5 truncate">
+                        <Lock size={11} className="text-[#55D98B] shrink-0" />
+                        <span className="truncate">{project.demoUrl}</span>
+                      </div>
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#55D98B] hover:underline shrink-0 flex items-center gap-1"
+                      >
+                        <span>Pop Out</span>
+                        <ExternalLink size={11} />
+                      </a>
+                    </div>
+                    <iframe
+                      src={project.demoUrl}
+                      title={`${project.title} Live Preview`}
+                      className="w-full flex-1 border-0 bg-white"
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => setFullscreenImage(true)}
+                    onMouseEnter={() => setCursor && setCursor('pointer')}
+                    onMouseLeave={resetCursor}
+                    className="relative group cursor-pointer w-full aspect-[16/9] bg-[#0E1017] rounded-2xl overflow-hidden border border-[#E2E2DE] shadow-sm transition-all hover:border-[#CCCCCC]"
+                  >
+                    <img
+                      src={currentImgSrc}
+                      alt={`${project.title} — Real Application Screenshot`}
+                      className="w-full h-full object-cover object-top group-hover:scale-[1.015] transition-transform duration-500"
+                    />
+
+                    {/* Hover Expand Overlay Hint */}
+                    <div className="absolute inset-0 bg-[#111111]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                      <div className="px-4 py-2 bg-[#111111]/90 backdrop-blur-xs text-white text-xs font-mono rounded-full flex items-center gap-2 shadow-xl border border-white/20">
+                        <ZoomIn size={14} />
+                        <span>Click to Expand Fullscreen</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Overview & Problem / Solution Grid */}
