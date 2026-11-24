@@ -440,6 +440,13 @@ function main() {
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemapXml, 'utf8');
   fs.writeFileSync(path.join(PUBLIC_DIR, 'sitemap.xml'), sitemapXml, 'utf8');
 
+  const srcArdPath = path.join(PUBLIC_DIR, '.well-known', 'ard.json');
+  if (fs.existsSync(srcArdPath)) {
+    const distArdDir = path.join(DIST_DIR, '.well-known');
+    fs.mkdirSync(distArdDir, { recursive: true });
+    fs.copyFileSync(srcArdPath, path.join(distArdDir, 'ard.json'));
+  }
+
   console.log(
     `[prerender-seo] Generated ${pages.length} static HTML pages and synced sitemap.xml (${pages.length + 1} URLs).`
   );

@@ -1,32 +1,29 @@
 # Zaid Memon
 
-> Full-Stack Developer & Computer Science Student (B.Tech CSE) at L.J. Institute of Engineering & Technology (L.J. University), Ahmedabad, Gujarat, India.
+> Full-Stack Developer & Computer Science Student (B.Tech CSE) at L.J. Institute of Engineering & Technology (L.J. University), Ahmedabad, Gujarat, India. Building React, Python, Django, PostgreSQL/PostGIS, and Java software systems.
 
-## Official Portfolio Pages
-- Home: https://zaidmemon.vercel.app/
-- Selected Work: https://zaidmemon.vercel.app/work
-- Services & Skills: https://zaidmemon.vercel.app/services
-- Experience & Education: https://zaidmemon.vercel.app/experience
-- About & Certifications: https://zaidmemon.vercel.app/about
-- Contact: https://zaidmemon.vercel.app/contact
-- Resume (PDF): https://zaidmemon.vercel.app/resume.pdf
-- XML Sitemap: https://zaidmemon.vercel.app/sitemap.xml
+## Core Pages
+- [Home](https://zaidmemon.vercel.app/): Official portfolio of Zaid Memon, Full-Stack Developer & Computer Science Engineering student.
+- [Selected Work](https://zaidmemon.vercel.app/work): Showcase of full-stack web apps, spatial intelligence platforms, NLP pipelines, and Java desktop utilities.
+- [Services & Skills](https://zaidmemon.vercel.app/services): Full-stack web development, Django REST API engineering, PostgreSQL/PostGIS schemas, and machine learning.
+- [Experience & Education](https://zaidmemon.vercel.app/experience): B.Tech Computer Science & Engineering journey at L.J. University and engineering milestones.
+- [About & Certifications](https://zaidmemon.vercel.app/about): Engineering philosophy, verified Coursera certificates, and profile details.
+- [Contact](https://zaidmemon.vercel.app/contact): Direct email, message composer, resume viewer, LinkedIn, and GitHub links.
 
 ## Project Case Studies
-- Verixa (Flagship Live Deployment — https://verixa-phi.vercel.app): https://zaidmemon.vercel.app/projects/verixa — Property decision intelligence platform backed by RERA regulatory filings, builder credibility analytics, spatial locality data (PostGIS), and price trend modeling.
-- Exertia: https://zaidmemon.vercel.app/projects/exertia — Unified workforce management and privacy-first telemetry operating system pairing a React workspace with a Python background desktop daemon.
-- Veritas: https://zaidmemon.vercel.app/projects/veritas — Python and Flask local civic news analysis and TF-IDF cosine-similarity perspective clustering engine.
-- Smart Inventory: https://zaidmemon.vercel.app/projects/smart-inventory — ACID-compliant Java SE and PostgreSQL JDBC demand forecasting and automated Twilio SMS replenishment system using Weka ML.
-- Smart GST Invoice: https://zaidmemon.vercel.app/projects/smart-gst-invoice — Automated B2B GST computation, ZXing 2D barcode encoding, and iText PDF synthesis desktop utility in Java SE.
+- [Verixa Case Study](https://zaidmemon.vercel.app/projects/verixa): Flagship property decision intelligence platform backed by RERA filings, builder credibility analytics, and PostGIS spatial data.
+- [Verixa Live App](https://verixa-phi.vercel.app/): Live production deployment of the Verixa real-estate decision intelligence platform.
+- [Exertia Case Study](https://zaidmemon.vercel.app/projects/exertia): Unified workforce management and privacy-first telemetry operating system pairing React with a Python desktop daemon.
+- [Veritas Case Study](https://zaidmemon.vercel.app/projects/veritas): Python and Flask civic news analyzer using TF-IDF cosine-similarity perspective clustering.
+- [Smart Inventory Case Study](https://zaidmemon.vercel.app/projects/smart-inventory): ACID-compliant Java SE and PostgreSQL JDBC demand forecasting system using Weka ML and Twilio SMS alerts.
+- [Smart GST Invoice Case Study](https://zaidmemon.vercel.app/projects/smart-gst-invoice): Automated B2B GST computation, ZXing 2D barcode encoding, and iText PDF synthesis desktop tool.
 
-## Identity & Verified Profiles
-- Email: zaidmemon8156@gmail.com
-- GitHub: https://github.com/Zaidmemon5412
-- LinkedIn: https://www.linkedin.com/in/zaid-memon-79656b318/
+## Profiles & Contact
+- [Resume PDF](https://zaidmemon.vercel.app/resume.pdf): Downloadable CV of Zaid Memon (B.Tech CSE, L.J. University).
+- [GitHub (@Zaidmemon5412)](https://github.com/Zaidmemon5412): Open-source repositories and project source code.
+- [LinkedIn (Zaid Memon)](https://www.linkedin.com/in/zaid-memon-79656b318/): Professional profile and software engineering credentials.
+- [Email](mailto:zaidmemon8156@gmail.com): Direct email contact for engineering roles and project inquiries.
 
-## Core Technical Stack
-- Frontend: React, Vite, JavaScript (ES6+), Tailwind CSS, Framer Motion, GSAP
-- Backend & APIs: Python, Django, Django REST Framework, Flask
-- Databases & Geospatial: PostgreSQL, PostGIS, SQL, JDBC
-- Data & Machine Learning: Pandas, Scikit-learn, TF-IDF / NLP, Weka ML, BeautifulSoup4
-- Desktop & Core CS: Java SE, Data Structures & Algorithms, Object-Oriented Programming, Docker, Git
+## Optional
+- [XML Sitemap](https://zaidmemon.vercel.app/sitemap.xml): Canonical list of all indexed portfolio URLs and project images.
+- [ARD Manifest](https://zaidmemon.vercel.app/.well-known/ard.json): Agentic Resource Discovery manifest for machine-readable resources.

@@ -1,0 +1,46 @@
+{
+  "specVersion": "0.91",
+  "host": {
+    "displayName": "Zaid Memon Portfolio",
+    "identifier": "zaidmemon.vercel.app"
+  },
+  "entries": [
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:zaidmemon.vercel.app:docs:llms-txt",
+      "displayName": "Zaid Memon Portfolio Guide (llms.txt)",
+      "type": "text/markdown",
+      "url": "https://zaidmemon.vercel.app/llms.txt",
+      "description": "Concise Markdown directory of Zaid Memon's portfolio pages, project case studies, skills, and contact links.",
+      "representativeQueries": [
+        "who is Zaid Memon and what projects has he built",
+        "list Zaid Memon's technical skills and portfolio pages",
+        "how to contact Zaid Memon for software engineering roles"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:zaidmemon.vercel.app:docs:resume",
+      "displayName": "Zaid Memon Resume / CV (PDF)",
+      "type": "application/pdf",
+      "url": "https://zaidmemon.vercel.app/resume.pdf",
+      "description": "Curriculum vitae of Zaid Memon, B.Tech Computer Science & Engineering student at L.J. University, Ahmedabad.",
+      "representativeQueries": [
+        "download Zaid Memon resume PDF",
+        "view Zaid Memon education and certifications"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:zaidmemon.vercel.app:app:verixa",
+      "displayName": "Verixa — Real Estate Decision Intelligence",
+      "type": "text/html",
+      "url": "https://verixa-phi.vercel.app/",
+      "description": "Live full-stack real-estate decision intelligence application built by Zaid Memon using React, Django, PostgreSQL, and PostGIS.",
+      "representativeQueries": [
+        "open Verixa real estate intelligence app by Zaid Memon",
+        "explore RERA verified properties and builder track records on Verixa"
+      ]
+    }
+  ]
+}
