@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Lock, ExternalLink, CheckCircle2, Terminal } from 'lucide-react';
 import { projectsData } from '../../data/projects';
 import { CONTACT_INFO } from '../../data/certificates';
+import { normalizePathname } from '../../data/seoRoutes';
+import { NAVIGATE_EVENT, navigateToPath } from '../../utils/seoNavigation';
 import ProjectModal from './ProjectModal';
 import { useCursor } from '../../hooks/useCursor';
 
@@ -11,6 +13,35 @@ export default function SelectedWork() {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('ALL');
   const { setCursor, resetCursor } = useCursor();
+
+  useEffect(() => {
+    const syncProjectFromUrl = (pathname) => {
+      const cleanPath = normalizePathname(pathname);
+      const match = cleanPath.match(/^\/projects\/([^/]+)$/);
+      if (match) {
+        const found = projectsData.find((p) => p.id === match[1]);
+        if (found) {
+          setActiveProject(found);
+          setModalOpen(true);
+          return;
+        }
+      }
+      setModalOpen(false);
+      setActiveProject(null);
+    };
+
+    syncProjectFromUrl(window.location.pathname);
+
+    const handlePopState = () => syncProjectFromUrl(window.location.pathname);
+    const handleNavigate = (e) => syncProjectFromUrl(e.detail?.path || window.location.pathname);
+
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener(NAVIGATE_EVENT, handleNavigate);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener(NAVIGATE_EVENT, handleNavigate);
+    };
+  }, []);
 
   const filters = [
     { id: 'ALL', label: 'ALL BUILDS (05)' },
@@ -34,6 +65,15 @@ export default function SelectedWork() {
     setActiveProject(project);
     setModalOpen(true);
     resetCursor();
+    navigateToPath(`/projects/${project.id}`);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setActiveProject(null);
+    if (window.location.pathname.startsWith('/projects/')) {
+      navigateToPath('/work');
+    }
   };
 
   const projectImages = {
@@ -202,15 +242,19 @@ export default function SelectedWork() {
                   <ExternalLink size={14} />
                 </a>
 
-                <button
-                  type="button"
-                  onClick={() => handleOpenModal(flagshipProject)}
+                <a
+                  href={`/projects/${flagshipProject.id}`}
+                  onClick={(e) => {
+                    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                    e.preventDefault();
+                    handleOpenModal(flagshipProject);
+                  }}
                   onMouseEnter={() => setCursor && setCursor('pointer')}
                   onMouseLeave={resetCursor}
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-white/20 bg-white/5 hover:bg-white/15 text-white font-mono text-xs transition-colors cursor-pointer"
                 >
                   <span>Read Case Study →</span>
-                </button>
+                </a>
               </div>
             </div>
 
@@ -258,6 +302,10 @@ export default function SelectedWork() {
                   <img
                     src={projectImages[flagshipProject.id] || '/verixa.png'}
                     alt={`${flagshipProject.title} — Live Production Application`}
+                    width="800"
+                    height="500"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02] transform-gpu"
                   />
 
@@ -322,6 +370,10 @@ export default function SelectedWork() {
                 <img
                   src={projectImages[project.id] || '/verixa.png'}
                   alt={`${project.title} — Real Application Screenshot`}
+                  width="800"
+                  height="500"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02] transform-gpu"
                 />
               </div>
@@ -349,12 +401,26 @@ export default function SelectedWork() {
                   <span className="text-xs font-mono text-[#666666]">{project.year}</span>
                 </div>
 
-                <h3 className="font-heading font-bold text-2xl sm:text-3xl text-[#111111] group-hover:text-[#444444] transition-colors duration-200 flex items-center gap-2 group-hover:translate-x-1.5 transform-gpu">
-                  <span>{project.title}</span>
-                  <ArrowUpRight
-                    size={22}
-                    className="transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-transform duration-200 text-[#111111]"
-                  />
+                <h3 className="font-heading font-bold text-2xl sm:text-3xl text-[#111111] group-hover:text-[#444444] transition-colors duration-200 group-hover:translate-x-1.5 transform-gpu">
+                  <a
+                    href={`/projects/${project.id}`}
+                    onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+                        e.stopPropagation();
+                        return;
+                      }
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleOpenModal(project);
+                    }}
+                    className="inline-flex items-center gap-2"
+                  >
+                    <span>{project.title}</span>
+                    <ArrowUpRight
+                      size={22}
+                      className="transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-transform duration-200 text-[#111111]"
+                    />
+                  </a>
                 </h3>
 
                 <p className="text-sm text-[#555555] font-sans font-light line-clamp-2 leading-relaxed max-w-xl">
@@ -382,11 +448,8 @@ export default function SelectedWork() {
       <ProjectModal
         project={activeProject}
         isOpen={modalOpen}
-        onSelectProject={(nextProj) => setActiveProject(nextProj)}
-        onClose={() => {
-          setModalOpen(false);
-          setActiveProject(null);
-        }}
+        onSelectProject={(nextProj) => handleOpenModal(nextProj)}
+        onClose={handleCloseModal}
       />
     </section>
   );

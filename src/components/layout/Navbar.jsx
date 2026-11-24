@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, FileText } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
 import { useGameState } from '../../hooks/useGameState';
+import { navigateToPath } from '../../utils/seoNavigation';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -51,35 +52,19 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  const scrollToSection = (id) => {
+  const handleNavClick = (e, path) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
     setMobileMenuOpen(false);
-    const targetMap = {
-      hero: 'hero',
-      work: 'selected-work',
-      services: 'services',
-      experience: 'experience',
-      about: 'about',
-      contact: 'contact'
-    };
-
-    const targetId = targetMap[id] || id;
-    const element = document.getElementById(targetId);
-
-    if (!element) return;
-
-    if (window.__lenis) {
-      window.__lenis.scrollTo(element, { offset: targetId === 'hero' ? -120 : -80 });
-    } else {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    navigateToPath(path);
   };
 
   const navLinks = [
-    { label: 'Work', target: 'work', sectionId: 'selected-work' },
-    { label: 'Services', target: 'services', sectionId: 'services' },
-    { label: 'Experience', target: 'experience', sectionId: 'experience' },
-    { label: 'About', target: 'about', sectionId: 'about' },
-    { label: 'Contact', target: 'contact', sectionId: 'contact' },
+    { label: 'Work', path: '/work', sectionId: 'selected-work' },
+    { label: 'Services', path: '/services', sectionId: 'services' },
+    { label: 'Experience', path: '/experience', sectionId: 'experience' },
+    { label: 'About', path: '/about', sectionId: 'about' },
+    { label: 'Contact', path: '/contact', sectionId: 'contact' },
   ];
 
   return (
@@ -95,9 +80,9 @@ export default function Navbar() {
       <div className="flex items-center justify-between text-xs tracking-tight bg-[#F7F7F5]/90 backdrop-blur-md py-2 px-4 rounded-full border border-[#E2E2DE]/80 shadow-xs">
         
         {/* LEFT: Brand Identity & Availability Indicator */}
-        <button
-          type="button"
-          onClick={() => scrollToSection('hero')}
+        <a
+          href="/"
+          onClick={(e) => handleNavClick(e, '/')}
           onMouseEnter={() => setCursor && setCursor('pointer')}
           onMouseLeave={resetCursor}
           className="flex items-center gap-2.5 text-left cursor-pointer group"
@@ -115,17 +100,17 @@ export default function Navbar() {
               AVAILABLE FOR NEW PROJECTS
             </span>
           </span>
-        </button>
+        </a>
 
         {/* CENTER: Refined Minimal Nav Links with Active State */}
-        <nav className="hidden lg:flex items-center gap-1.5">
+        <nav aria-label="Primary Navigation" className="hidden lg:flex items-center gap-1.5">
           {navLinks.map((link) => {
             const isActive = activeSection === link.sectionId;
             return (
-              <button
+              <a
                 key={link.label}
-                type="button"
-                onClick={() => scrollToSection(link.target)}
+                href={link.path}
+                onClick={(e) => handleNavClick(e, link.path)}
                 onMouseEnter={() => setCursor && setCursor('pointer')}
                 onMouseLeave={resetCursor}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-sans transition-colors cursor-pointer ${
@@ -135,7 +120,7 @@ export default function Navbar() {
                 }`}
               >
                 {link.label}
-              </button>
+              </a>
             );
           })}
         </nav>
@@ -153,15 +138,16 @@ export default function Navbar() {
             <span>Resume</span>
           </button>
 
-          <button
-            onClick={() => scrollToSection('contact')}
+          <a
+            href="/contact"
+            onClick={(e) => handleNavClick(e, '/contact')}
             onMouseEnter={() => setCursor && setCursor('pointer')}
             onMouseLeave={resetCursor}
             className="hidden sm:inline-flex items-center gap-1.5 px-4.5 py-1.5 rounded-full bg-[#111111] text-[#F5F5F3] text-xs font-medium hover:bg-[#242424] transition-all cursor-pointer shadow-xs"
           >
             <span>Let's Talk</span>
             <span className="text-[11px]">→</span>
-          </button>
+          </a>
 
           {/* Mobile Menu Button */}
           <button
@@ -185,13 +171,14 @@ export default function Navbar() {
             className="lg:hidden mt-3 p-4 bg-[#FFFFFF] border border-[#E2E2DE] rounded-xl shadow-lg flex flex-col gap-3 z-50 relative"
           >
             {navLinks.map((link) => (
-              <button
+              <a
                 key={link.label}
-                onClick={() => scrollToSection(link.target)}
+                href={link.path}
+                onClick={(e) => handleNavClick(e, link.path)}
                 className="text-left text-sm font-medium text-[#111111] py-1 border-b border-[#E2E2DE]"
               >
                 {link.label}
-              </button>
+              </a>
             ))}
             
             <button
@@ -206,12 +193,13 @@ export default function Navbar() {
               <span>View Resume (PDF)</span>
             </button>
 
-            <button
-              onClick={() => scrollToSection('contact')}
+            <a
+              href="/contact"
+              onClick={(e) => handleNavClick(e, '/contact')}
               className="w-full py-2 rounded-full bg-[#111111] text-white text-xs font-medium text-center"
             >
               Let's Talk →
-            </button>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

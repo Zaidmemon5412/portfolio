@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowUpRight, FileText } from 'lucide-react';
 import { useCursor } from '../../hooks/useCursor';
 import { useGameState } from '../../hooks/useGameState';
+import { navigateToPath } from '../../utils/seoNavigation';
 
 export default function Hero() {
   const heroRef = useRef(null);
@@ -29,14 +30,10 @@ export default function Hero() {
     mouseY.set(e.clientY - centerY);
   };
 
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (window.__lenis) {
-      window.__lenis.scrollTo(el, { offset: -80 });
-    } else {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleRouteLink = (e, path) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    navigateToPath(path);
   };
 
   return (
@@ -139,15 +136,16 @@ export default function Hero() {
             transition={{ duration: 0.55, delay: 0.32, ease: 'easeOut' }}
             className="flex flex-wrap items-center gap-4 pt-2 transform-gpu"
           >
-            <button
-              onClick={() => scrollToSection('contact')}
+            <a
+              href="/contact"
+              onClick={(e) => handleRouteLink(e, '/contact')}
               onMouseEnter={() => setCursor && setCursor('pointer')}
               onMouseLeave={resetCursor}
               className="inline-flex items-center gap-2.5 px-6.5 py-3.5 rounded-full bg-[#111111] text-[#F5F5F3] text-sm font-medium hover:bg-[#242424] transition-colors duration-200 group cursor-pointer shadow-sm"
             >
               <span>Let's Work Together</span>
               <span className="transform group-hover:translate-x-1 transition-transform duration-200">→</span>
-            </button>
+            </a>
 
             <button
               type="button"
@@ -161,15 +159,16 @@ export default function Hero() {
               <ArrowUpRight size={14} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
             </button>
 
-            <button
-              onClick={() => scrollToSection('selected-work')}
+            <a
+              href="/work"
+              onClick={(e) => handleRouteLink(e, '/work')}
               onMouseEnter={() => setCursor && setCursor('pointer')}
               onMouseLeave={resetCursor}
               className="inline-flex items-center gap-1 text-xs sm:text-sm font-mono text-[#111111]/80 hover:text-[#111111] transition-colors py-2 group cursor-pointer"
             >
               <span>View My Work</span>
               <ArrowUpRight size={14} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-            </button>
+            </a>
           </motion.div>
 
           {/* Flagship Live Proof Pill */}
@@ -256,7 +255,7 @@ export default function Hero() {
           {/* Mouse Parallax Wrapper */}
           <motion.div
             style={{ x: parallaxX, y: parallaxY }}
-            onClick={() => scrollToSection('about')}
+            onClick={() => navigateToPath('/about')}
             onMouseEnter={() => setCursor && setCursor('pointer')}
             onMouseLeave={resetCursor}
             className="relative w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[460px] aspect-[3/4] rounded-2xl overflow-hidden border border-[#E2E2DE] shadow-lg group bg-[#181A1F] transform-gpu cursor-pointer"
@@ -265,6 +264,10 @@ export default function Hero() {
             <img
               src="/zaid_portrait-opt.jpg?v=2"
               alt="Zaid Memon — Full-Stack Developer & Computer Science Student"
+              width="460"
+              height="613"
+              fetchPriority="high"
+              decoding="async"
               className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500 ease-out transform-gpu"
             />
 

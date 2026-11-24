@@ -5,7 +5,7 @@
 >
   <url>
     <loc>https://zaidmemon.vercel.app/</loc>
-    <lastmod>2026-11-20</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -14,20 +14,108 @@
     </image:image>
     <image:image>
       <image:loc>https://zaidmemon.vercel.app/verixa.png</image:loc>
-      <image:title>Verixa — Real Estate Decision Intelligence Platform by Zaid Memon</image:title>
+      <image:title>VERIXA — Property decision intelligence, backed by regulatory data. by Zaid Memon</image:title>
     </image:image>
     <image:image>
       <image:loc>https://zaidmemon.vercel.app/exertia.png</image:loc>
-      <image:title>Exertia — Workforce Management &amp; Telemetry OS by Zaid Memon</image:title>
+      <image:title>EXERTIA — A unified workforce management &amp; telemetry operating system. by Zaid Memon</image:title>
     </image:image>
     <image:image>
       <image:loc>https://zaidmemon.vercel.app/veritas.png</image:loc>
-      <image:title>Veritas — Civic News Analysis Engine by Zaid Memon</image:title>
+      <image:title>VERITAS — Local civic news analysis and perspective clustering engine. by Zaid Memon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/smart_inventory.jpg</image:loc>
+      <image:title>SMART INVENTORY — Demand forecasting &amp; automated stock replenishment system. by Zaid Memon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/smart_gst.jpg</image:loc>
+      <image:title>SMART GST INVOICE — Automated B2B tax computation, ZXing QR encoding &amp; PDF synthesis. by Zaid Memon</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/work</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/services</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/experience</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/about</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/contact</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/projects/verixa</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/verixa.png</image:loc>
+      <image:title>VERIXA by Zaid Memon — Real Estate / Data Intelligence</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/projects/exertia</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/exertia.png</image:loc>
+      <image:title>EXERTIA by Zaid Memon — Workforce / Systems Architecture</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/projects/veritas</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/veritas.png</image:loc>
+      <image:title>VERITAS by Zaid Memon — NLP / Data Engineering</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/projects/smart-inventory</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/smart_inventory.jpg</image:loc>
+      <image:title>SMART INVENTORY by Zaid Memon — Data Systems / Applied ML</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://zaidmemon.vercel.app/projects/smart-gst-invoice</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://zaidmemon.vercel.app/smart_gst.jpg</image:loc>
+      <image:title>SMART GST INVOICE by Zaid Memon — Automation / Desktop Software</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://zaidmemon.vercel.app/resume.pdf</loc>
-    <lastmod>2026-11-20</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

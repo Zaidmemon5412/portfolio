@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GameStateProvider } from './context/GameStateContext';
 import { CursorProvider } from './context/CursorContext';
 import { useGameState } from './hooks/useGameState';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
+import { SECTION_ROUTES, normalizePathname } from './data/seoRoutes';
+import { NAVIGATE_EVENT, updateDocumentSeo, scrollToSectionById } from './utils/seoNavigation';
 
 // Layout & UI
 import Navbar from './components/layout/Navbar';
@@ -26,6 +28,39 @@ const GtaPortfolio = React.lazy(() => import('./components/gta/GtaPortfolio'));
 function EditorialPortfolio() {
   // Activate Lenis inertial smooth scrolling for the editorial layout
   useSmoothScroll();
+
+  useEffect(() => {
+    const syncRouteScroll = (pathname, shouldScroll = true) => {
+      const cleanPath = normalizePathname(pathname);
+      updateDocumentSeo(cleanPath);
+
+      const sectionRoute = SECTION_ROUTES[cleanPath];
+      if (shouldScroll && sectionRoute && sectionRoute.path !== '/') {
+        window.requestAnimationFrame(() => {
+          scrollToSectionById(sectionRoute.sectionId);
+        });
+      }
+    };
+
+    syncRouteScroll(window.location.pathname, true);
+
+    const handlePopState = () => syncRouteScroll(window.location.pathname, true);
+    const handleNavigate = (e) => {
+      const targetPath = e.detail?.path || window.location.pathname;
+      const cleanPath = normalizePathname(targetPath);
+      const sectionRoute = SECTION_ROUTES[cleanPath];
+      if (sectionRoute) {
+        scrollToSectionById(sectionRoute.sectionId);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener(NAVIGATE_EVENT, handleNavigate);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener(NAVIGATE_EVENT, handleNavigate);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#ECECE9] p-2 sm:p-4 md:p-6 text-[#111111] selection:bg-[#111111] selection:text-[#F5F5F3]">

@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ECECE9" />
     <meta name="google-site-verification" content="IA2vtLX-CrsrEbEDLM_tInRqbiywB-sS10nGMFNlOlA" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href="https://zaidmemon.vercel.app/" />
+    <link rel="preload" as="image" href="/zaid_portrait-opt.jpg?v=2" fetchpriority="high" />
 
     <!-- Primary Meta Tags -->
     <title>Zaid Memon — Full-Stack Developer &amp; Computer Science Student | Portfolio</title>
@@ -121,10 +123,21 @@
       }
     </script>
 
-    <!-- Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono, Bebas Neue, Caveat -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono, Bebas Neue, Caveat (Non-blocking load) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
   </head>
   <body class="bg-[#ECECE9] text-[#111111] font-sans overflow-x-hidden min-h-screen">
     <div id="root"></div>

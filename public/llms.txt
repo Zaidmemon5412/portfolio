@@ -2,9 +2,24 @@
 
 > Full-Stack Developer & Computer Science Student (B.Tech CSE) at L.J. Institute of Engineering & Technology (L.J. University), Ahmedabad, Gujarat, India.
 
-## Identity & Links
-- Portfolio: https://zaidmemon.vercel.app/
+## Official Portfolio Pages
+- Home: https://zaidmemon.vercel.app/
+- Selected Work: https://zaidmemon.vercel.app/work
+- Services & Skills: https://zaidmemon.vercel.app/services
+- Experience & Education: https://zaidmemon.vercel.app/experience
+- About & Certifications: https://zaidmemon.vercel.app/about
+- Contact: https://zaidmemon.vercel.app/contact
 - Resume (PDF): https://zaidmemon.vercel.app/resume.pdf
+- XML Sitemap: https://zaidmemon.vercel.app/sitemap.xml
+
+## Project Case Studies
+- Verixa (Flagship Live Deployment — https://verixa-phi.vercel.app): https://zaidmemon.vercel.app/projects/verixa — Property decision intelligence platform backed by RERA regulatory filings, builder credibility analytics, spatial locality data (PostGIS), and price trend modeling.
+- Exertia: https://zaidmemon.vercel.app/projects/exertia — Unified workforce management and privacy-first telemetry operating system pairing a React workspace with a Python background desktop daemon.
+- Veritas: https://zaidmemon.vercel.app/projects/veritas — Python and Flask local civic news analysis and TF-IDF cosine-similarity perspective clustering engine.
+- Smart Inventory: https://zaidmemon.vercel.app/projects/smart-inventory — ACID-compliant Java SE and PostgreSQL JDBC demand forecasting and automated Twilio SMS replenishment system using Weka ML.
+- Smart GST Invoice: https://zaidmemon.vercel.app/projects/smart-gst-invoice — Automated B2B GST computation, ZXing 2D barcode encoding, and iText PDF synthesis desktop utility in Java SE.
+
+## Identity & Verified Profiles
 - Email: zaidmemon8156@gmail.com
 - GitHub: https://github.com/Zaidmemon5412
 - LinkedIn: https://www.linkedin.com/in/zaid-memon-79656b318/
@@ -15,10 +30,3 @@
 - Databases & Geospatial: PostgreSQL, PostGIS, SQL, JDBC
 - Data & Machine Learning: Pandas, Scikit-learn, TF-IDF / NLP, Weka ML, BeautifulSoup4
 - Desktop & Core CS: Java SE, Data Structures & Algorithms, Object-Oriented Programming, Docker, Git
-
-## Featured Projects
-- Verixa (Flagship Live Deployment — https://verixa-phi.vercel.app): Property decision intelligence platform backed by RERA regulatory filings, builder credibility analytics, spatial locality data (PostGIS), and price trend modeling.
-- Exertia: Unified workforce management and privacy-first telemetry operating system pairing a React workspace with a Python background desktop daemon.
-- Veritas: Python and Flask local civic news analysis and TF-IDF cosine-similarity perspective clustering engine.
-- Smart Inventory: ACID-compliant Java SE and PostgreSQL JDBC demand forecasting and automated Twilio SMS replenishment system using Weka ML.
-- Smart GST Invoice: Automated B2B GST computation, ZXing 2D barcode encoding, and iText PDF synthesis desktop utility in Java SE.

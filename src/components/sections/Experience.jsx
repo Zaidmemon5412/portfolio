@@ -160,6 +160,10 @@ export default function Experience() {
                       <img
                         src={previewImages[index % previewImages.length]}
                         alt={item.title}
+                        width="230"
+                        height="173"
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover grayscale contrast-125"
                       />
                     </motion.div>

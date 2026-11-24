@@ -464,10 +464,14 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {otherProjects.slice(0, 2).map((nextProj) => (
-                      <button
+                      <a
                         key={nextProj.id}
-                        type="button"
-                        onClick={() => onSelectProject(nextProj)}
+                        href={`/projects/${nextProj.id}`}
+                        onClick={(e) => {
+                          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                          e.preventDefault();
+                          onSelectProject(nextProj);
+                        }}
                         onMouseEnter={() => setCursor && setCursor('pointer')}
                         onMouseLeave={resetCursor}
                         className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E2E2DE] hover:border-[#111111] transition-all text-left flex items-center justify-between group cursor-pointer"
@@ -484,7 +488,7 @@ export default function ProjectModal({ project, isOpen, onClose, onSelectProject
                           size={16}
                           className="text-[#888888] group-hover:text-[#111111] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
                         />
-                      </button>
+                      </a>
                     ))}
                   </div>
                 </div>

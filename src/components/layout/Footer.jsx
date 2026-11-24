@@ -2,6 +2,8 @@ import React from 'react';
 import { ArrowUp, Gamepad2 } from 'lucide-react';
 import { LinkedinIcon, GithubIcon } from '../ui/Icons';
 import { CONTACT_INFO } from '../../data/certificates';
+import { projectsData } from '../../data/projects';
+import { navigateToPath } from '../../utils/seoNavigation';
 import { useCursor } from '../../hooks/useCursor';
 import { useGameState } from '../../hooks/useGameState';
 
@@ -9,7 +11,14 @@ export default function Footer() {
   const { setCursor, resetCursor } = useCursor();
   const { setViewMode, playSfx } = useGameState();
 
+  const handleRouteLink = (e, path) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    navigateToPath(path);
+  };
+
   const scrollToTop = () => {
+    navigateToPath('/');
     if (window.__lenis) {
       window.__lenis.scrollTo(0);
     } else {
@@ -22,15 +31,81 @@ export default function Footer() {
     setViewMode('gta');
   };
 
+  const pageLinks = [
+    { label: 'Home', path: '/' },
+    { label: 'Work', path: '/work' },
+    { label: 'Services', path: '/services' },
+    { label: 'Experience', path: '/experience' },
+    { label: 'About', path: '/about' },
+    { label: 'Contact', path: '/contact' },
+  ];
+
   return (
-    <footer className="w-full py-12 px-4 sm:px-8 md:px-14 max-w-[1400px] mx-auto border-t border-[#E2E2DE] text-[#666666] text-xs font-mono">
+    <footer className="w-full py-12 px-4 sm:px-8 md:px-14 max-w-[1400px] mx-auto border-t border-[#E2E2DE] text-[#666666] text-xs font-mono space-y-8">
+      {/* Crawl-Friendly Site Index & Case Study Links */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-8 border-b border-[#E2E2DE]/80">
+        <nav aria-label="Portfolio Pages" className="space-y-2.5">
+          <span className="text-[10px] uppercase tracking-widest text-[#888888] block">
+            PORTFOLIO INDEX
+          </span>
+          <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+            {pageLinks.map((link) => (
+              <a
+                key={link.path}
+                href={link.path}
+                onClick={(e) => handleRouteLink(e, link.path)}
+                onMouseEnter={() => setCursor && setCursor('pointer')}
+                onMouseLeave={resetCursor}
+                className="text-[#555555] hover:text-[#111111] transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href={CONTACT_INFO.resumePath}
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={() => setCursor && setCursor('pointer')}
+              onMouseLeave={resetCursor}
+              className="text-[#555555] hover:text-[#111111] transition-colors"
+            >
+              Resume PDF
+            </a>
+          </div>
+        </nav>
+
+        <nav aria-label="Project Case Studies" className="space-y-2.5">
+          <span className="text-[10px] uppercase tracking-widest text-[#888888] block">
+            CASE STUDIES
+          </span>
+          <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+            {projectsData.map((proj) => (
+              <a
+                key={proj.id}
+                href={`/projects/${proj.id}`}
+                onClick={(e) => handleRouteLink(e, `/projects/${proj.id}`)}
+                onMouseEnter={() => setCursor && setCursor('pointer')}
+                onMouseLeave={resetCursor}
+                className="text-[#555555] hover:text-[#111111] transition-colors"
+              >
+                {proj.title}
+              </a>
+            ))}
+          </div>
+        </nav>
+      </div>
+
+      {/* Bottom Copyright, Mode Switcher & Quick Socials */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-        
         {/* Left: Name & Copyright */}
         <div className="flex items-center gap-4">
-          <span className="font-heading font-bold text-sm text-[#111111] uppercase tracking-wider">
+          <a
+            href="/"
+            onClick={(e) => handleRouteLink(e, '/')}
+            className="font-heading font-bold text-sm text-[#111111] uppercase tracking-wider"
+          >
             ZAID MEMON
-          </span>
+          </a>
           <span className="text-[#DEDEDA]">•</span>
           <span>© 2026 Zaid Memon. All Rights Reserved.</span>
         </div>
@@ -85,7 +160,6 @@ export default function Footer() {
             <ArrowUp size={14} className="transform group-hover:-translate-y-0.5 transition-transform" />
           </button>
         </div>
-
       </div>
     </footer>
   );

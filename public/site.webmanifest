@@ -1,0 +1,16 @@
+{
+  "name": "Zaid Memon — Full-Stack Developer & Computer Science Student",
+  "short_name": "Zaid Memon",
+  "description": "Official portfolio of Zaid Memon, Full-Stack Developer & B.Tech Computer Science student at L.J. University, Ahmedabad.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ECECE9",
+  "theme_color": "#ECECE9",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
